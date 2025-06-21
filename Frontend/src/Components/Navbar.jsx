@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiMenu } from 'react-icons/fi';
+import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import Sidebar from './Sidebar';
 
 const Navbar = () => {
@@ -15,8 +15,9 @@ const Navbar = () => {
         </div>
 
         {/* Center: Navigation Links */}
-        <div className="hidden md:flex gap-8 font-semibold text-sm absolute left-1/2 -translate-x-1/2">
-          <Link to="/about">ABOUT US</Link>
+        <div className="hidden md:flex gap-8 font-heading
+          text-sm absolute left-1/2 -translate-x-1/2 ">
+          <Link to="/about" className=''>ABOUT US</Link>
           <Link to="/history">HISTORY</Link>
           <Link to="/events">EVENTS</Link>
           <Link to="/academics">ACADEMIC</Link>
@@ -24,7 +25,7 @@ const Navbar = () => {
 
         {/* Right: Hamburger Menu */}
         <button onClick={() => setIsSidebarOpen(true)} className="ml-auto">
-          <FiMenu size={26} />
+          <HiOutlineMenuAlt3 size={26} />
         </button>
       </nav>
 

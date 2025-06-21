@@ -4,7 +4,7 @@ import { IoClose } from 'react-icons/io5';
 
 const Sidebar = ({ onClose }) => {
   return (
-    <div className="fixed top-0 right-0 h-full w-64   shadow-xl p-6 z-50">
+    <div className="fixed top-0 right-0 h-full w-64 bg-blue  shadow-xl p-6 z-50">
       {/* Close button */}
       <div className="flex justify-end mb-6">
         <button onClick={onClose}>
