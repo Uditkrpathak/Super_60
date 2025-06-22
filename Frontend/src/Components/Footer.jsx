@@ -5,7 +5,7 @@ import logo from '../assets/s60_logo.jpg';
 
 const Footer = () => {
   return (
-    <footer className="px-2 py-10 mt-32 text-black bg-white shadow-xl">
+    <footer className="px-12 py-10 mt-32 text-black bg-white shadow-xl">
       <div className="grid grid-cols-1 gap-12 mx-auto max-w-7xl md:grid-cols-4">
         {/* Logo and description */}
         <div>

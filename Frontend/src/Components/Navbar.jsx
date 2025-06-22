@@ -16,7 +16,7 @@ const Navbar = () => {
         </div>
 
         {/* Center: Navigation Links */}
-        <div className="absolute hidden gap-8 text-sm -translate-x-1/2 md:flex font-heading left-1/2 ">
+        <div className="absolute hidden gap-8 text-sm font-semibold -translate-x-1/2 md:flex font-sub left-1/2 ">
           <Link to="/about" className=''>ABOUT US</Link>
           <Link to="/history">HISTORY</Link>
           <Link to="/events">EVENTS</Link>
