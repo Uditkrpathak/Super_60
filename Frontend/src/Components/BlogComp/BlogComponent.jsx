@@ -1,5 +1,4 @@
 import React from 'react'
-import { IoMdClose } from "react-icons/io";
 
 const DummyBlog = [
   {
@@ -153,9 +152,6 @@ const DummyBlog = [
     ]
   }
 ];
-
-
-
 
 
 const BlogComponent = () => {
