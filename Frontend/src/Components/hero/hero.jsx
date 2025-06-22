@@ -1,6 +1,10 @@
+import HeroBg from "./backgrounds/herobg";
+
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-8 bg-white">
+        {/* Background Animation */}
+        <HeroBg />
       <div className="max-w-6xl w-full">
         {/* Section Tagline */}
         <p className="text-sm text-gray-500 mb-6 font-medium">
