@@ -65,7 +65,7 @@ const HeroBg = () => {
           }}
         >
           <p className="text-sm text-gray-500 font-semibold whitespace-nowrap">
-            Empowering the Top 60 Minds
+            Empowering the <span className="text-orange-500">Top 60 Minds</span>
           </p>
         </div>
       </div>
