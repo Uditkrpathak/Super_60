@@ -11,6 +11,11 @@ const HeroBg = () => {
     y: window.innerHeight / 2,
   });
 
+  const defaultResting = {
+    x: window.innerWidth / 1.4, // 👈 your custom fallback position
+    y: window.innerHeight / 1.8, // 👈 your custom fallback position
+  };
+
   const time = useRef(0);
 
   useEffect(() => {
@@ -18,16 +23,20 @@ const HeroBg = () => {
       mouse.current = { x: e.clientX, y: e.clientY };
     };
 
+    const handleMouseLeave = () => {
+      mouse.current = defaultResting; // Move back to default when cursor leaves
+    };
+
     window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseout", handleMouseLeave);
 
     let animationFrame;
     const lerp = (a, b, n) => a + (b - a) * n;
 
     const animate = () => {
       time.current += 0.02;
-
-      const driftX = Math.sin(time.current) * 10; // subtle horizontal drift
-      const driftY = Math.cos(time.current) * 10; // subtle vertical drift
+      const driftX = Math.sin(time.current) * 10;
+      const driftY = Math.cos(time.current) * 10;
 
       setCoords((prev) => {
         const speed = 0.08;
@@ -43,6 +52,7 @@ const HeroBg = () => {
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseout", handleMouseLeave);
       cancelAnimationFrame(animationFrame);
     };
   }, []);

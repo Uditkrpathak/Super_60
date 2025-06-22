@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-8 bg-white overflow-hidden">
         {/* Background Animation */}
-        <HeroBg />
+     <HeroBg defaultPosition={{ x: 800, y: 520 }} />
       <div className="max-w-6xl w-full">
         {/* Section Tagline */}
         <p className="text-sm text-gray-500 mb-6 font-medium">
