@@ -1,9 +1,10 @@
 import React from 'react'
+import BlogComponent from '../Components/BlogComp/BlogComponent'
 
 const Blogs = () => {
   return (
     <div>
-      Kya Boltii Public Sab Thik Thak
+     <BlogComponent/>
     </div>
   )
 }
