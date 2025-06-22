@@ -1,9 +1,41 @@
-import React from 'react'
+import React from "react";
 
 const TrainingModel = () => {
-  return (
-    <div>TrainingModel</div>
-  )
-}
+  const places = [
+    { id: 1, title: "PLACE WHERE VISITED" },
+    { id: 2, title: "PLACE WHERE VISITED" },
+    { id: 3, title: "PLACE WHERE VISITED" },
+    { id: 4, title: "PLACE WHERE VISITED" },
+  ];
 
-export default TrainingModel
+  return (
+
+<div>
+  
+    <div className="bg-white py-6 px-4">
+  <div className="container mx-auto">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 pt-4 mb-10">
+      {places.map((place) => (
+        <div
+          key={place.id}
+          className="flex items-center bg-gray-300 rounded-3xl px-6 py-4 w-96 max-w-xl h-40"
+        >
+          <div className="w-20 h-20 bg-[#ff6600] rounded-2xl flex items-center justify-center mr-4">
+            <div className="w-12 h-12 bg-orange-800" />
+          </div>
+
+          <div>
+            <h2 className="text-black font-bold text-lg">{place.title}</h2>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+  </div >
+    
+  );
+};
+
+export default TrainingModel;
