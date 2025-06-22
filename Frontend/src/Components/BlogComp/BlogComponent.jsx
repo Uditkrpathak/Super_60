@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoMdClose } from "react-icons/io";
 
-const DummyBlog = [
+const Dummytitle = [
   {
     id: "1",
     title: "Getting Started with React: A Beginner's Guide",
@@ -155,28 +155,28 @@ const DummyBlog = [
 ];
 
 
-const BlogComponent = () => {
+const titleComponent = () => {
   return (
     <div className='mt-36 p-10 flex justify-center flex-col lg:flex-row gap-10'>
       <div className='w-full lg:w-8/12 flex flex-col gap-8'>
-        {DummyBlog.map((blog) => (
+        {Dummytitle.map((title) => (
           <div
-            key={blog.id}
+            key={title.id}
             className='bg-white rounded-xl p-6 '
           >
             <div className='flex justify-between'>
-                <h1 className='text-2xl font-bold mb-2'>{blog.title}</h1>
+                <h1 className='text-2xl font-bold mb-2'>{title.title}</h1>
                 <div className='text-2xl'>
                     <IoMdClose />
                 </div>
             </div>
             <p className='text-gray-600 text-sm mb-3'>
-              <span className='font-semibold'>{blog.category}</span> •{' '}
-              {blog.read_time_minutes} mins read
+              <span className='font-semibold'>{title.category}</span> •{' '}
+              {title.read_time_minutes} mins read
             </p>
 
             <div className='mb-4 flex flex-wrap'>
-              {blog.tags.map((tag, index) => (
+              {title.tags.map((tag, index) => (
                 <button
                   key={index}
                   className='text-sm px-3 py-1 m-1 bg-slate-100 text-gray-800 rounded-full hover:bg-slate-200'
@@ -187,21 +187,21 @@ const BlogComponent = () => {
             </div>
 
             <img
-              src={blog.image_url}
-              alt={blog.title}
+              src={title.image_url}
+              alt={title.title}
               className='w-full h-[350px] object-cover rounded-md mb-4'
             />
 
             <div className='space-y-3'>
-              {blog.faq.map((faqItem, index) => (
+              {title.faq.map((que, index) => (
                 <div
                   key={index}
-                  className='bg-gray-50 border-l-4 border-blue-500 p-4 rounded-md'
+                  className='bg-gray-50 border-l-4 border-orange-500 p-4 rounded-md'
                 >
                   <h2 className='text-lg font-semibold mb-1 text-gray-900'>
-                    Q: {faqItem.question}
+                    Q: {que.question}
                   </h2>
-                  <p className='text-gray-700'>Ans: {faqItem.answer}</p>
+                  <p className='text-gray-700'>Ans: {que.answer}</p>
                 </div>
               ))}
             </div>
@@ -218,4 +218,4 @@ const BlogComponent = () => {
 
 
 
-export default BlogComponent
+export default titleComponent
