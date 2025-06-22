@@ -8,7 +8,7 @@ import History from './Pages/History';
 import Batches from './Pages/Batches';
 import TrainingModel from './Pages/TrainingModel';
 import Events from './Pages/Events';
-import Blogs from './Pages/Blogs';
+import Blogs from './Pages/Blogs'; 
 import Academics from './Pages/Academics';
 import Contact from './Pages/Contact';
 import Login from './Pages/Login';
