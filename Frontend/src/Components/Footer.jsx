@@ -52,14 +52,14 @@ const Footer = () => {
       </div>
 
       {/* Divider */}
-      <hr className="my-6 border-gray-300" />
+      <hr className="my-4 border-gray-300" />
 
       {/* Social Icons */}
       <div className="flex justify-end px-6 mx-auto space-x-4 max-w-7xl">
-        <a href="#" className="text-xl text-black"><FaInstagram /></a>
-        <a href="#" className="text-xl text-black"><FaGithub /></a>
-        <a href="#" className="text-xl text-black"><FaLinkedin /></a>
-        <a href="#" className="text-xl text-black"><FaFacebook /></a>
+        <Link  className="text-xl text-black"><FaInstagram /></Link>
+        <Link  className="text-xl text-black"><FaGithub /></Link>
+        <Link className="text-xl text-black"><FaLinkedin /></Link>
+        <Link className="text-xl text-black"><FaFacebook /></Link>
       </div>
     </footer>
   );

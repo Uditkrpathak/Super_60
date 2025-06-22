@@ -2,18 +2,18 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Importing all the pages
-import Home from './pages/Home';
-import About from './pages/About';
-import History from './pages/History';
-import Batches from './pages/Batches';
-import TrainingModel from './pages/TrainingModel';
-import Events from './pages/Events';
-import Blogs from './pages/Blogs';
-import Academics from './pages/Academics';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Home from './Pages/Home';
+import About from './Pages/About';
+import History from './Pages/History';
+import Batches from './Pages/Batches';
+import TrainingModel from './Pages/TrainingModel';
+import Events from './Pages/Events';
+import Blogs from './Pages/Blogs';
+import Academics from './Pages/Academics';
+import Contact from './Pages/Contact';
+import Login from './Pages/Login';
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
       </Routes>
-      <Footer />
+      <Footer/>
     </Router>
   );
 }
