@@ -11,6 +11,8 @@ const HeroBg = () => {
     y: window.innerHeight / 2,
   });
 
+  const time = useRef(0);
+
   useEffect(() => {
     const handleMouseMove = (e) => {
       mouse.current = { x: e.clientX, y: e.clientY };
@@ -22,16 +24,22 @@ const HeroBg = () => {
     const lerp = (a, b, n) => a + (b - a) * n;
 
     const animate = () => {
+      time.current += 0.02;
+
+      const driftX = Math.sin(time.current) * 10; // subtle horizontal drift
+      const driftY = Math.cos(time.current) * 10; // subtle vertical drift
+
       setCoords((prev) => {
         const speed = 0.08;
-        const newX = lerp(prev.x, mouse.current.x, speed);
-        const newY = lerp(prev.y, mouse.current.y, speed);
+        const newX = lerp(prev.x, mouse.current.x + driftX, speed);
+        const newY = lerp(prev.y, mouse.current.y + driftY, speed);
         return { x: newX, y: newY };
       });
+
       animationFrame = requestAnimationFrame(animate);
     };
 
-    animate();
+    animationFrame = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -51,9 +59,9 @@ const HeroBg = () => {
         }}
       >
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2"
+          className="absolute left-1/2 top-1/2 bg-white px-2"
           style={{
-            transform: 'translate(50%, -50%) rotate(0deg)', // Match the line’s rotation!
+            transform: "translate(50%, -50%) rotate(0deg)",
           }}
         >
           <p className="text-sm text-gray-500 font-semibold whitespace-nowrap">
@@ -72,9 +80,9 @@ const HeroBg = () => {
         }}
       >
         <div
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2"
+          className="absolute left-1/2 top-1/2 bg-white px-2"
           style={{
-            transform: 'translate(50%, -50%) rotate(0deg)', // Match the line’s rotation!
+            transform: "translate(50%, -50%) rotate(0deg)",
           }}
         >
           <p className="text-sm text-gray-500 font-semibold whitespace-nowrap">

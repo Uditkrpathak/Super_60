@@ -2,7 +2,7 @@ import HeroBg from "./backgrounds/herobg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-8 bg-white">
+    <section className="relative min-h-screen flex items-center justify-center px-8 bg-white overflow-hidden">
         {/* Background Animation */}
         <HeroBg />
       <div className="max-w-6xl w-full">
