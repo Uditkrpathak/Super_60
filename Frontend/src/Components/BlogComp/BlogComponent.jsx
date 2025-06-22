@@ -1,4 +1,5 @@
 import React from 'react'
+import { IoMdClose } from "react-icons/io";
 
 const DummyBlog = [
   {
@@ -12,12 +13,12 @@ const DummyBlog = [
       {
         question: "What is JSX in React and why is it useful?",
         answer:
-          "JSX (JavaScript XML) is a syntax extension for JavaScript used in React that allows developers to write HTML-like code directly within JavaScript files. This makes the code more readable and easier to visualize the structure of the component. JSX is compiled into regular JavaScript by tools like Babel before it runs in the browser. Its advantage is that it combines the power of JavaScript with the readability of HTML, making UI code much more expressive and less error-prone."
+          "JSX (JavaScript XML) is a syntax extension for JavaScript used in React that allows developers to write HTML-like code directly within JavaScript files. This makes the code more readable and easier to visualize the structure of the component. JSX is compiled into regular JavaScript."
       },
       {
         question: "What are Functional Components in React?",
         answer:
-          "Functional components are JavaScript functions that return React elements. They are simpler than class components and allow you to write components without needing to deal with `this`. With the introduction of React Hooks, functional components can now manage state and side effects, making them powerful and widely preferred in modern React development."
+          "Functional components are JavaScript functions that return React elements. They are simpler than class components and allow you to write components."
       },
       {
         question: "Why is the Virtual DOM important?",
@@ -161,14 +162,14 @@ const BlogComponent = () => {
         {DummyBlog.map((blog) => (
           <div
             key={blog.id}
-            className='bg-white rounded-xl shadow-md p-6 transition hover:shadow-xl border'
+            className='bg-white rounded-xl p-6 '
           >
-            <img
-              src={blog.image_url}
-              alt={blog.title}
-              className='w-full h-[350px] object-cover rounded-md mb-4'
-            />
-            <h1 className='text-2xl font-bold mb-2'>{blog.title}</h1>
+            <div className='flex justify-between'>
+                <h1 className='text-2xl font-bold mb-2'>{blog.title}</h1>
+                <div className='text-2xl'>
+                    <IoMdClose />
+                </div>
+            </div>
             <p className='text-gray-600 text-sm mb-3'>
               <span className='font-semibold'>{blog.category}</span> •{' '}
               {blog.read_time_minutes} mins read
@@ -184,6 +185,12 @@ const BlogComponent = () => {
                 </button>
               ))}
             </div>
+
+            <img
+              src={blog.image_url}
+              alt={blog.title}
+              className='w-full h-[350px] object-cover rounded-md mb-4'
+            />
 
             <div className='space-y-3'>
               {blog.faq.map((faqItem, index) => (
@@ -201,6 +208,8 @@ const BlogComponent = () => {
           </div>
         ))}
       </div>
+
+     
 
     
     </div>
