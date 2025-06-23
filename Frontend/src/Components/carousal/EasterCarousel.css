@@ -1,0 +1,28 @@
+.carousel-mask {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.carousel-item {
+  min-width: 280px;
+  height: 180px;
+  background: white;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Animate the entire container */
+.animate-track {
+  animation: marquee-track 10s linear infinite;
+}
+
+@keyframes marquee-track {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

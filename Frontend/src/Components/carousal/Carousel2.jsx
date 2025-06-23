@@ -22,19 +22,19 @@ const Carousel = () => {
     },
     {
       id: 3,
-      title: 'STUDIO FUGU',
-      subtitle: 'Digital Innovation',
+      // title: 'STUDIO FUGU',
+      // subtitle: 'Digital Innovation',
       image:
-        'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=800&fit=crop',
-      color: 'from-gray-800 to-gray-900'
+        'https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rSSl9pOoaFDA2LEeO4I3rP8jBzJb7cltWkQRY',
+      // color: 'from-gray-800 to-gray-900'
     },
     {
       id: 4,
-      title: 'WEBDESIGN + WEBFLOW',
-      subtitle: 'Modern Web Solutions',
+      // title: 'WEBDESIGN + WEBFLOW',
+      // subtitle: 'Modern Web Solutions',
       image:
-        'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=800&fit=crop',
-      color: 'from-blue-600 to-cyan-600'
+        'https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rAWGbiBcYnIQDTmzWgy0bcOvPRLxFCXr97NJo',
+      // color: 'from-blue-100 to-cyan-100'
     },
     {
       id: 5,
@@ -42,7 +42,7 @@ const Carousel = () => {
       // subtitle: "Research & Development",
       image:
         'https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rHptqDVpF2pQE4PFU7NAMVr6YeWicz5h1KuJt'
-      // color: "from-teal-600 to-green-600"
+      
     }
   ]
 
