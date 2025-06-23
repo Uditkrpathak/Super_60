@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react"
+import BlogComp from "../Components/blog/BlogComp"
+
 
 const Blogs = () => {
   return (
-    <div>
-      Kya Boltii Public Sab Thik Thak
+    <div className='container mt-32'>
+       <BlogComp />
     </div>
   )
 }
 
 export default Blogs
+
+
