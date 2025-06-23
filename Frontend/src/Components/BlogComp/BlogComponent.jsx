@@ -155,7 +155,7 @@ const Dummytitle = [
 ];
 
 
-const titleComponent = () => {
+const BlogComponent = () => {
   return (
     <div className='mt-36 p-10 flex justify-center flex-col lg:flex-row gap-10'>
       <div className='w-full lg:w-8/12 flex flex-col gap-8'>
@@ -192,11 +192,11 @@ const titleComponent = () => {
               className='w-full h-[350px] object-cover rounded-md mb-4'
             />
 
-            <div className='space-y-3'>
+            <div className='space-y-8'>
               {title.faq.map((que, index) => (
                 <div
                   key={index}
-                  className='bg-gray-50 border-l-4 border-orange-500 p-4 rounded-md'
+                  className='bg-gray-50 border-l-4 border-orange-500 space-y-4 p-6 rounded-md'
                 >
                   <h2 className='text-lg font-semibold mb-1 text-gray-900'>
                     Q: {que.question}
@@ -218,4 +218,4 @@ const titleComponent = () => {
 
 
 
-export default titleComponent
+export default BlogComponent
