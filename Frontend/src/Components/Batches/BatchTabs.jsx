@@ -1,6 +1,12 @@
 import React from "react";
+import { FaUsers, FaMedal } from "react-icons/fa";
 
-const batches = ["All Batches", "Super60 6.0", "Super60 7.0", "Super60 8.0"];
+const batches = [
+  { label: "All Batches", icon: <FaUsers /> },
+  { label: "Super60 6.0", icon: <FaMedal /> },
+  { label: "Super60 7.0", icon: <FaMedal /> },
+  { label: "Super60 8.0", icon: <FaMedal /> },
+];
 
 const BatchTabs = ({ selected, setSelected }) => {
   return (
@@ -8,14 +14,15 @@ const BatchTabs = ({ selected, setSelected }) => {
       {batches.map((batch, idx) => (
         <button
           key={idx}
-          onClick={() => setSelected(batch)}
-          className={`px-5 py-2 rounded-full font-semibold shadow-md transition-all ${
-            selected === batch
+          onClick={() => setSelected(batch.label)}
+          className={`flex items-center gap-2 px-5 py-2 rounded-md font-semibold shadow-md transform transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 ${
+            selected === batch.label
               ? "bg-[#C57726] text-white"
-              : "bg-white border border-gray-300"
+              : "bg-white border border-gray-300 text-[#002277]"
           }`}
         >
-          {batch}
+          <span className="text-lg">{batch.icon}</span>
+          <span>{batch.label}</span>
         </button>
       ))}
     </div>

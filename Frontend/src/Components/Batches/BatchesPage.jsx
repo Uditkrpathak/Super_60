@@ -5,7 +5,7 @@ import StudentCard from "./StudentCard";
 const allStudents = [
   {
     name: "Sahil Kumar",
-    image: "https://via.placeholder.com/300x200",
+    image: "https://www.profilebakery.com/wp-content/uploads/2023/04/Profile-Image-AI.jpg",
     branch: "B.Tech CSE",
     batch: "Super60 6.0",
     skills: ["React", "Node.js", "Tailwind"],
@@ -107,8 +107,8 @@ const BatchesPage = () => {
   return (
     <div className="p-6">
       <h1 className="mb-2 text-4xl font-bold text-center text-[#002277]">Our Batches</h1>
-      <p className="mb-10 text-center text-gray-600 ">
-        Explore the talented members of The Super 60.
+      <p className="mb-10 font-semibold text-center text-gray-600 ">
+        Explore the talented members of <span>The Super 60.</span>
       </p>
 
       <BatchTabs selected={selectedBatch} setSelected={setSelectedBatch} />

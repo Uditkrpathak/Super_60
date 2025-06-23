@@ -3,10 +3,11 @@ import HeroBg from "../Components/hero/backgrounds/herobg";
 
 const Batches = () => {
   return (
-    <div>
+    <div className="relative overflow-hidden ">
+      <HeroBg />
       <section className="relative flex items-center justify-center min-h-screen px-8 overflow-hidden">
         {/* Background Animation */}
-     <HeroBg />
+     
       <div className="z-10 w-full max-w-6xl pt-32">
         {/* Section Tagline */}
         <p className="mb-6 text-lg text-gray-500 font-large ">
