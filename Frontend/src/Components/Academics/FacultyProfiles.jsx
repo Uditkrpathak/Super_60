@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaLinkedin } from "react-icons/fa";
 
 const data = [
   {
@@ -7,40 +7,36 @@ const data = [
     title: "Associate professor of Biology",
     department: "Biology",
     experience: 10,
-    image:
-      "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
-    descrip:
-      "Dr. Kristin is a passionate educator with 10+ years of research in cell biology and genetics.",
+    image: "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
+    descrip: "Dr. Kristin is a passionate educator with 10+ years of research in cell biology and genetics.",
+    linkedin: "https://www.linkedin.com/in/kristinmeyer",
   },
   {
     name: "Robert Langdon",
     title: "Professor of Symbology",
     department: "Humanities",
     experience: 20,
-    image:
-      "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
-    descrip:
-      "World-renowned for decoding historical secrets. Teaches ancient symbols and cryptology.",
+    image: "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
+    descrip: "World-renowned for decoding historical secrets. Teaches ancient symbols and cryptology.",
+    linkedin: "https://www.linkedin.com/in/robertlangdon",
   },
   {
     name: "Lara Grant",
     title: "Assistant Professor of AI",
     department: "Computer Science",
     experience: 3,
-    image:
-      "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
-    descrip:
-      "Loves machine learning and deep neural networks. Published 30+ papers in last 3 years.",
+    image: "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
+    descrip: "Loves machine learning and deep neural networks. Published 30+ papers in last 3 years.",
+    linkedin: "https://www.linkedin.com/in/laragrant",
   },
   {
     name: "Alex Johnson",
     title: "Professor of Mechanical Engineering",
     department: "Mechanical",
     experience: 15,
-    image:
-      "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
-    descrip:
-      "Specializes in thermodynamics and robotics. Runs a lab on autonomous systems.",
+    image: "https://images.unsplash.com/photo-1749741335932-f5295ee9afd0?q=80&w=2071&auto=format&fit=crop",
+    descrip: "Specializes in thermodynamics and robotics. Runs a lab on autonomous systems.",
+    linkedin: "https://www.linkedin.com/in/alexjohnson",
   },
 ];
 
@@ -71,9 +67,8 @@ const FacultyProfiles = () => {
           <span className="text-[#002244]">PROFILES</span>
         </h2>
 
-        {/* Search & Filter Section */}
+        {/* Search & Filter */}
         <div className="flex flex-col items-center justify-center gap-4 mt-8 sm:flex-row">
-          {/* Search Input */}
           <div className="relative w-full sm:w-1/3">
             <input
               type="text"
@@ -87,7 +82,6 @@ const FacultyProfiles = () => {
             </span>
           </div>
 
-          {/* Department Filter */}
           <select
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm sm:w-1/4 focus:outline-none focus:ring-2 focus:ring-orange font-sub"
             value={department}
@@ -100,7 +94,6 @@ const FacultyProfiles = () => {
             <option value="Humanities">Humanities</option>
           </select>
 
-          {/* Sorting */}
           <select
             className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm sm:w-1/4 focus:outline-none focus:ring-2 focus:ring-orange font-sub"
             value={sortOption}
@@ -113,31 +106,50 @@ const FacultyProfiles = () => {
         </div>
       </div>
 
-      {/* Cards Section */}
+      {/* Card Grid */}
       <div className="max-w-[1320px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4 pb-8">
         {filteredData.length > 0 ? (
           filteredData.map((item, index) => (
             <div
               key={index}
-              className="relative group h-[320px] bg-black rounded-xl overflow-hidden shadow-md transition-all duration-500"
+              className="relative group h-[400px] bg-black rounded-xl overflow-hidden shadow-md transition-all duration-500"
             >
               <img
                 src={item.image}
                 alt={item.name}
-                className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 ease-in-out transform group-hover:scale-110 group-hover:translate-y-12 group-hover:opacity-30"
+                className="absolute inset-0 object-cover w-full h-full transition-transform duration-700 ease-in-out transform group-hover:scale-110 group-hover:opacity-30"
               />
               <div className="absolute inset-0 transition-colors duration-500 group-hover:bg-[#002244] bg-transparent flex flex-col justify-end p-6 z-10">
                 <div className="text-white transition-opacity duration-500 font-heading group-hover:opacity-0">
-                  <p className="mb-2 text-sm font-semibold uppercase text-orange">
-                    RESEARCH REPORT
-                  </p>
+                  <p className="mb-2 text-sm font-semibold uppercase text-orange">RESEARCH REPORT</p>
                   <h3 className="text-lg font-bold">{item.name}</h3>
                   <p className="text-sm italic font-sub">{item.title}</p>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center px-5 text-center">
-                  <p className="text-sm max-w-sm transform translate-x-10 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-700 ease-in-out font-body text-[#C57726]">
+
+                {/* Hidden Description */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-5 text-center">
+                  <p className="text-sm max-w-sm transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-in-out font-body text-[#C57726]">
                     {item.descrip}
                   </p>
+
+                  {/* Buttons */}
+                  <div className="flex items-center justify-center gap-4 mt-4 transition-all duration-700 transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                    <a
+                      href="#"
+                      className="px-4 py-2 text-sm font-medium text-white bg-orange-500 rounded hover:bg-orange-600"
+                    >
+                      Faculty Profile
+                    </a>
+                    <a
+                      href={item.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white text-xl hover:text-[#0077b5]"
+                      title="LinkedIn Profile"
+                    >
+                      <FaLinkedin />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

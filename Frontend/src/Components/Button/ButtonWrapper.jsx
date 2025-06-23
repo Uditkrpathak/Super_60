@@ -28,7 +28,7 @@ const SpotlightButton = () => {
     };
 
     const handleMouseLeave = () => {
-      span.animate({ left: "50%" }, { duration: 100, fill: "forwards" });
+      span.animate({ left: "40%" }, { duration: 100, fill: "forwards" });
     };
 
     button.addEventListener("mousemove", handleMouseMove);

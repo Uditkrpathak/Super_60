@@ -1,38 +1,3 @@
-
-
-// export default function HeroSection() {
-//   return (
-//     <section className="relative px-4 py-20 mt-20 overflow-hidden text-center bg-gray-100">
-//       {/* Dotted Background */}
-//       <div className="absolute inset-0 bg-[radial-gradient(circle,_#d4d4d4_1px,_transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
-
-//       <div className="relative z-10 inline-flex items-center px-4 py-2 bg-white rounded-full shadow-md">
-//         <span className="mr-2 text-sm">Don't Miss</span>
-//         <button className="flex items-center gap-2 px-3 py-1 text-sm text-white bg-[#002277] rounded-full">
-          
-//         </button>
-//       </div>
-
-//       {/* Heading */}
-//       <h1 className="relative z-10 mt-8 text-4xl font-semibold sm:text-5xl">
-//         More Than a Community →{" "}
-//         <span className="block mt-2 sm:inline sm:mt-0">The Super 60 ✦</span>
-//       </h1>
-
-//       {/* Wavy Line */}
-//       <div className="relative z-10 mt-8">
-//         <svg viewBox="0 0 1440 100" className="w-40 mx-auto" fill="none">
-//           <path
-//             fill="#C57726"
-//             d="M0,50 C150,100 300,0 450,50 C600,100 750,0 900,50 C1050,100 1200,0 1350,50 C1500,100 1500,100 1440,50 L1440,100 L0,100 Z"
-//           />
-//         </svg>
-//       </div>
-//     </section>
-//   );
-// }
-
-
 export default function HeroSection({heading1,heading2,subHeading,badge}) {
   return (
     <section className="relative px-6 py-24 mt-20 overflow-hidden text-center bg-gradient-to-br from-gray-50 via-white to-gray-100">

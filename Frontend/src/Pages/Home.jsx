@@ -1,7 +1,6 @@
-import React from 'react'
+
 import Hero from '../Components/hero/hero'
 import Carousel from '../Components/carousal/Carousel2'
-
 
 const Home = () => {
   return (
@@ -10,6 +9,7 @@ const Home = () => {
       <div>
 
         <Carousel />
+
 
       </div>
 
