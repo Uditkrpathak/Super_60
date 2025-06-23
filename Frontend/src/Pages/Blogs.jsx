@@ -1,12 +1,14 @@
 import React from 'react'
-import BlogComponent from '../Components/BlogComp/BlogComponent'
+import BlogComp from '../Components/blog/BlogComp'
 
 const Blogs = () => {
   return (
-    <div>
-     <BlogComponent/>
+    <div className='container mt-32'>
+      <BlogComp />
     </div>
   )
 }
 
 export default Blogs
+
+
