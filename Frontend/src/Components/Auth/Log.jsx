@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import AuthImg from '../../assets/undraw_authentication_tbfc.svg'; 
 import logo from '../../assets/s60_logo.jpg'; 
+import ButtonWrapper from '../Button/ButtonWrapper';
 const Log = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -56,12 +57,13 @@ const Log = () => {
             </span>
           </div>
 
-          <button
+          {/* <button
             type="submit"
             className="w-full py-2 font-medium text-white transition bg-[#002277] rounded hover:bg-[#C57726] focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Sign In
-          </button>
+          </button> */}
+          <ButtonWrapper/>
         </form>
 
           {/* Google Login */}
