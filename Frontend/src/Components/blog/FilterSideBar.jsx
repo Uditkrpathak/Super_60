@@ -73,9 +73,14 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
                   value={category}
                   checked={selectedCategories.includes(category)}
                   onChange={() => onCategoryChange(category)}
-                  className="h-4 w-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500 cursor-pointer"
+                  className="h-4 w-4
+                             text-orange-600 border-gray-300 rounded
+                             focus:ring-orange-900 cursor-pointer
+                             hover:border-blue-900         
+                             hover:text-blue-300                 
+                             transition-colors duration-200"
                 />
-                <label htmlFor={category} className="ml-3 text-gray-700 text-sm cursor-pointer">
+                <label htmlFor={category} className="ml-3 text-gray-600 font-medium text-sm cursor-pointer">
                   {category}
                 </label>
               </div>
@@ -86,7 +91,7 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
         {/* Clear Filters Button */}
         <button
           onClick={onClearFilters}
-          className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="w-full py-2 px-4 border border-blue-900 rounded-md shadow-sm text-sm font-medium text-blue-900 hover:border-blue-800 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Clear Filters
         </button>

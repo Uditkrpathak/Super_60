@@ -99,7 +99,7 @@ const BlogComp = () => {
 
       <main className="flex-1 p-6 lg:ml-0 overflow-hidden">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Latest Blogs</h1>
+          <h1 className="text-3xl leading-tight font-bold text-gray-700">Latest Blogs</h1>
           <div className="lg:hidden"> 
             <button onClick={toggleMobileMenu} className="text-gray-600 hover:text-gray-900 focus:outline-none flex items-center">
               <svg
@@ -119,7 +119,7 @@ const BlogComp = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
           {filteredCards.length > 0 ? (
             filteredCards.map((card) => (
-              <div key={card.id} className="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-lg">
+              <div key={card.id} className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-lg">
                 <img src={card.image_url} alt={card.title} className="w-full h-48 object-cover" />
                 <div className="p-5">
                   <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full mb-2">
@@ -128,7 +128,7 @@ const BlogComp = () => {
                   <h3 className="text-xl font-semibold text-gray-900 mb-2 leading-tight">
                     {card.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4">
+                  <p className="text-gray-500 font-medium text-sm mb-4">
                     {card.description}
                   </p>
                   <div className="flex items-center text-gray-500 text-sm">
@@ -147,7 +147,7 @@ const BlogComp = () => {
               </div>
             ))
           ) : (
-            <p className="text-gray-600 text-lg col-span-full text-center py-10">No blogs found matching your criteria.</p>
+            <p className="text-gray-600 text-lg col-span-full text-center py-10">No blogs found matching your filters.</p>
           )}
         </div>
       </main>
