@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import BlogComp from '../Components/blog/BlogComp'
-import CardDetail from '../Components/blog/CardDetail'; 
-import BlogData from '../assets/data/blogData'; 
-import { BlogFilterProvider } from '../context/BlogFilterContext'; 
+import CardDetail from '../Components/blog/CardDetail';
+import BlogData from '../assets/data/blogData';
+import { BlogFilterProvider } from '../context/BlogFilterContext';
+import HeroSection from '../Components/hero/HeroSection';
 
 const Blogs = () => {
     const [selectedBlogId, setSelectedBlogId] = useState(null);
@@ -20,17 +21,22 @@ const Blogs = () => {
     const selectedBlogData = BlogData.find(blog => blog.id === selectedBlogId);
 
     return (
-        <BlogFilterProvider>
-            <div className='container mt-32'> 
-                {/* BlogComp */}
-                <BlogComp onCardClick={handleCardClick} />
-            </div>
+        <div>
+            <HeroSection heading1={'More Than a Community'} heading2={'The Super 60'} subHeading={'An elite circle of creators, coders, and changemakers shaping the future together.'} badge={'CheckEvents Now'} />
 
-            {/*BlogComponent*/}
-            {selectedBlogId && (
-                <CardDetail blogData={selectedBlogData} onClose={handleCloseBlogDetail} />
-            )}
-        </BlogFilterProvider>
+            <BlogFilterProvider>
+                <div className='container mt-32'>
+                    {/* BlogComp */}
+                    <BlogComp onCardClick={handleCardClick} />
+                </div>
+
+                {/*BlogComponent*/}
+                {selectedBlogId && (
+                    <CardDetail blogData={selectedBlogData} onClose={handleCloseBlogDetail} />
+                )}
+            </BlogFilterProvider>
+        </div>
+
     );
 };
 
