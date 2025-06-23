@@ -1,5 +1,5 @@
 import React from 'react';
-import FilterSideBar from './filterSideBar';
+import FilterSideBar from './FilterSideBar';
 import { useBlogFilters } from '../../context/BlogFilterContext';
 
 const BlogComp = ({ onCardClick }) => {
