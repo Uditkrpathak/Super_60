@@ -6,6 +6,8 @@ import Carousel from '../Components/carousal/Carousel2'
 
 
 
+
+
 const Home = () => {
   return (
     <div className="bg-white">
@@ -13,7 +15,7 @@ const Home = () => {
       <div>
 
         <Carousel />
-
+     
 
 
        
