@@ -33,7 +33,7 @@
 // }
 
 
-export default function HeroSection() {
+export default function HeroSection({heading1,heading2,subHeading,badge}) {
   return (
     <section className="relative px-6 py-24 mt-20 overflow-hidden text-center bg-gradient-to-br from-gray-50 via-white to-gray-100">
       {/* Dotted Background */}
@@ -42,23 +42,23 @@ export default function HeroSection() {
       {/* Top Badge */}
       <div className="relative z-10 inline-flex items-center px-4 py-2 mx-auto bg-white border border-gray-300 rounded-full shadow-lg backdrop-blur-md">
         <span className="mr-3 text-sm font-medium text-gray-600">🔥 Don't Miss</span>
-        <button className="flex items-center gap-2 px-4 py-1 text-sm font-semibold text-white bg-[#002277] rounded-full hover:bg-[#001a5c] transition-all duration-200">
-          CheckEvents Now
+        <span className="flex items-center gap-2 px-4 py-1 text-sm font-semibold text-white bg-[#002277] rounded-full hover:bg-[#001a5c] transition-all duration-200">
+          {badge}
           <span className="text-xs">→</span>
-        </button>
+        </span>
       </div>
 
       {/* Heading */}
       <h1 className="relative z-10 max-w-3xl mx-auto mt-10 text-4xl font-extrabold leading-tight text-gray-900 sm:text-5xl sm:leading-snug">
-        More Than a Community
+        {heading1}
         <span className="block mt-3 text-[#C57726]">
-          ✦ The Super 60 ✦
+          ✦ {heading2} ✦
         </span>
       </h1>
 
       {/* Optional Subheading */}
       <p className="relative z-10 max-w-xl mx-auto mt-6 text-base text-gray-600 sm:text-lg">
-        An elite circle of creators, coders, and changemakers shaping the future together.
+        {subHeading}
       </p>
 
       {/* Decorative Wavy Line */}

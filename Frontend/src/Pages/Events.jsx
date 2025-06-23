@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EventCards from "../Components/EventCards/EventCards";
 import HeroSection from "../Components/hero/HeroSection";
+import HeroBg from "../Components/hero/backgrounds/herobg";
 
 // Dummy data
 const dummyData = [
@@ -154,8 +155,11 @@ const Events = () => {
 
   return (
     <div className="mt-4">
+      
+      <HeroSection heading1={'More Than a Community'} heading2={'The Super 60'} subHeading={'An elite circle of creators, coders, and changemakers shaping the future together.'} badge={'CheckEvents Now'} />
 
-      <div className="max-w-screen-xl mx-auto">
+
+      <div className="max-w-screen-xl mx-auto px-4 md:px-12 py-8">
         {/* Filter Controls */}
         <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:flex-wrap md:gap-6">
           <div className="relative w-full md:w-64">
