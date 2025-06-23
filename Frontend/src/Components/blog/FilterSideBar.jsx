@@ -1,7 +1,17 @@
 import React from 'react';
+import { useBlogFilters } from '../../context/BlogFilterContext';
 
-const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, onClearFilters, isMobileMenuOpen, toggleMobileMenu }) => {
-  const categories = ['React', 'Node.js', 'App Development'];
+const FilterSideBar = () => {
+  const {
+    selectedCategories,
+    searchTerm,
+    isMobileMenuOpen,
+    availableCategories,
+    toggleMobileMenu,
+    handleCategoryChange,
+    handleSearchChange,
+    handleClearFilters,
+  } = useBlogFilters();
 
   return (
     <>
@@ -12,7 +22,6 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
         ></div>
       )}
 
-      {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 top-[89px] lg:top-0 bg-white p-6 shadow-lg z-50 w-64 transform ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
@@ -35,7 +44,6 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
 
         <h2 className="hidden lg:block text-xl font-semibold text-gray-800 mb-6">Filters</h2>
 
-        {/* Search Bar */}
         <div className="mb-6">
           <label htmlFor="search" className="sr-only">Search blogs...</label>
           <div className="relative">
@@ -55,16 +63,15 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
               id="search"
               placeholder="Search blogs..."
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              onChange={(e) => onSearchChange(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
             />
           </div>
         </div>
 
-        {/* Categories */}
         <div className="mb-6">
           <h3 className="text-lg font-medium text-gray-700 mb-3">Categories</h3>
           <div className="space-y-3">
-            {categories.map((category) => (
+            {availableCategories.map((category) => (
               <div key={category} className="flex items-center">
                 <input
                   type="checkbox"
@@ -72,12 +79,12 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
                   name="category"
                   value={category}
                   checked={selectedCategories.includes(category)}
-                  onChange={() => onCategoryChange(category)}
+                  onChange={() => handleCategoryChange(category)}
                   className="h-4 w-4
                              text-orange-600 border-gray-300 rounded
                              focus:ring-orange-900 cursor-pointer
-                             hover:border-blue-900         
-                             hover:text-blue-300                 
+                             hover:border-blue-900
+                             hover:text-blue-300
                              transition-colors duration-200"
                 />
                 <label htmlFor={category} className="ml-3 text-gray-600 font-medium text-sm cursor-pointer">
@@ -88,9 +95,8 @@ const FilterSideBar = ({ selectedCategories, onCategoryChange, onSearchChange, o
           </div>
         </div>
 
-        {/* Clear Filters Button */}
         <button
-          onClick={onClearFilters}
+          onClick={handleClearFilters}
           className="w-full py-2 px-4 border border-blue-900 rounded-md shadow-sm text-sm font-medium text-blue-900 hover:border-blue-800 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Clear Filters
