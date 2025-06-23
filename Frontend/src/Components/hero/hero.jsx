@@ -2,20 +2,18 @@ import HeroBg from "./backgrounds/herobg";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-8 bg-white overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center px-8 overflow-hidden">
         {/* Background Animation */}
      <HeroBg />
-      <div className="max-w-6xl w-full">
+      <div className="max-w-6xl w-full z-10 pt-32">
         {/* Section Tagline */}
-        <p className="text-sm text-gray-500 mb-6 font-medium">
-          The <span className="text-orange-600 font-semibold">Super60</span> Community
-        </p>
-
-        
+        <p className="text-lg text-gray-500 mb-6 font-large ">
+          <span className="bg-white/40 rounded-lg">The </span><span className="text-orange-600 font-semibold bg-white/40 rounded-lg ">Super60</span> <span className="bg-white/40 rounded-lg">Community</span>
+        </p>    
 
         {/* Hero Headline with Orange Block */}
         <div className="relative inline-block">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight text-black break-words">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight text-black bg-white/40 rounded-lgbreak-words">
             A Community of Coders,
             <br />
             Creators & Achievers.
@@ -30,7 +28,7 @@ const Hero = () => {
               </div>
 
               {/* Subheadline */}
-        <p className="mt-6 text-gray-700 text-lg max-w-2xl">
+        <p className="mt-6 text-gray-700 text-lg max-w-2xl bg-white/40 rounded-lg">
           Unlock your true potential with the <span className="text-orange-600 font-semibold">Super60</span> Community — immersive learning, real-world projects, and a culture of excellence.
         </p>
 

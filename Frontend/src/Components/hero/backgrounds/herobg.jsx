@@ -1,7 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 
 const HeroBg = () => {
-  const [coords, setCoords] = useState({
+  const [coords1, setCoords1] = useState({
+    x: window.innerWidth / 2,
+    y: window.innerHeight / 2,
+  });
+
+  const [coords2, setCoords2] = useState({
     x: window.innerWidth / 2,
     y: window.innerHeight / 2,
   });
@@ -12,8 +17,8 @@ const HeroBg = () => {
   });
 
   const defaultResting = {
-    x: window.innerWidth / 1.4, // 👈 your custom fallback position
-    y: window.innerHeight / 1.8, // 👈 your custom fallback position
+    x: window.innerWidth / 1.4,
+    y: window.innerHeight / 1.8,
   };
 
   const time = useRef(0);
@@ -24,13 +29,12 @@ const HeroBg = () => {
     };
 
     const handleMouseLeave = () => {
-      mouse.current = defaultResting; // Move back to default when cursor leaves
+      mouse.current = defaultResting;
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("mouseout", handleMouseLeave);
 
-    let animationFrame;
     const lerp = (a, b, n) => a + (b - a) * n;
 
     const animate = () => {
@@ -38,17 +42,28 @@ const HeroBg = () => {
       const driftX = Math.sin(time.current) * 10;
       const driftY = Math.cos(time.current) * 10;
 
-      setCoords((prev) => {
+      // Line 1 (faster)
+      setCoords1((prev) => {
         const speed = 0.08;
-        const newX = lerp(prev.x, mouse.current.x + driftX, speed);
-        const newY = lerp(prev.y, mouse.current.y + driftY, speed);
-        return { x: newX, y: newY };
+        return {
+          x: lerp(prev.x, mouse.current.x + driftX, speed),
+          y: lerp(prev.y, mouse.current.y + driftY, speed),
+        };
       });
 
-      animationFrame = requestAnimationFrame(animate);
+      // Line 2 (slower)
+      setCoords2((prev) => {
+        const speed = 0.04;
+        return {
+          x: lerp(prev.x, mouse.current.x + driftX, speed),
+          y: lerp(prev.y, mouse.current.y + driftY, speed),
+        };
+      });
+
+      requestAnimationFrame(animate);
     };
 
-    animationFrame = requestAnimationFrame(animate);
+    const animationFrame = requestAnimationFrame(animate);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -59,12 +74,12 @@ const HeroBg = () => {
 
   return (
     <div className="absolute inset-0 z-0 pointer-events-none">
-      {/* Line 1 - 45° */}
+      {/* Line 1 - 45° (faster) */}
       <div
         className="absolute w-[300vw] h-[2px] bg-gray-400 origin-center"
         style={{
-          top: coords.y,
-          left: coords.x,
+          top: coords1.y,
+          left: coords1.x,
           transform: `translate(-50%, -50%) rotate(45deg)`,
         }}
       >
@@ -80,12 +95,12 @@ const HeroBg = () => {
         </div>
       </div>
 
-      {/* Line 2 - -45° */}
+      {/* Line 2 - -45° (slower) */}
       <div
         className="absolute w-[300vw] h-[2px] bg-gray-400 origin-center"
         style={{
-          top: coords.y,
-          left: coords.x,
+          top: coords2.y,
+          left: coords2.x,
           transform: `translate(-50%, -50%) rotate(-45deg)`,
         }}
       >
