@@ -119,7 +119,7 @@ const BlogComp = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
           {filteredCards.length > 0 ? (
             filteredCards.map((card) => (
-              <div key={card.id} className="bg-white cursor-pointer rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-lg">
+              <div key={card.id} className="bg-white w-full lg:max-w-[330px] cursor-pointer rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-lg">
                 <img src={card.image_url} alt={card.title} className="w-full h-48 object-cover" />
                 <div className="p-5">
                   <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full mb-2">
