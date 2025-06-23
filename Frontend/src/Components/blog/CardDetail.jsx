@@ -1,0 +1,72 @@
+import React from 'react';
+import { IoMdClose } from "react-icons/io";
+
+const CardDetail = ({ blogData, onClose }) => {
+  if (!blogData) {
+    return (
+      <div className='fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4'>
+        <div className='bg-white p-6 rounded-lg shadow-xl text-center'>
+          <p className='text-gray-600 mb-4'>Blog data not found or still loading...</p>
+          <button onClick={onClose} className='px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors'>
+            Back to Blogs
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className='fixed inset-0 bg-gray-900 bg-opacity-75 flex items-start justify-center z-50 p-4 overflow-y-auto'>
+      {/* blog content */}
+      <div className='bg-white rounded-lg shadow-xl w-full max-w-4xl mx-auto my-8 p-6 relative'>
+        <div className='flex justify-between items-center mb-6'>
+          <h1 className='text-3xl font-bold text-gray-800'>{blogData.title}</h1>
+          <button onClick={onClose} className='text-gray-600 hover:text-gray-900 focus:outline-none'>
+            <IoMdClose className='text-3xl' />
+          </button>
+        </div>
+
+        <p className='text-gray-600 text-sm mb-3'>
+          <span className='font-semibold text-blue-700'>{blogData.category}</span> •{' '}
+          {blogData.read_time_minutes} mins read
+        </p>
+
+        <div className='mb-6 flex flex-wrap'>
+          {blogData.tags && blogData.tags.map((tag, index) => (
+            <span
+              key={index}
+              className='text-sm px-3 py-1 m-1 bg-gray-100 text-gray-800 rounded-full hover:bg-gray-200 transition-colors'
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <img
+          src={blogData.image_url}
+          alt={blogData.title}
+          className='w-full h-auto max-h-[500px] object-cover rounded-lg mb-8 shadow-lg'
+        />
+
+        <div className='space-y-8'>
+          {blogData.faq && blogData.faq.length > 0 && (
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">FAQs</h2>
+          )}
+          {blogData.faq?.map((que, index) => (
+            <div
+              key={index}
+              className='bg-gray-50 border-l-4 border-orange-500 space-y-4 p-6 rounded-md shadow-sm'
+            >
+              <h3 className='text-lg font-semibold mb-1 text-gray-900'>
+                Q: {que.question}
+              </h3>
+              <p className='text-gray-700'>Ans: {que.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default CardDetail;

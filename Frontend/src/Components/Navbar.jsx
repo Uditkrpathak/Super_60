@@ -11,9 +11,9 @@ const Navbar = () => {
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-10 py-4 bg-white shadow-md">
        
-        <div className="flex items-center">
+        <Link className="flex items-center cursor-pointer" to='/'>
           <img src={logo} alt="Logo" className="w-auto h-14" />
-        </div>
+        </Link>
 
         {/* Center: Navigation Links */}
         <div className="absolute hidden gap-8 text-sm -translate-x-1/2 md:flex font-heading left-1/2 ">
