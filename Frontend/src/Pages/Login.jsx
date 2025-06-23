@@ -1,8 +1,10 @@
 import React from 'react'
-
+import Log from '../Components/auth/Log'
 const Login = () => {
   return (
-    <div>Login</div>
+    <div>
+      <Log/>
+    </div>
   )
 }
 
