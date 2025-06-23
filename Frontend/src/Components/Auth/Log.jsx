@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import AuthImg from '../../assets/undraw_authentication_tbfc.svg'; 
 import logo from '../../assets/s60_logo.jpg'; 
+import ButtonWrapper from '../Button/ButtonWrapper';
 const Log = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen mt-10 overflow-hidden bg-white md:mt-10 sm:mt-12">
+    <div className="relative flex min-h-screen mt-10 overflow-hidden bg-white md:mt-10 sm:mt-12">
       {/* Left Section */}
       
       <div className="relative items-center justify-center hidden w-1/2 md:flex">
@@ -56,12 +57,13 @@ const Log = () => {
             </span>
           </div>
 
-          <button
+          {/* <button
             type="submit"
             className="w-full py-2 font-medium text-white transition bg-[#002277] rounded hover:bg-[#C57726] focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
             Sign In
-          </button>
+          </button> */}
+          <ButtonWrapper/>
         </form>
 
           {/* Google Login */}

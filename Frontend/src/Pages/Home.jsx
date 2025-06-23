@@ -1,7 +1,6 @@
-import React from 'react'
+
 import Hero from '../Components/hero/hero'
 import Carousel from '../Components/carousal/Carousel2'
-
 
 const Home = () => {
   return (
@@ -11,6 +10,11 @@ const Home = () => {
 
         <Carousel />
 
+
+      </div>
+
+      <div>
+        
       </div>
       {/* Add other components or sections here as needed */}
     </div>
