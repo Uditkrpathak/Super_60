@@ -1,4 +1,5 @@
 import { useState } from "react";
+import EventCard from "../Components/EventCard";
 
 const Events = () => {
   const [filterEvent, setFilterEvent] = useState({
@@ -91,7 +92,7 @@ const Events = () => {
         {/* Debug Output */}
         <div className="mt-6 bg-gray-100 p-4 rounded text-sm">
           <pre>{JSON.stringify(filterEvent, null, 2)}</pre>
-          
+          <EventCard/>
         </div>
       </div>
     </div>
