@@ -6,7 +6,7 @@ const Log = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen mt-10 overflow-hidden bg-white md:mt-10 sm:mt-12">
+    <div className="relative flex min-h-screen mt-10 overflow-hidden bg-white md:mt-10 sm:mt-12">
       {/* Left Section */}
       
       <div className="relative items-center justify-center hidden w-1/2 md:flex">

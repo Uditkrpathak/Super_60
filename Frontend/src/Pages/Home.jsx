@@ -3,6 +3,11 @@ import Hero from '../Components/hero/hero'
 import Carousel from '../Components/carousal/Carousel2'
 
 
+
+
+
+
+
 const Home = () => {
   return (
     <div className="bg-white">
@@ -10,6 +15,10 @@ const Home = () => {
       <div>
 
         <Carousel />
+     
+
+
+       
 
       </div>
       {/* Add other components or sections here as needed */}
