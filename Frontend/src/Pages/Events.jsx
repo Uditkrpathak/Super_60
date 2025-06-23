@@ -18,7 +18,7 @@ const Events = () => {
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col md:flex-row md:flex-wrap gap-4 md:gap-6 items-center justify-center">
 
-          {/* Floating Label Input */}
+          {/* Text Label Input */}
           <div className="relative w-full md:w-64">
             <input
               type="text"
@@ -91,6 +91,7 @@ const Events = () => {
         {/* Debug Output */}
         <div className="mt-6 bg-gray-100 p-4 rounded text-sm">
           <pre>{JSON.stringify(filterEvent, null, 2)}</pre>
+          
         </div>
       </div>
     </div>
