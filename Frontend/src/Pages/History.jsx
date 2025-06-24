@@ -1,5 +1,7 @@
 import HeroSection from '../Components/hero/HeroSection'
 import TimelineSection from '../Components/History/TimelineSection'
+import GalleryGrid from '../Components/History/GalleryGrid'
+
 const History = () => {
   return (
     <div>
@@ -24,6 +26,8 @@ const History = () => {
     </section>
 
 <TimelineSection/>
+
+<GalleryGrid/>
     </div>
   )
 }
