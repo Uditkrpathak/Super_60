@@ -142,7 +142,7 @@ const Hero = () => {
         }}
       >
         {/* Animated Background Layer */}
-        <AnimatedBack scrollY={scrollY} bgActive={bgActive} />
+        {/* <AnimatedBack scrollY={scrollY} bgActive={bgActive} /> */}
         {/* <HeroLogoBg scrollY={scrollY} bgActive={bgActive} /> */}
         
         {/* Crosshair Background Animation */}
@@ -180,18 +180,14 @@ const Hero = () => {
             ref={el => textRefs.current[0] = el}
             className="text-lg text-gray-500 mb-6 font-large opacity-0"
           >
-            <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/20 shadow-lg">
-              The 
-            </span>
-            <span className="text-orange-600 font-semibold bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-lg px-3 py-2 ml-2 shadow-lg">
-              Super60
-            </span>{" "}
-            <span className="bg-white/50 backdrop-blur-sm rounded-lg px-3 py-2 ml-2 border border-white/20 shadow-lg">
+            <span className="bg-white/50 backdrop-blur-sm px-3 py-2 border border-white/20 shadow-lg rounded-lg">
+              The{" "}
+              <span className="text-orange-600 font-semibold">
+                Super60
+              </span>{" "}
               Community
             </span>
           </p>
-
-          {/* Hero Headline */}
           <div 
             ref={el => textRefs.current[1] = el}
             className="relative inline-block opacity-0"

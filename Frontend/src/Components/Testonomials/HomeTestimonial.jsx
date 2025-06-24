@@ -298,7 +298,7 @@ const HomeTestimonial = () => {
         </div>
 
         {/* Stats Section */}
-        <div 
+        {/* <div 
           data-animate
           className="mt-24 opacity-0 translate-y-12 transition-all duration-1200"
         >
@@ -325,7 +325,7 @@ const HomeTestimonial = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
       <style jsx>{`
