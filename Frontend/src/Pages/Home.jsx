@@ -1,7 +1,5 @@
-
 import Hero from '../Components/hero/hero'
 import Carousel from '../Components/carousal/Carousel2'
-
 const Home = () => {
   return (
     <div className="bg-white">
