@@ -2,6 +2,7 @@ import React from 'react'
 import HeroSection from '../Components/hero/HeroSection'
 import TrainingSchedule from '../Components/Training/TrainingSchedule'
 import Roadmap from '../Components/Training/Roadmap'
+import JoinUs from '../Components/JoinUs/JoinUs'
 
 const TrainingModel = () => {
   return (
@@ -12,6 +13,7 @@ const TrainingModel = () => {
 
       <Roadmap />
 
+<JoinUs />
     </div>
   )
 }
