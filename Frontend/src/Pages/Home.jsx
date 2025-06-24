@@ -1,4 +1,4 @@
-import Hero from '../Components/hero/hero'
+import Hero from '../Components/hero/hero2'
 import Carousel from '../Components/carousal/RoadmapViewer'
 import Achievments from '../Components/Home Components/Achievments'
 import About_section from '../Components/Home Components/About_section'
