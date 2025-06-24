@@ -1,10 +1,10 @@
 import React from 'react'
-import Hero from '../Components/About/Hero'
+import Batch from '../Components/About/Batch.jsx'
 
 const About = () => {
   return (
    <div>
-    <Hero/>
+    <Batch/>
    </div>
   )
 }
