@@ -4,6 +4,7 @@ import Achievments from '../Components/Home Components/Achievments'
 import About_section from '../Components/Home Components/About_section'
 import HomeTestimonial from '../Components/Testonomials/HomeTestimonial'
 import JoinUs from '../Components/JoinUs/JoinUs'
+import RoadMap from '../Components/carousal/RoadMap'
 
 const Home = () => {
   return (
@@ -11,7 +12,9 @@ const Home = () => {
       <Hero />
       <div>
 
-        <Carousel />
+        {/* <Carousel /> */}
+
+        <RoadMap/>
       </div>
       <div >
         <Achievments />
