@@ -3,13 +3,15 @@ import { useState, useRef, useEffect } from "react";
 const AboutSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [orbPosition, setOrbPosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
+  const titleRef = useRef(null);
 
   const focusAreas = [
     {
       id: 1,
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ),
@@ -19,7 +21,7 @@ const AboutSection = () => {
     {
       id: 2,
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01.99l-2.98 3.67a.5.5 0 0 0 .39.84H14v6h6zm-11.5 0v-4.5h2.5V22h3v-6.5c0-.83-.67-1.5-1.5-1.5H9.5l-1.68-3.37A1.5 1.5 0 0 0 6.48 10H3.5c-.83 0-1.5.67-1.5 1.5V22h4z" />
         </svg>
       ),
@@ -29,7 +31,7 @@ const AboutSection = () => {
     {
       id: 3,
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
         </svg>
       ),
@@ -39,7 +41,7 @@ const AboutSection = () => {
     {
       id: 4,
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
           <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       ),
@@ -57,6 +59,14 @@ const AboutSection = () => {
           y: e.clientY - rect.top
         });
       }
+
+      if (titleRef.current) {
+        const rect = titleRef.current.getBoundingClientRect();
+        setOrbPosition({
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        });
+      }
     };
 
     const section = sectionRef.current;
@@ -69,10 +79,10 @@ const AboutSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen bg-gradient-to-br from-gray-50 to-white py-20 px-8 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-8 overflow-hidden"
     >
       {/* Large S60 Background Text */}
-      <div className="absolute top-1/2 right-0 transform translate-x-1/3 -translate-y-1/2 pointer-events-none select-none">
+      <div className="absolute top-1/2 right-1/4 transform translate-x-1/3 -translate-y-1/2 pointer-events-none select-none">
         <div 
           className="text-orange-200/30 font-black text-[40rem] leading-none tracking-tighter"
           style={{ 
@@ -98,17 +108,38 @@ const AboutSection = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="inline-block">
             <p 
-              className="text-gray-500 text-lg mb-4 font-medium tracking-wide transition-all duration-300 hover:text-orange-500 hover:scale-105 cursor-default"
+              className="text-gray-500 text-base mb-3 font-medium tracking-wide transition-all duration-300 hover:text-orange-500 hover:scale-105 cursor-default"
             >
               About Our Batch
             </p>
           </div>
           
-          <div className="relative">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight text-gray-900 mb-8">
+          <div className="relative" ref={titleRef}>
+            {/* Hover Orb Effect */}
+            <div 
+              className={`absolute pointer-events-none transition-opacity duration-500 ${
+                hoveredCard === 'title' ? 'opacity-100' : 'opacity-0'
+              }`}
+              style={{
+                left: orbPosition.x - 100,
+                top: orbPosition.y - 100,
+                transform: 'translate(-50%, -50%)'
+              }}
+            >
+              <div className="relative w-48 h-48">
+                {/* Outer circle */}
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 via-pink-400/20 to-purple-400/20 rounded-full animate-pulse"></div>
+                {/* Middle circle */}
+                <div className="absolute inset-4 bg-gradient-to-r from-orange-500/30 via-pink-500/30 to-purple-500/30 rounded-full animate-pulse delay-150"></div>
+                {/* Inner circle */}
+                <div className="absolute inset-8 bg-gradient-to-r from-orange-600/40 via-pink-600/40 to-purple-600/40 rounded-full animate-pulse delay-300"></div>
+              </div>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-6">
               The{" "}
               <span 
                 className="text-orange-500 relative inline-block transition-all duration-300 hover:scale-110 cursor-default"
@@ -143,25 +174,23 @@ const AboutSection = () => {
             </h2>
           </div>
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <p 
-              className="text-gray-600 text-xl leading-relaxed transition-all duration-300 hover:text-gray-800 cursor-default"
+              className="text-gray-600 text-lg leading-relaxed transition-all duration-300 hover:text-gray-800 cursor-default"
               onMouseEnter={() => setHoveredCard('description')}
               onMouseLeave={() => setHoveredCard(null)}
             >
               The Super 60 Batch is a focused learning community built for driven and dedicated 
-              minds. We aim to empower selected students by offering a high-impact academic 
-              ecosystem through expert mentorship, peer collaboration, regular assessments, and 
-              goal-oriented sessions. Together, we turn potential into performance and dreams 
-              into results.
+              minds. We empower selected students through expert mentorship, peer collaboration, 
+              and goal-oriented sessions.
             </p>
           </div>
         </div>
 
         {/* Main Focus Section */}
-        <div className="mb-16">
+        <div className="mb-8">
           <h3 
-            className="text-4xl font-bold text-gray-900 text-center mb-16 transition-all duration-300 hover:text-orange-600 cursor-default"
+            className="text-2xl font-bold text-gray-900 text-center mb-8 transition-all duration-300 hover:text-orange-600 cursor-default"
             onMouseEnter={() => setHoveredCard('focus-title')}
             onMouseLeave={() => setHoveredCard(null)}
           >
@@ -169,15 +198,15 @@ const AboutSection = () => {
           </h3>
 
           {/* Focus Cards Grid */}
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
             {focusAreas.map((area, index) => (
               <div
                 key={area.id}
                 className={`
-                  relative group p-8 rounded-2xl transition-all duration-500 cursor-pointer
+                  relative group p-4 rounded-xl transition-all duration-500 cursor-pointer
                   ${hoveredCard === area.id 
-                    ? 'bg-white shadow-2xl shadow-orange-500/20 scale-105 -translate-y-2' 
-                    : 'bg-white/70 hover:bg-white hover:shadow-xl hover:shadow-gray-200/50 hover:scale-102'
+                    ? 'bg-white shadow-xl shadow-orange-500/15 scale-105 -translate-y-1' 
+                    : 'bg-white/70 hover:bg-white hover:shadow-lg hover:shadow-gray-200/50'
                   }
                   border border-gray-100 hover:border-orange-200
                 `}
@@ -190,14 +219,14 @@ const AboutSection = () => {
               >
                 {/* Gradient Overlay on Hover */}
                 <div className={`
-                  absolute inset-0 rounded-2xl transition-opacity duration-500
+                  absolute inset-0 rounded-xl transition-opacity duration-500
                   bg-gradient-to-br from-orange-50 to-blue-50
                   ${hoveredCard === area.id ? 'opacity-50' : 'opacity-0'}
                 `} />
 
                 {/* Icon */}
                 <div className={`
-                  inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 relative z-10
+                  inline-flex items-center justify-center w-12 h-12 rounded-full mb-3 relative z-10
                   transition-all duration-500
                   ${hoveredCard === area.id 
                     ? 'bg-gradient-to-br from-orange-500 to-orange-600 text-white scale-110 rotate-12' 
@@ -210,7 +239,7 @@ const AboutSection = () => {
                 {/* Content */}
                 <div className="relative z-10">
                   <h4 className={`
-                    text-2xl font-bold mb-4 transition-all duration-300
+                    text-lg font-bold mb-2 transition-all duration-300
                     ${hoveredCard === area.id 
                       ? 'text-orange-600 transform -translate-y-1' 
                       : 'text-gray-900 group-hover:text-blue-900'
@@ -220,7 +249,7 @@ const AboutSection = () => {
                   </h4>
                   
                   <p className={`
-                    text-gray-600 leading-relaxed transition-all duration-300
+                    text-gray-600 text-sm leading-relaxed transition-all duration-300
                     ${hoveredCard === area.id 
                       ? 'text-gray-700 transform -translate-y-1' 
                       : 'group-hover:text-gray-700'
@@ -232,20 +261,20 @@ const AboutSection = () => {
 
                 {/* Hover Effect Lines */}
                 <div className={`
-                  absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-t-2xl
+                  absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-orange-600 rounded-t-xl
                   transform origin-left transition-transform duration-500
                   ${hoveredCard === area.id ? 'scale-x-100' : 'scale-x-0'}
                 `} />
                 
                 <div className={`
-                  absolute bottom-0 right-0 w-1 h-full bg-gradient-to-t from-blue-400 to-blue-600 rounded-r-2xl
+                  absolute bottom-0 right-0 w-1 h-full bg-gradient-to-t from-blue-400 to-blue-600 rounded-r-xl
                   transform origin-bottom transition-transform duration-500 delay-100
                   ${hoveredCard === area.id ? 'scale-y-100' : 'scale-y-0'}
                 `} />
 
                 {/* Floating Elements */}
                 {hoveredCard === area.id && (
-                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-orange-400 rounded-full animate-bounce opacity-80" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-400 rounded-full animate-bounce opacity-80" />
                 )}
               </div>
             ))}
