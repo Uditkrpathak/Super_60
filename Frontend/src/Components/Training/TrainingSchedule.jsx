@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { feDropShadow } from "framer-motion/client";
 
 const yearData = {
     first: {
@@ -136,6 +137,12 @@ const TrainingSchedule = () => {
                             {points.map((pt, i) => (
                                 <g key={i}>
                                     <circle cx={pt.x} cy={pt.y} r="10" fill="#A0AEC0" />
+                                    {/* 2. Glowing filter definition */}
+                                    <defs>
+                                        <filter id="orange-glow" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="orange" floodOpacity="0.9" />
+                                        </filter>
+                                    </defs>
                                     <text
                                         x={pt.x - 20}
                                         y={pt.y - 20}
@@ -148,7 +155,7 @@ const TrainingSchedule = () => {
                                     </text>
                                 </g>
                             ))}
-                            <circle r="12" fill="orange">
+                            <circle r="12" fill="orange" filter="url(#orange-glow)">
                                 <animateMotion ref={indicatorRef} dur="0.8s" fill="freeze" />
                             </circle>
                         </svg>
@@ -168,7 +175,7 @@ const TrainingSchedule = () => {
                                 <h3 className="text-2xl font-semibold text-blue-800 mb-4">
                                     {yearData[selectedYear].title}
                                 </h3>
-                                <ul className="list-disc list-inside space-y-2 text-lg text-gray-700">
+                                <ul className="list-disc list-inside text-lg text-[#4b5563] space-y-1 leading-snug">
                                     {yearData[selectedYear].content.map((item, idx) => (
                                         <li key={idx}>{item}</li>
                                     ))}

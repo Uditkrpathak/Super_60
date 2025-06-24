@@ -28,7 +28,7 @@ const SpotlightButton = () => {
     };
 
     const handleMouseLeave = () => {
-      span.animate({ left: "40%" }, { duration: 100, fill: "forwards" });
+      span.animate({ left: "50%" }, { duration: 100, fill: "forwards" });
     };
 
     button.addEventListener("mousemove", handleMouseMove);
@@ -42,7 +42,7 @@ const SpotlightButton = () => {
 
   return (
     <motion.button
-      whileTap={{ scale: 0.985 }}
+      whileTap={{ scale: 0.99 }}
       ref={btnRef}
       className="relative w-full max-w-xs px-4 py-3 overflow-hidden text-lg font-medium text-white rounded-lg "
     >

@@ -1,6 +1,6 @@
 import './CardStyles.css';
 
-const EventCards = ({ card }) => {
+const EventCards = ({ card, onClick }) => {
     return (
         <div className="card rounded-md">
             <div
@@ -10,7 +10,7 @@ const EventCards = ({ card }) => {
             <div className="content">
                 <h2 className="title">{card.title}</h2>
                 <p className="copy">{card.description}</p>
-                <button className="btn">Know More</button>
+                <button onClick={() => onClick(card)} className="btn">Know More</button>
             </div>
         </div>
     );
