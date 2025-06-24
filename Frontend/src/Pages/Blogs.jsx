@@ -4,6 +4,7 @@ import CardDetail from '../Components/blog/CardDetail';
 import BlogData from '../assets/data/blogData';
 import { BlogFilterProvider } from '../context/BlogFilterContext';
 import HeroSection from '../Components/hero/HeroSection';
+import JoinUs from '../Components/JoinUs/JoinUs';
 
 const Blogs = () => {
     const [selectedBlogId, setSelectedBlogId] = useState(null);
@@ -42,7 +43,9 @@ const Blogs = () => {
                 )}
             </BlogFilterProvider>
 
-        
+        <div className='mt-10'>
+                    <JoinUs />
+            </div>
         </>
 
     );

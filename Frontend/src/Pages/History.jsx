@@ -1,6 +1,7 @@
 import HeroSection from '../Components/hero/HeroSection'
 import TimelineSection from '../Components/History/TimelineSection'
 import GalleryGrid from '../Components/History/GalleryGrid'
+import JoinUs from '../Components/JoinUs/JoinUs'
 
 const History = () => {
   return (
@@ -29,6 +30,7 @@ const History = () => {
 
 <GalleryGrid/>
 
+<JoinUs />
     </div>
   )
 }

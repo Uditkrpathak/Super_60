@@ -1,5 +1,6 @@
 import BatchesPage from "../Components/Batches/BatchesPage";
 import HeroSection from "../Components/hero/HeroSection";
+import JoinUs from "../Components/JoinUs/JoinUs";
 
 const Batches = () => {
   return (
@@ -10,6 +11,8 @@ const Batches = () => {
       <div>
         <BatchesPage />
       </div>
+
+      <JoinUs />
     </div>
   )
 }

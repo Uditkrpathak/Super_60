@@ -2,6 +2,7 @@
 import Batch from '../Components/About/Batch.jsx' 
 import WorkingModel from '../Components/About/Workingmodel.jsx'
 import HeroSection from "../Components/hero/HeroSection"
+import JoinUs from '../Components/JoinUs/JoinUs.jsx'
 const About = () => {
   return (
     <div>
@@ -11,6 +12,7 @@ const About = () => {
  <Batch/>
  <WorkingModel/>
 
+<JoinUs />
   </div>
   )
 }

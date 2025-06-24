@@ -2,6 +2,7 @@ import FacultyProfiles from "../Components/Academics/FacultyProfiles"
 import TestimonialSlider from "../Components/Academics/TestimonialSlider"
 import FAQ from "../Components/Faq/FAQ"
 import HeroSection from "../Components/hero/HeroSection"
+import JoinUs from "../Components/JoinUs/JoinUs"
 
 
 const Academics = () => {
@@ -21,6 +22,7 @@ const Academics = () => {
         <TestimonialSlider/>
       </div>
 
+<JoinUs />
     </div>
   )
 }
