@@ -23,7 +23,7 @@ const SlidingEventDetails = ({ selectedEvent, onClose }) => {
                     {/* ❌ Close Button */}
                     <button
                         onClick={onClose}
-                        className="absolute top-4 right-4 text-red-600 text-3xl font-bold hover:text-red-800"
+                        className="absolute top-4 right-4 text-blue-600 text-3xl font-bold hover:text-blue-800"
                     >
                         ✕
                     </button>
