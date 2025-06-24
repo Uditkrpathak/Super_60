@@ -20,7 +20,7 @@ const BatchSection = () => {
       viewport={{ once: true }}
       className="relative py-12 px-6 md:px-20 bg-[#f9f9f9] mt-12 overflow-hidden"
     >
-      {/* Glowing Blur Background */}
+    
       <div className="absolute inset-0 bg-gradient-to-r from-blue-200 via-transparent to-orange-200 blur-2xl opacity-30 pointer-events-none" />
 
       <div className="text-center mb-10 relative z-10">
@@ -33,7 +33,7 @@ const BatchSection = () => {
           Batch Profiles
         </motion.h2>
 
-        {/* Tag / Badge */}
+     
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
