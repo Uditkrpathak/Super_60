@@ -240,6 +240,7 @@ const Events = () => {
         />
 
       </div>
+
     </div>
   );
 };

@@ -20,6 +20,7 @@ const Academics = () => {
         {/* {Research paper} */}
         <TestimonialSlider/>
       </div>
+
     </div>
   )
 }

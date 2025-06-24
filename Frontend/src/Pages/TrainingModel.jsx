@@ -11,6 +11,7 @@ const TrainingModel = () => {
       <TrainingSchedule />
 
       <Roadmap />
+
     </div>
   )
 }

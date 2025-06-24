@@ -21,6 +21,7 @@ const Home = () => {
 
 
       {/* Add other components or sections here as needed */}
+
     </div>
   )
 }
