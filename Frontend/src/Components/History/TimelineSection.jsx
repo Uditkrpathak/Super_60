@@ -8,7 +8,7 @@ const timelineData = [
     title: "Vision Begins",
     description:
       "The concept of Super 60 was born—a vision to nurture 60 exceptional minds with leadership, creativity, and innovation at its core.",
-    image: "https://www.theuniques.in/assets/1-svOZSvaN.jpg",
+    image: "http://localhost:5173/src/assets/Photo.jpg",
   },
   {
     year: "2022 Q1",
