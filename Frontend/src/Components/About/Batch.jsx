@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import batchImage from '../../assets/photo.jpg'; 
+import batchImage from '../../assets/photo.jpg'; // Replace with your actual path
 
 const paragraphVariants = {
   hidden: { opacity: 0, y: 20 },
