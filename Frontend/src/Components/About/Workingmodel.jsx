@@ -1,79 +1,69 @@
-import React from 'react';
-import { useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import React, { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const steps = [
   {
     id: 1,
-    title: "LEARN FROM INDUSTRY EXPERTS",
-    description: "Engage with professionals through workshops and seminars to gain real-world insights and knowledge.",
+    title: "Learn from Industry Experts",
+    description:
+      "Engage with professionals through workshops and seminars to gain real-world insights and knowledge.",
   },
   {
     id: 2,
-    title: "PEER TO PEER LEARNING",
-    description: "Learn collaboratively with your peers through discussions, group projects, and shared experiences.",
+    title: "Peer-to-Peer Learning",
+    description:
+      "Collaborate with peers across different batches, fostering a community of shared learning and growth.",
   },
   {
     id: 3,
-    title: "APPLY KNOWLEDGE PRACTICALLY",
-    description: "Implement what you've learned in real projects, internships, and case studies for hands-on experience.",
+    title: "Apply Knowledge Practically",
+    description:
+      "Implement your learning through live projects and real-world applications, bridging the gap between theory and practice.",
   },
 ];
 
 const WorkingModel = () => {
   useEffect(() => {
-    AOS.init({ duration: 1000 });
+    AOS.init({ duration: 800, once: true });
   }, []);
 
   return (
-    <section className="py-16 px-6 md:px-20 bg-white text-center">
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-        Our Working Model
-      </h2>
-      <p className="text-gray-600 mb-12">
-        The <span className="text-orange-500 font-semibold">Super 60</span> aren't just learners—they’re future leaders in the making
-      </p>
+    <section className="py-20 px-4 md:px-12 bg-white">
+      
+      <div className="text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
+          Our Working Model
+        </h2>
+        <p className="text-gray-600 max-w-xl mx-auto text-base md:text-lg text-center">
+  The <span className="text-orange-500 font-semibold">Super60</span> program is designed to provide a holistic learning experience that combines expert guidance, peer collaboration, and practical application. Here's how it works:
+</p>
 
-      <div className="flex flex-col gap-16 relative">
+      </div>
+
+     
+      <div className="flex flex-col md:flex-row justify-center items-stretch gap-8 max-w-6xl mx-auto">
         {steps.map((step, index) => (
           <div
             key={step.id}
-            className={`flex flex-col md:flex-row items-center justify-${index % 2 === 0 ? 'start' : 'end'} gap-6 relative`}
             data-aos="fade-up"
+            data-aos-delay={index * 150}
+            className="bg-gray-50 rounded-2xl p-6 shadow-xl hover:shadow-2xl transform transition-transform hover:-translate-y-1 flex-1 text-center flex flex-col items-center"
           >
-            {/* Number Circle */}
-            <div className="flex items-center justify-center bg-[#1a1a56] text-white font-bold w-10 h-10 rounded-full text-lg">
+         
+            <div className="w-12 h-12 mb-4 rounded-full border-4 border-orange-500 bg-white text-orange-600 font-bold text-lg flex items-center justify-center shadow-inner">
               {step.id}
             </div>
 
-            {/* Text Block */}
-            <div className="bg-gray-100 rounded-xl px-6 py-5 max-w-xl text-left shadow-md">
-              <h3 className="text-md font-semibold text-gray-800">{step.title}</h3>
-              <p className="text-gray-600 mt-1 text-sm">{step.description}</p>
-            </div>
+         
+            <h3 className="text-lg font-semibold text-gray-800">
+              {step.title}
+            </h3>
 
-            {/* Arrow */}
-            {index < steps.length - 1 && (
-              <div className="absolute md:block hidden left-1/2 top-full mt-4 transform -translate-x-1/2 z-0">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="80"
-                  height="80"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="orange"
-                  strokeWidth="2"
-                  className="rotate-[60deg]"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 12h14m0 0l-6-6m6 6l-6 6"
-                  />
-                </svg>
-              </div>
-            )}
+            
+            <p className="text-sm text-gray-600 mt-2">
+              {step.description}
+            </p>
           </div>
         ))}
       </div>
