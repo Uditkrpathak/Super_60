@@ -10,6 +10,7 @@ import axios from 'axios';
 
 const Log = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [message,setMessage] = useState('');
 
   const { login } = useContext(AuthContext);
 
@@ -41,6 +42,7 @@ const Log = () => {
       navigate('/');
 
     } catch (error) {
+      setMessage(error.response?.data.message);
       console.error("Login failed:", error.response?.data || error.message);
     }
   };
@@ -105,13 +107,28 @@ const Log = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </span>
           </div>
+          
+          {message && (
+          <div className="mt-2 flex items-center gap-2 text-sm text-red-600 px-3 animate-pulse">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 text-red-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span className="font-medium">{message}</span>
+          </div>
+          )}
 
-          {/* <button
-            type="submit"
-            className="w-full py-2 font-medium text-white transition bg-[#002277] rounded hover:bg-[#C57726] focus:outline-none focus:ring-2 focus:ring-blue-400"
-          >
-            Sign In
-          </button> */}
+
           <button
             type='submit'
             className='w-full'
