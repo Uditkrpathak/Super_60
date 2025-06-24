@@ -1,7 +1,25 @@
+<<<<<<< HEAD
 import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import batchImage from '../../assets/photo.jpg';
+=======
+import React from 'react';
+
+import batchImage from '../../assets/Photo.jpg'; // Replace with your actual path
+import { motion } from 'framer-motion';
+
+
+
+const paragraphVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.3, duration: 0.6 },
+  }),
+};
+>>>>>>> 85cd02fcb4bf6168b163cc9890d1692225c9e1e8
 
 const BatchSection = () => {
   useEffect(() => {
