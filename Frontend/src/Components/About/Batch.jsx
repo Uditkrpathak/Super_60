@@ -1,5 +1,5 @@
 import React from 'react';
-import batchImage from '../../assets/photo.jpg'; // Replace with your actual path
+import batchImage from '../../assets/Photo.jpg'; // Replace with your actual path
 
 const BatchSection = () => {
   return (
