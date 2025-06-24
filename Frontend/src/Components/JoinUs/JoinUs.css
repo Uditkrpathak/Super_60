@@ -1,0 +1,57 @@
+
+.arrow-container {
+    width: 32px;
+    height: 32px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-30deg);
+    transition: transform 0.3s ease-in-out;
+}
+
+.group:hover .arrow-container {
+    transform: rotate(0deg);
+}
+
+.arrow-bg {
+    z-index: -1;
+}
+
+.arrow-icon {
+    font-size: 1.25rem; 
+}
+
+@keyframes lightningRun {
+    0% {
+        transform: translateX(-100%) skewX(-30deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) skewX(-30deg);
+        opacity: 0;
+    }
+}
+
+.button-lightning-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; 
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent); 
+    transform: translateX(-100%) skewX(-30deg);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; 
+    opacity: 0; 
+    z-index: 20;
+}
+
+.group:hover .button-lightning-line::before {
+    animation: lightningRun 0.8s ease-in-out forwards; 
+}
