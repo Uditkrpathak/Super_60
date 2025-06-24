@@ -119,7 +119,7 @@ const AboutSection = () => {
           
           <div className="relative" ref={titleRef}>
             {/* Hover Orb Effect */}
-            <div 
+            {/* <div 
               className={`absolute pointer-events-none transition-opacity duration-500 ${
                 hoveredCard === 'title' ? 'opacity-100' : 'opacity-0'
               }`}
@@ -130,14 +130,14 @@ const AboutSection = () => {
               }}
             >
               <div className="relative w-48 h-48">
-                {/* Outer circle */}
+
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 via-pink-400/20 to-purple-400/20 rounded-full animate-pulse"></div>
-                {/* Middle circle */}
+
                 <div className="absolute inset-4 bg-gradient-to-r from-orange-500/30 via-pink-500/30 to-purple-500/30 rounded-full animate-pulse delay-150"></div>
-                {/* Inner circle */}
+
                 <div className="absolute inset-8 bg-gradient-to-r from-orange-600/40 via-pink-600/40 to-purple-600/40 rounded-full animate-pulse delay-300"></div>
               </div>
-            </div>
+            </div> */}
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-6">
               The{" "}

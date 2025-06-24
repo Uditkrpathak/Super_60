@@ -2,6 +2,7 @@ import { useState } from "react";
 import EventCards from "../Components/EventCards/EventCards";
 import HeroSection from "../Components/hero/HeroSection";
 import SlidingEventDetails from "../Components/EventCards/SlidingEventDetails";
+import JoinUs from "../Components/JoinUs/JoinUs";
 
 // Dummy data
 const dummyData = [
@@ -240,6 +241,8 @@ const Events = () => {
         />
 
       </div>
+
+<JoinUs />
     </div>
   );
 };
