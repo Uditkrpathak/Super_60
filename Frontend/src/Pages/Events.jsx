@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EventCards from "../Components/EventCards/EventCards";
 import HeroSection from "../Components/hero/HeroSection";
-import HeroBg from "../Components/hero/backgrounds/herobg";
+import SlidingEventDetails from "../Components/EventCards/SlidingEventDetails";
 
 // Dummy data
 const dummyData = [
@@ -118,6 +118,8 @@ const dummyData = [
 
 const Events = () => {
 
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   const [filterEvent, setFilterEvent] = useState({
     name: '',
     type: 'All',
@@ -148,7 +150,7 @@ const Events = () => {
     <div className="my-16">
       <h2 className="mb-4 text-2xl font-semibold text-center">{title}</h2>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {data.map((card, idx) => <EventCards card={card} key={idx} />)}
+        {data.map((card, idx) => <EventCards card={card} key={idx} onClick={setSelectedEvent} />)}
       </div>
     </div>
   );
@@ -230,6 +232,12 @@ const Events = () => {
             </>
           )}
         </div>
+
+        {/* Slide-In Panel */}
+        <SlidingEventDetails
+          selectedEvent={selectedEvent}
+          onClose={() => setSelectedEvent(null)}
+        />
 
       </div>
     </div>
