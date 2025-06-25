@@ -1,5 +1,3 @@
-import Hero from '../Components/hero/hero2'
-import EasterCarousel from '../Components/carousal/EasterCarousel'
 import Hero from '../Components/hero/hero'
 import Carousel from '../Components/carousal/RoadmapViewer'
 import Achievments from '../Components/Home Components/Achievments'
@@ -16,15 +14,11 @@ const Home = () => {
        <div >
         <About_section />
       </div>
-       <div >
-        <About_section />
-      </div>
+
       <div>
         <Easter />
       </div>
       <div>
-
-        <EasterCarousel />
 
         <RoadMap/>
       </div>
