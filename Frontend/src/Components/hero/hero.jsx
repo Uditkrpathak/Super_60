@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import HeroBg from "./backgrounds/herobg";
+// import HeroBg from "./backgrounds/herobg";
 
 const lines = [
   "Shaping Tech Leaders.",
@@ -8,11 +8,11 @@ const lines = [
 
 const typeWords = ["Code.", "Build.", "Lead.", "Together."];
 
-const typeSpeed = 100; // ms per character
+const typeSpeed = 170; // ms per character
 const wordDelay = 700; // ms between words
 
 const Hero = () => {
-  const [bgActive, setBgActive] = useState(false);
+  
 
   // Typewriter state for the second line
   const [displayed, setDisplayed] = useState("");
@@ -39,12 +39,11 @@ const Hero = () => {
   return (
     <section
       className="relative min-h-screen flex items-center justify-left px-48 overflow-hidden"
-      onMouseEnter={() => setBgActive(true)}
-      onMouseLeave={() => setBgActive(false)}
+      
     >
 
       {/* Background Animation */}
-      <HeroBg active={bgActive} />
+      
 
       <div className="max-w-8xl w-full z-10 pt-32">
         {/* Section Tagline */}
@@ -89,6 +88,8 @@ const Hero = () => {
           Join Us
         </button>
       </div>
+      {/* Scrolling Text Bar */}
+
     </section>
   );
 };
