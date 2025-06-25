@@ -18,7 +18,7 @@ import PageNotFound from './Pages/PageNotFound';
 import ProtectedAdminRoute from './Components/ProtectedRoutes/ProtectedAdminRoute';
 import ProtectedStudentRoute from './Components/ProtectedRoutes/ProtectedStudentRoute';
 import AdminDashboard from './Pages/Admin/AdminDashboard';
-import StudentProfile from './Pages/Student/StudentProfile';
+import StudentProfile from './Components/Auth/StudentProfile';
 import EditableStudentProfile from './Pages/Student/EditableStudentProfile';
 import AddUser from './Pages/Admin/AddUser';
 
@@ -50,16 +50,20 @@ function App() {
           </ProtectedAdminRoute>
         } />
 
-        <Route path="/student-profile" element={
-          <ProtectedStudentRoute>
-            <StudentProfile />
-          </ProtectedStudentRoute>
-        } />
+       
         <Route path="/editstudentprofile" element={
           <ProtectedStudentRoute>
             <EditableStudentProfile />
           </ProtectedStudentRoute>
         } />
+        <Route
+  path="/student-profile"
+  element={
+    <ProtectedStudentRoute>
+      <StudentProfile />
+    </ProtectedStudentRoute>
+  }
+/>
         <Route path="*" element={<PageNotFound/>} />
       </Routes>
       <Footer/>

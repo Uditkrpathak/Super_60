@@ -1,5 +1,5 @@
 import Hero from '../Components/hero/hero2'
-import Carousel from '../Components/carousal/RoadmapViewer'
+import EasterCarousel from '../Components/carousal/EasterCarousel'
 import Achievments from '../Components/Home Components/Achievments'
 import About_section from '../Components/Home Components/About_section'
 import HomeTestimonial from '../Components/Testonomials/HomeTestimonial'
@@ -10,9 +10,12 @@ const Home = () => {
   return (
     <div className="bg-white">
       <Hero />
+       <div >
+        <About_section />
+      </div>
       <div>
 
-        {/* <Carousel /> */}
+        <EasterCarousel />
 
         <RoadMap/>
       </div>
@@ -21,9 +24,7 @@ const Home = () => {
       </div>
 
       {/* <About_section /> */}
-      <div >
-        <About_section />
-      </div>
+     
 
       <div>
         <HomeTestimonial />
