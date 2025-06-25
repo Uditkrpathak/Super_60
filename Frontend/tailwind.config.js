@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['Montserrat', 'sans-serif'],  // H1, H2, section titles
+        montserrat: ['Montserrat', 'sans-serif'],
         sub: ['DM Sans', 'sans-serif'],         // subheadings, buttons
         body: ['Roboto', 'sans-serif'],         // paragraphs, long content
       },
@@ -15,6 +15,7 @@ module.exports = {
        blue:"#002244", //  blue color
        orange:"#C57726", //  orange color
       },
+      scrollBehavior: ['responsive'],
     },
   },
   plugins: [],

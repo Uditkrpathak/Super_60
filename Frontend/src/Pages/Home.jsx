@@ -1,15 +1,22 @@
-import Hero from '../Components/hero/hero2'
+import Hero from '../Components/hero/hero'
 import Carousel from '../Components/carousal/RoadmapViewer'
 import Achievments from '../Components/Home Components/Achievments'
 import About_section from '../Components/Home Components/About_section'
 import HomeTestimonial from '../Components/Testonomials/HomeTestimonial'
 import JoinUs from '../Components/JoinUs/JoinUs'
 import RoadMap from '../Components/carousal/RoadMap'
+import Easter from '../Components/carousal/EasterCarousel'
 
 const Home = () => {
   return (
     <div className="bg-white">
       <Hero />
+       <div >
+        <About_section />
+      </div>
+      <div>
+        <Easter />
+      </div>
       <div>
 
         {/* <Carousel /> */}
@@ -21,9 +28,7 @@ const Home = () => {
       </div>
 
       {/* <About_section /> */}
-      <div >
-        <About_section />
-      </div>
+     
 
       <div>
         <HomeTestimonial />

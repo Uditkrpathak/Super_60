@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import HeroBg from "./backgrounds/herobg";
 import AnimatedBack from "./backgrounds/animated_bg";
 import HeroLogoBg from "./backgrounds/herologo_bg";
+// import RibbonBg from "./backgrounds/ribbonbg";
+import SBg from "./backgrounds/s_bg";
 
 const Hero = () => {
   const [bgActive, setBgActive] = useState(false);
@@ -144,8 +146,10 @@ const Hero = () => {
         {/* Animated Background Layer */}
         {/* <AnimatedBack scrollY={scrollY} bgActive={bgActive} /> */}
         {/* <HeroLogoBg scrollY={scrollY} bgActive={bgActive} /> */}
-        
+        {/* <RibbonBg scrollY={scrollY} bgActive={bgActive} /> */}
         {/* Crosshair Background Animation */}
+        <SBg scrollY={scrollY} bgActive={bgActive} />
+
         <HeroBg active={bgActive} />
 
         {/* Floating Geometric Elements */}
