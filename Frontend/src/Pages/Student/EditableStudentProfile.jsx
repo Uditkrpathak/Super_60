@@ -122,15 +122,6 @@ const EditableStudentProfile = () => {
 
                 {/* Submit & Delete */}
                 <div className="flex items-center justify-between pt-4">
-                    {mode === 'create' ? (
-                        <button
-                            type="submit"
-                            className="bg-[#002277] text-white px-4 py-2 rounded-md"
-                        >
-                            Create
-                        </button>
-                    ) : (
-                        <div>
                             <button
                                 type="submit"
                                 className="bg-[#002277] text-white px-4 py-2 rounded-md"
@@ -143,8 +134,6 @@ const EditableStudentProfile = () => {
                             >
                                 Delete Profile
                             </button>
-                        </div>
-                    )}
                 </div>
             </form>
         </div>
