@@ -5,8 +5,31 @@ import BlogData from '../assets/data/blogData';
 import { BlogFilterProvider } from '../context/BlogFilterContext';
 import HeroSection from '../Components/hero/HeroSection';
 import JoinUs from '../Components/JoinUs/JoinUs';
+import { useEffect } from 'react';
+import axios from 'axios';
+import BACKEND_URL from '../utils/axiosConfig';
 
 const Blogs = () => {
+
+    useEffect(()=>{
+        const token = localStorage.getItem("token");
+
+        const fetchData = async () => {
+            try {
+                const res = await axios.get(`${BACKEND_URL}/blog`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                  });
+                console.log(res.data);
+            } catch (err) {
+                console.error("Error fetching blogs:", err.message);
+            }
+          };
+
+        fetchData();
+    },[]);
+
     const [selectedBlogId, setSelectedBlogId] = useState(null);
 
     const handleCardClick = (id) => {
@@ -38,6 +61,7 @@ const Blogs = () => {
                 </div>
 
                 {/*BlogComponent*/}
+                console.log(selectedBlogData)
                 {selectedBlogId && (
                     <CardDetail blogData={selectedBlogData} onClose={handleCloseBlogDetail} />
                 )}

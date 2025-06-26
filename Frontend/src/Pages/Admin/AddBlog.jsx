@@ -1,147 +1,210 @@
 import { useState } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import logo from '../../assets/s60_logo.jpg';
 import axios from 'axios';
 import BACKEND_URL from '../../utils/axiosConfig';
 
 const AddBlog = () => {
-    const [showPassword, setShowPassword] = useState(false);
     const [message, setMessage] = useState('');
     const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        role: 'student',
+        title: '',
+        description: '',
+        image: null,
+        category: '',
+        tags: [],
+        newTag: '',
+        contentSections: [
+            { title: '', description: '' },
+        ]
     });
 
     const changeHandler = (e) => {
-        setFormData(prev => ({ 
+        const { name, value } = e.target;
+        setFormData(prev => ({
             ...prev,
-            [e.target.name]: e.target.value,
+            [name]: value,
         }));
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFormData(prev => ({ ...prev, image: file }));
+        }
+    };
+
+    const handleSectionChange = (index, field, value) => {
+        const newSections = [...formData.contentSections];
+        newSections[index][field] = value;
+        setFormData(prev => ({ ...prev, contentSections: newSections }));
+    };
+
+    const addSection = () => {
+        setFormData(prev => ({
+            ...prev,
+            contentSections: [...prev.contentSections, { title: '', description: '' }]
+        }));
+    };
+
+    const addTag = () => {
+        if (formData.newTag.trim() !== '') {
+            setFormData(prev => ({
+                ...prev,
+                tags: [...prev.tags, prev.newTag.trim()],
+                newTag: ''
+            }));
+        }
+    };
+
+    const removeTag = (index) => {
+        const newTags = [...formData.tags];
+        newTags.splice(index, 1);
+        setFormData(prev => ({ ...prev, tags: newTags }));
     };
 
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
+            const data = new FormData();
+            data.append('title', formData.title);
+            data.append('description', formData.description);
+            data.append('category', formData.category);
+            data.append('tags', JSON.stringify(formData.tags));
+            data.append('contentSections', JSON.stringify(formData.contentSections));
+            if (formData.image) {
+                data.append('image', formData.image);
+            }
+
             const res = await axios.post(
-                `${BACKEND_URL}/auth/register`,
-                formData,
+                `${BACKEND_URL}/blogs`,
+                data,
                 {
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`,
                     },
                 }
             );
             console.log(res.data);
-            setMessage(res.data.message);
-            // setFormData({
-            //     username: '',
-            //     email: '',
-            //     password: '',
-            //     role: 'student',
-            // });
+            setMessage('Blog created successfully!');
         } catch (err) {
             console.error(err);
-            setMessage(err.response?.data.message || 'Error adding user');
+            setMessage(err.response?.data.message || 'Error adding blog');
         }
     };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-white">
-            <div className="w-full max-w-xl p-8 md:p-16">
-                {/* Logo */}
+            <div className="w-full max-w-2xl p-8 md:p-12">
                 <div className="flex justify-center mb-10">
                     <img className="w-24" src={logo} alt="S60 Logo" />
                 </div>
 
                 <h2 className="mb-4 text-xl font-semibold text-center text-[#002277]">
-                    Add New User
+                    Add New Blog
                 </h2>
 
                 <form onSubmit={submitHandler} className="space-y-4">
-                    {/* Username */}
                     <input
                         type="text"
-                        placeholder="Username"
-                        name="username"
-                        value={formData.username}
+                        placeholder="Blog Title"
+                        name="title"
+                        value={formData.title}
                         onChange={changeHandler}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="w-full px-4 py-2 border border-gray-300 rounded"
                     />
 
-                    {/* Email */}
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        name="email"
-                        value={formData.email}
+                    <textarea
+                        placeholder="Blog Description"
+                        name="description"
+                        value={formData.description}
                         onChange={changeHandler}
                         required
-                        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="w-full px-4 py-2 border border-gray-300 rounded"
                     />
 
-                    {/* Password */}
-                    <div className="relative">
+                    <div>
+                        <label className="block mb-1 text-sm text-gray-700">Blog Image</label>
                         <input
-                            type={showPassword ? 'text' : 'password'}
-                            placeholder="Password"
-                            name="password"
-                            value={formData.password}
-                            onChange={changeHandler}
-                            required
-                            minLength={6}
-                            className="w-full px-4 py-2 pr-10 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded"
                         />
-                        <span
-                            onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-3 text-gray-500 cursor-pointer"
-                        >
-                            {showPassword ? <FaEyeSlash /> : <FaEye />}
-                        </span>
                     </div>
 
-                    {/* Role Select */}
-                    <select
-                        name="role"
-                        value={formData.role}
+                    <input
+                        type="text"
+                        placeholder="Category"
+                        name="category"
+                        value={formData.category}
                         onChange={changeHandler}
-                        className="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
-                        <option value="student">Student</option>
-                        <option value="admin">Admin</option>
-                    </select>
+                        className="w-full px-4 py-2 border border-gray-300 rounded"
+                    />
 
-                    {/* Message */}
-                    {message && (
-                        <div className="mt-2 flex items-center gap-2 text-sm text-red-600 px-3 animate-pulse">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5 text-red-500"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Tags</label>
+                        <div className="flex gap-2 mb-2">
+                            <input
+                                type="text"
+                                placeholder="Enter tag"
+                                name="newTag"
+                                value={formData.newTag}
+                                onChange={changeHandler}
+                                className="w-full px-4 py-2 border border-gray-300 rounded"
+                            />
+                            <button type="button" onClick={addTag} className="bg-blue-600 text-white px-3 py-1 rounded">+</button>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            {formData.tags.map((tag, index) => (
+                                <span key={index} className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">
+                                    {tag} <button type="button" onClick={() => removeTag(index)}>×</button>
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        <h3 className="font-medium">Content Sections</h3>
+                        {formData.contentSections.map((section, idx) => (
+                            <div key={idx} className="space-y-2">
+                                <input
+                                    type="text"
+                                    placeholder="Section Title"
+                                    value={section.title}
+                                    onChange={(e) => handleSectionChange(idx, 'title', e.target.value)}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded"
                                 />
-                            </svg>
-                            <span className="font-medium">{message}</span>
+                                <textarea
+                                    placeholder="Section Description"
+                                    value={section.description}
+                                    onChange={(e) => handleSectionChange(idx, 'description', e.target.value)}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded"
+                                />
+                            </div>
+                        ))}
+                        <button
+                            type="button"
+                            onClick={addSection}
+                            className="text-blue-500 text-sm"
+                        >
+                            + Add Section
+                        </button>
+                    </div>
+
+                    {message && (
+                        <div className="text-sm text-red-600 px-3">
+                            {message}
                         </div>
                     )}
 
-                    {/* Submit Button */}
                     <button
                         type="submit"
                         className="w-full bg-[#002277] hover:bg-blue-800 text-white px-4 py-2 rounded-md"
                     >
-                        Add User
+                        Submit Blog
                     </button>
                 </form>
             </div>
