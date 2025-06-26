@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import User from "./routes/User.js";
 import configDatabase from "./config/database.js";
 import cors from "cors";
+import studentRoutes from "./routes/student.js";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 // Routes
 app.use("/auth", User);
+app.use("/student", studentRoutes);
 
 // Root Route
 app.get("/", (req, res) => {

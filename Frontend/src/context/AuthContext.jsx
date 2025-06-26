@@ -1,31 +1,50 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [user, setUser] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
 
-    // 3. Login function
+    // Load user from localStorage on first render
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        const userData = localStorage.getItem("user");
+
+        if (token && userData) {
+            const parsedUser = JSON.parse(userData);
+            setIsAuthenticated(true);
+            setUser(parsedUser);
+            setIsAdmin(parsedUser.role === "admin");
+        }
+    }, []);
+
+    // Login function
     const login = (token, userData) => {
         setIsAuthenticated(true);
         setUser(userData);
+        setIsAdmin(userData.role === "admin");
+
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(userData));
     };
 
-    // 4. Logout function 
+    // Logout function
     const logout = () => {
         setIsAuthenticated(false);
         setUser(null);
+        setIsAdmin(false);
+
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     };
 
-    // 5. Values to share in context
+    // Context value
     const reqValues = {
         isAuthenticated,
         user,
+        isAdmin,
         login,
         logout,
     };

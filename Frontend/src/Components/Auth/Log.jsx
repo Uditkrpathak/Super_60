@@ -4,8 +4,8 @@ import { FaGoogle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import AuthImg from '../../assets/undraw_authentication_tbfc.svg';
 import logo from '../../assets/s60_logo.jpg';
 import ButtonWrapper from '../Button/ButtonWrapper';
-import AuthContext from '../../context/AuthProvider';
-import BACKEND_URL from '../../config';
+import AuthContext from '../../context/AuthContext';
+import BACKEND_URL from '../../utils/axiosConfig';
 import axios from 'axios';
 
 const Log = () => {
@@ -39,7 +39,8 @@ const Log = () => {
 
       const { message, token, userData } = (res.data);
       login(token, userData);
-      navigate('/');
+      
+      navigate(userData.role === 'admin' ? '/admin-dashboard' :'/student-profile');
 
     } catch (error) {
       setMessage(error.response?.data.message);

@@ -79,10 +79,10 @@ const AboutSection = () => {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen bg-gradient-to-br from-gray-50 to-white py-12 px-8 overflow-hidden"
+      className="relative min-h-screen items-center  py-36 px-8 overflow-hidden"
     >
       {/* Large S60 Background Text */}
-      <div className="absolute top-1/2 right-1/4 transform translate-x-1/3 -translate-y-1/2 pointer-events-none select-none">
+      {/* <div className="absolute top-1/2 right-1/4 transform translate-x-1/3 -translate-y-1/2 pointer-events-none select-none">
         <div 
           className="text-orange-200/30 font-black text-[40rem] leading-none tracking-tighter"
           style={{ 
@@ -92,7 +92,7 @@ const AboutSection = () => {
         >
           S60
         </div>
-      </div>
+      </div> */}
 
       {/* Floating Cursor Follower */}
       <div 
