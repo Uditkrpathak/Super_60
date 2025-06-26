@@ -1,7 +1,18 @@
 import React from 'react';
+import { useContext } from 'react';
 import { IoMdClose } from "react-icons/io";
+import AuthContext from '../../context/AuthContext';
+import axios from 'axios';
+import BACKEND_URL from '../../utils/axiosConfig';
+import BlogEditContext from '../../context/BlogEditContext';
+import { useNavigate } from 'react-router-dom';
 
 const CardDetail = ({ blogData, onClose }) => {
+
+  const {isAdmin} = useContext(AuthContext);
+  const { setBlogData } = useContext(BlogEditContext);
+
+
   if (!blogData) {
     return (
       <div className='fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 p-4'>
@@ -13,6 +24,25 @@ const CardDetail = ({ blogData, onClose }) => {
         </div>
       </div>
     );
+  }
+
+  const navigate = useNavigate();
+
+  const editHandler =()=>{
+    setBlogData(blogData);
+    navigate('/addBlog');
+  }
+
+  const deleteHandler =async()=>{
+
+    const token = localStorage.getItem('token');
+
+    const res = await axios.delete(`${BACKEND_URL}/blog/${blogData._id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    
   }
 
   return (
@@ -58,11 +88,15 @@ const CardDetail = ({ blogData, onClose }) => {
               className='bg-gray-50 border-l-4 border-orange-500 space-y-4 p-6 rounded-md shadow-sm'
             >
               <h3 className='text-lg font-semibold mb-1 text-gray-900'>
-                Q: {que.question}
+                {que.question}
               </h3>
               <p className='text-gray-700'>Ans: {que.answer}</p>
             </div>
           ))}
+          {isAdmin && (<div className='flex items-center justify-between'>
+            <button onClick={editHandler} className='px-4 py-2 bg-blue-500 text-white rounded'>Edit this BLog</button>
+            <button onClick={deleteHandler} className='px-4 py-2 bg-red-500 text-white rounded'>Delete this BLog</button>
+          </div>)}
         </div>
       </div>
     </div>
