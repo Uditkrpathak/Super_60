@@ -169,8 +169,8 @@ const StudentCard = ({ student }) => {
         {/* Top Image Section */}
         <div className="relative h-48">
           <img
-            src={student.image}
-            alt={student.name}
+            src={student.profileImage}
+            alt={student.profileImage}
             className="object-cover w-full h-full"
           />
           <div className="absolute px-3 py-1 text-xs font-semibold text-white bg-[#002277] rounded-md shadow-md top-2 left-2">
@@ -186,15 +186,15 @@ const StudentCard = ({ student }) => {
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2 text-gray-700">
               <FaTools className="text-gray-600" />
-              <span>{student.skills.length} Skills</span>
+              {/* <span>{student.skills.length} Skills</span> */}
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <FaMedal className="text-yellow-600" />
-              <span>{student.achievements} Achievements</span>
+              {/* <span>{student.achievements} Achievements</span> */}
             </div>
             <div className="flex items-center gap-2 text-gray-700">
               <FaFolderOpen className="text-blue-600" />
-              <span>{student.projects} Projects</span>
+              {/* <span>{student.projects} Projects</span> */}
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@ const StudentCard = ({ student }) => {
             <div className="flex flex-col md:flex-row gap-8">
               {/* Left Column */}
               <div className="md:w-1/3 w-full">
-                <img src={student.image} alt={student.name} className="rounded-xl mb-4" />
+                <img src={student.profileImage} alt={student.profileImage} className="rounded-xl mb-4" />
 
                 <div className="flex items-center justify-between">
                   <span className="text-sm bg-[#002277] text-white px-3 py-1 inline-block rounded-md">
