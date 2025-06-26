@@ -4,6 +4,7 @@ import CardDetail from '../Components/blog/CardDetail';
 import BlogData from '../assets/data/blogData';
 import { BlogFilterProvider } from '../context/BlogFilterContext';
 import HeroSection from '../Components/hero/HeroSection';
+import JoinUs from '../Components/JoinUs/JoinUs';
 
 const Blogs = () => {
     const [selectedBlogId, setSelectedBlogId] = useState(null);
@@ -21,8 +22,14 @@ const Blogs = () => {
     const selectedBlogData = BlogData.find(blog => blog.id === selectedBlogId);
 
     return (
-        <div>
-            <HeroSection heading1={'More Than a Community'} heading2={'The Super 60'} subHeading={'An elite circle of creators, coders, and changemakers shaping the future together.'} badge={'CheckEvents Now'} />
+        <>
+            <HeroSection
+                heading1={"Dive Into Knowledge"} 
+                heading2={"The Super 60 Blog"} 
+                subHeading={"An elite circle of creators, coders, and changemakers sharing insights, innovations, and the journey shaping the future together."} 
+                badge={"Explore Articles"}
+                badgeLink={"#latest-articles"}
+            />
 
             <BlogFilterProvider>
                 <div className='container mt-32'>
@@ -35,7 +42,11 @@ const Blogs = () => {
                     <CardDetail blogData={selectedBlogData} onClose={handleCloseBlogDetail} />
                 )}
             </BlogFilterProvider>
-        </div>
+
+        <div className='mt-10'>
+                    <JoinUs />
+            </div>
+        </>
 
     );
 };

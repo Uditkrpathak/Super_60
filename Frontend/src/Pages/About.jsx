@@ -1,6 +1,8 @@
-import React from 'react'
+
 import Batch from '../Components/About/Batch.jsx' 
+import WorkingModel from '../Components/About/Workingmodel.jsx'
 import HeroSection from "../Components/hero/HeroSection"
+import JoinUs from '../Components/JoinUs/JoinUs.jsx'
 const About = () => {
   return (
     <div>
@@ -8,6 +10,9 @@ const About = () => {
    
      <HeroSection heading1={'Where Excellence Begins'} heading2={'Super60'} subHeading={'Empowering Future Leaders Through Passion, Purpose, and Excellence'}  />
  <Batch/>
+ <WorkingModel/>
+
+<JoinUs />
   </div>
   )
 }

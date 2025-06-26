@@ -9,7 +9,7 @@ const testimonials = [
     text: "The curriculum designed by The Uniques Community bridges the gap between academic learning and industry requirements perfectly...",
     name: "Dr. Rajesh Sharma",
     position: "Professor of Computer Science, IIT Delhi",
-    image: "https://randomuser.me/api/portraits/men/11.jpg",
+    image: "https://c8.alamy.com/comp/HTC3WJ/happy-asian-elementary-school-student-studying-in-classroom-looking-HTC3WJ.jpg",
   },
   {
     category: "Skill Enhancement",

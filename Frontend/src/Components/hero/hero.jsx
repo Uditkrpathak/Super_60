@@ -1,42 +1,94 @@
-import HeroBg from "./backgrounds/herobg";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+// import HeroBg from "./backgrounds/herobg";
+
+const lines = [
+  "Shaping Tech Leaders.",
+];
+
+const typeWords = ["Code.", "Build.", "Lead.", "Together."];
+
+const typeSpeed = 170; // ms per character
+const wordDelay = 700; // ms between words
 
 const Hero = () => {
+  
+
+  // Typewriter state for the second line
+  const [displayed, setDisplayed] = useState("");
+  const [wordIdx, setWordIdx] = useState(0);
+  const [charIdx, setCharIdx] = useState(0);
+
+  useEffect(() => {
+    let timeout;
+    if (charIdx < typeWords[wordIdx].length) {
+      timeout = setTimeout(() => {
+        setDisplayed(typeWords[wordIdx].slice(0, charIdx + 1));
+        setCharIdx(charIdx + 1);
+      }, typeSpeed);
+    } else {
+      timeout = setTimeout(() => {
+        setCharIdx(0);
+        setWordIdx((wordIdx + 1) % typeWords.length);
+        setDisplayed("");
+      }, wordDelay);
+    }
+    return () => clearTimeout(timeout);
+  }, [charIdx, wordIdx]);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-8 overflow-hidden">
-        {/* Background Animation */}
-     <HeroBg />
-      <div className="max-w-6xl w-full z-10 pt-32">
+    <section
+      className="relative min-h-screen flex items-center justify-left px-48 overflow-hidden"
+      
+    >
+
+      {/* Background Animation */}
+      
+
+      <div className="max-w-8xl w-full z-10 pt-32">
         {/* Section Tagline */}
-        <p className="text-lg text-gray-500 mb-6 font-large ">
-          <span className="bg-white/40 rounded-lg">The </span><span className="text-orange-600 font-semibold bg-white/40 rounded-lg ">Super60</span> <span className="bg-white/40 rounded-lg">Community</span>
-        </p>    
+        <p className="text-5xl text-gray-500 mb-6">
+          <span className="bg-white/40 rounded-lg px-2 py-1">The </span>
+          <span className="text-orange-600 font-semibold bg-white/40 rounded-lg px-2 py-1">
+            Super60
+          </span>{" "}
+          <span className="bg-white/40 rounded-lg px-2 py-1">Community</span>
+        </p>
 
-        {/* Hero Headline with Orange Block */}
+        {/* Animated Hero Headline */}
         <div className="relative inline-block">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold leading-tight text-black bg-white/40 rounded-lgbreak-words">
-            A Community of Coders,
-            <br />
-            Creators & Achievers.
+          <h1 className="font-montserrat text-5xl sm:text-6xl md:text-8xl leading-tight text-black bg-white/40 rounded-lg py-2 break-words">
+            {lines.map((line, i) => (
+              <motion.span
+                key={i}
+                className="block"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: i * 0.8, duration: 0.7 }}
+              >
+                {line}
+              </motion.span>
+            ))}
+            <span className="block text-orange-600 min-h-[2.5rem]">
+              {displayed}
+              <span className="animate-pulse">|</span>
+            </span>
           </h1>
+        </div>
 
-          {/* Orange Diamond */ }
-                {/* <div className="absolute right-[-70px] top-6 rotate-45 bg-orange-500 w-20 h-20 z-0">
-                <p className="absolute -rotate-45 text-xs text-black font-medium top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  Super60
-                </p>
-                </div> */}
-              </div>
-
-              {/* Subheadline */}
-        <p className="mt-6 text-gray-700 text-lg max-w-2xl bg-white/40 rounded-lg">
-          Unlock your true potential with the <span className="text-orange-600 font-semibold">Super60</span> Community — immersive learning, real-world projects, and a culture of excellence.
+        {/* Subheadline */}
+        <p className="mt-6 text-gray-700 text-lg max-w-2xl bg-white/40 rounded-lg px-4 py-2">
+          Beyond classrooms and curriculums —{" "}
+          <span className="text-orange-600 font-semibold">Super60</span> builds
+          future-ready developers through purpose, passion, and people.
         </p>
 
         {/* CTA Button */}
-        <button className="mt-10 px-6 py-3 bg-blue-900 text-white rounded-full text-sm font-medium hover:bg-blue-800 transition">
+        <button className="mt-10 px-6 py-3 bg-blue-900 text-white rounded-full text-sm font-medium hover:bg-blue-800 transition-colors duration-300">
           Join Us
         </button>
       </div>
+      {/* Scrolling Text Bar */}
 
     </section>
   );

@@ -135,7 +135,7 @@
 
 // export default StudentCard;
 
-import React, { useState } from "react";
+import { useContext, useState } from "react";
 import {
   FaGithub,
   FaLinkedinIn,
@@ -145,9 +145,22 @@ import {
   FaMedal,
   FaFolderOpen,
 } from "react-icons/fa";
+import AuthContext from "../../context/AuthContext";
+import StudentEditContext from "../../context/StudentEditContext";
+import { useNavigate } from "react-router-dom";
 
 const StudentCard = ({ student }) => {
   const [showModal, setShowModal] = useState(false);
+
+  const { isAdmin } = useContext(AuthContext);
+  const { setStudentProfile } = useContext(StudentEditContext);
+
+  const navigate = useNavigate()
+
+  const editHandler=(student)=>{
+    setStudentProfile(student);
+    navigate('/editstudentprofile');
+  }
 
   return (
     <>
@@ -223,9 +236,18 @@ const StudentCard = ({ student }) => {
               {/* Left Column */}
               <div className="md:w-1/3 w-full">
                 <img src={student.image} alt={student.name} className="rounded-xl mb-4" />
-                <span className="text-sm bg-[#002277] text-white px-3 py-1 inline-block rounded-md">
-                  {student.batch}
-                </span>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-sm bg-[#002277] text-white px-3 py-1 inline-block rounded-md">
+                    {student.batch}
+                  </span>
+                  {isAdmin && (
+                    <button onClick={() => editHandler(student)} className="text-sm bg-[#002277] text-white px-3 py-1 inline-block rounded-md">
+                    Edit Profile
+                  </button>
+                  )}
+
+                </div>
                 <h2 className="text-xl font-bold mt-2">{student.name}</h2>
                 <p className="text-sm text-gray-500">{student.branch}</p>
 
