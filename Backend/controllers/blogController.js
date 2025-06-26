@@ -47,10 +47,6 @@ export const getBlogs = async (req, res) => {
 };
 
 
-// controllers/blogController.js
-import Blog from "../models/Blog.js"; // Assuming your Mongoose Blog model
-import { v2 as cloudinary } from 'cloudinary'; // Import cloudinary for deleting old images
-
 export const updateBlog = async (req, res) => {
     try {
         const { id } = req.params; // Get the blog ID from the URL parameter
