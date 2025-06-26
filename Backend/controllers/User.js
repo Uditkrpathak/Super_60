@@ -71,12 +71,6 @@ export const registerUser = async (req, res) => {
         user: newUser._id,
         email: newUser.email,
         name: newUser.username,
-        branch: "",
-        batch: "",
-        image: "",
-        skills: [],
-        projects: 0,
-        achievements: 0,
       });
 
       await newStudent.save();
