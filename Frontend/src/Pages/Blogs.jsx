@@ -11,6 +11,8 @@ import BACKEND_URL from '../utils/axiosConfig';
 
 const Blogs = () => {
 
+    const [allBlogs,setAllBlogs] = useState();
+
     useEffect(()=>{
         const token = localStorage.getItem("token");
 
@@ -22,6 +24,7 @@ const Blogs = () => {
                     },
                   });
                 console.log(res.data);
+                setAllBlogs(res.data);
             } catch (err) {
                 console.error("Error fetching blogs:", err.message);
             }
@@ -61,7 +64,6 @@ const Blogs = () => {
                 </div>
 
                 {/*BlogComponent*/}
-                console.log(selectedBlogData)
                 {selectedBlogId && (
                     <CardDetail blogData={selectedBlogData} onClose={handleCloseBlogDetail} />
                 )}
