@@ -1,112 +1,257 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
+import Glass_rdbg from "./glass_roadmap_bg/glass_rdbg";
+import { AnimatePresence, motion } from "framer-motion";
 
 const sectionData = [
   {
     id: "top-left",
-    title: "Web Design",
+    title: "Fundamentals of Design & Editing",
     description:
-      "From your ideas into a working prototype in Figma. Share your ideas with us, and we'll do the rest.",
-    customStyle: { marginTop: "0rem" }, // 🠔 Default
+      "From ideas to polished designs — Figma, branding, and editing essentials.",
+    customStyle: { marginTop: "0rem" },
     items: [
-      { title: "Analyzing & Researching", badge: null, x: "0rem", width: "90%" },
-      { title: "Mapping", badge: "+ Revisions", x: "2rem", width: "90%" },
-      { title: "Analyzing & Researching", badge: null, x: "-3rem", width: "90%" },
-      { title: "Mapping", badge: "+ Revisions", x: "2rem", width: "90%" },
+      {
+        title: "Graphic Design Basics",
+        badge: null,
+        x: "0rem",
+        width: "90%",
+        description: "Learn the basics of graphic design.",
+      },
+      {
+        title: "Video Editing Fundamentals",
+        badge: "+ Revisions",
+        x: "2rem",
+        width: "90%",
+        description: "Master Adobe Premiere Pro and DaVinci Resolve basics.",
+      },
+      {
+        title: "Marketing & Engagement",
+        badge: null,
+        x: "-3rem",
+        width: "90%",
+        description: "Understand how to reach audiences effectively.",
+      },
+      {
+        title: "Real-World Application",
+        badge: "+ Revisions",
+        x: "2rem",
+        width: "90%",
+        description: "Apply your skills to real client-based tasks.",
+      },
     ],
   },
   {
     id: "top-right",
-    title: "Web Development",
+    title: "Web Development Training Model",
     description:
-      "From your design into a performant website. Share your design with us, and we'll do the rest.",
-    customStyle: { marginTop: "35rem" }, // 🠔 Push it lower
+      "Build from scratch to production-ready — HTML to frameworks with hands-on projects.",
+    customStyle: { marginTop: "35rem" },
     items: [
-      { title: "Planning", badge: "+ Revisions", x: "3rem", width: "85%" },
-      { title: "Coding", badge: null, x: "0rem", width: "90%" },
-      { title: "Planning", badge: "+ Revisions", x: "3rem", width: "85%" },
-      { title: "Coding", badge: null, x: "0rem", width: "90%" },
+      {
+        title: "HTML, CSS, & JavaScript",
+        badge: "+ Revisions",
+        x: "3rem",
+        width: "85%",
+        description: "Learn to build and style modern web pages.",
+      },
+      {
+        title: "Responsive Design",
+        badge: null,
+        x: "0rem",
+        width: "90%",
+        description: "Make your websites adaptable to all screens.",
+      },
+      {
+        title: "Frameworks & Tools",
+        badge: "+ Revisions",
+        x: "3rem",
+        width: "85%",
+        description: "Explore React, Tailwind, and version control with Git.",
+      },
+      {
+        title: "Client-Ready Projects",
+        badge: null,
+        x: "0rem",
+        width: "90%",
+        description: "Deploy polished apps for real-world users.",
+      },
     ],
   },
   {
     id: "bottom-left",
-    title: "Super60 Culture",
+    title: "Branding & Identity Design",
     description:
-      "Learn, build and grow inside a peer-led high-performance community. Technical skills meet real-world challenges.",
-    customStyle: { marginTop: "2rem" }, // 🠔 Offset it slightly
+      "Creating memorable digital identities that connect with real audiences.",
+    customStyle: { marginTop: "2rem" },
     items: [
-      { title: "Peer Learning", badge: "+ Sessions", x: "1.5rem", width: "88%" },
-      { title: "Real Projects", badge: null, x: "0rem", width: "95%" },
-      { title: "Peer Learning", badge: "+ Sessions", x: "1.5rem", width: "88%" },
-      { title: "Real Projects", badge: null, x: "0rem", width: "95%" },
+      {
+        title: "Peer Learning",
+        badge: "+ Sessions",
+        x: "1.5rem",
+        width: "88%",
+        description: "Learn through collaboration and feedback.",
+      },
+      {
+        title: "Real Projects",
+        badge: null,
+        x: "0rem",
+        width: "95%",
+        description: "Design logos, kits, and materials for real clients.",
+      },
     ],
   },
   {
     id: "bottom-right",
-    title: "Event Management",
+    title: "Event Management & Public Execution",
     description:
-      "Handling tech events, public speaking, and execution from the core. Grow beyond code.",
-    customStyle: { marginTop: "35rem" }, // 🠔 Pull it up slightly
+      "Lead, coordinate, and execute high-impact tech events inside and outside campus.",
+    customStyle: { marginTop: "35rem" },
     items: [
-      { title: "C++ Workshop", badge: "+ Coordination", x: "2rem", width: "90%" },
-      { title: "SkillUp Sessions", badge: "+ Feedback", x: "1rem", width: "85%" },
-      { title: "C++ Workshop", badge: "+ Coordination", x: "2rem", width: "90%" },
-      { title: "SkillUp Sessions", badge: "+ Feedback", x: "1rem", width: "85%" },
+      {
+        title: "C++ Workshop",
+        badge: "+ Coordination",
+        x: "2rem",
+        width: "90%",
+        description: "Organize and teach technical workshops.",
+      },
+      {
+        title: "SkillUp Sessions",
+        badge: "+ Feedback",
+        x: "1rem",
+        width: "85%",
+        description: "Plan, run, and review learning events.",
+      },
     ],
   },
 ];
 
-const DesignPath = () => {
+const GlassRoadmap = () => {
+  const sectionRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [expanded, setExpanded] = useState({}); // key: `${section.id}-${index}`
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowH = window.innerHeight;
+      let p = 1 - Math.min(Math.max(rect.top / windowH, 0), 1);
+      setProgress(p);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleToggle = (sectionId, idx) => {
+    const key = `${sectionId}-${idx}`;
+    setExpanded((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
   return (
-    <div className="min-h-screen w-full bg-orange-400 text-black px-4 py-20 relative overflow-hidden">
-      <div>
-        <h1 className="flex items-center justify-center w-full m-auto">Roadmap ruk jao update krunga</h1>
+    <div
+      ref={sectionRef}
+      className="relative min-h-screen w-full bg-orange-600 text-black px-4 py-20 overflow-hidden transition-colors duration-700"
+    >
+      <Glass_rdbg progress={progress} />
+
+      {/* Title */}
+      <div className="text-center mb-24 z-10 relative">
+        <h1 className="text-5xl md:text-6xl font-extrabold font-[Montserrat] text-white">
+          The Super60 Roadmap
+        </h1>
+        <p className="mt-4 text-lg text-orange-100 font-[Roboto]">
+          A structured journey through design, development, leadership, and delivery.
+        </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-12 max-w-9xl ">
+
+      {/* Grid Sections */}
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-20 max-w-7xl mx-auto relative z-10">
         {sectionData.map((section) => (
           <div
             key={section.id}
-            className="flex flex-col items-center px-40"
-            style={section.customStyle || {}}
+            className="flex flex-col relative px-6 md:px-12"
+            style={section.customStyle}
           >
-            {/* Section Heading */}
-            <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-5xl font-bold mb-2">{section.title}</h2>
-              <p className="text-gray-300 text-lg max-w-xl ">
+            {/* Line + Dot */}
+            <div className="absolute left-0 top-0 h-full w-1 bg-white/20 rounded-full">
+              <div className="w-4 h-4 rounded-full bg-white border-2 border-orange-300 absolute -left-1 top-0" />
+            </div>
+
+            {/* Section Title */}
+            <div className="mb-10 pl-6">
+              <h2 className="text-3xl md:text-4xl font-bold font-[Montserrat] text-white">
+                {section.title}
+              </h2>
+              <p className="text-orange-100 text-md mt-2 font-[Roboto] max-w-lg">
                 {section.description}
               </p>
             </div>
 
-            {/* Steps */}
-            <div className="flex flex-col items-start gap-6 w-full relative z-10">
-              {section.items.map((step, index) => (
-                <div
-                  key={index}
-                  className={`relative bg-gradient-to-r from-[#6a11cb] to-[#2575fc] p-4 pl-6 pr-6 rounded-xl shadow-lg flex items-center justify-between transition-all duration-300 hover:scale-[1.02]`}
-                  style={{
-                    marginLeft: step.x || "0rem",
-                    width: step.width || "90%",
-                    boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
-                  }}
-                >
-                  <div className="flex flex-col">
-                    <span className="text-white text-lg font-semibold">
-                      {step.title}
-                    </span>
-                    {step.badge && (
-                      <span className="text-pink-200 text-sm mt-1">
-                        {step.badge}
-                      </span>
-                    )}
+            {/* Items */}
+            <div className="flex flex-col gap-6 relative ml-6">
+              {section.items.map((step, index) => {
+                const key = `${section.id}-${index}`;
+                const isOpen = expanded[key];
+                return (
+                  <div
+                    key={key}
+                    className={`relative bg-white/10 backdrop-blur-md border border-white/20 text-white p-4 pl-6 pr-6 rounded-xl shadow-md transition-all duration-300 hover:scale-[1.02] cursor-pointer`}
+                    style={{
+                      marginLeft: step.x || "0rem",
+                      width: step.width || "90%",
+                    }}
+                    onClick={() => handleToggle(section.id, index)}
+                  >
+                    {/* Title & Badge */}
+                    <div className="flex flex-col font-[DM Sans]">
+                      <span className="text-base font-semibold">{step.title}</span>
+                      {step.badge && (
+                        <span className="text-orange-200 text-sm mt-1">{step.badge}</span>
+                      )}
+                    </div>
+
+                    {/* Plus icon animated */}
+                    <motion.div
+                      animate={{ rotate: isOpen ? 45 : 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute right-4 top-4 text-xl font-light select-none"
+                    >
+                      +
+                    </motion.div>
+
+                    {/* Description Expandable */}
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto", marginTop: "1rem" }}
+                          exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                          transition={{ duration: 0.4, ease: "easeInOut" }}
+                        >
+                          <p className="text-orange-100 text-sm font-[Roboto]">
+                            {step.description ||
+                              "This is a detailed description for this step. You can customize this per item."}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <div className="text-white text-2xl font-light">+</div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ))}
       </div>
+
+      {/* Vertical Center Line */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/10 z-0" />
     </div>
   );
 };
 
-export default DesignPath;
+export default GlassRoadmap;

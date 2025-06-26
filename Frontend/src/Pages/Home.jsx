@@ -10,6 +10,7 @@ import GlassRoadmap from "../Components/Home_Components/glass_roadmap";
 import Easter from '../Components/carousal/EasterCarousel'
 import HeroBg from '../Components/hero/backgrounds/herobg'
 import Carousel from "../Components/Home_Components/Carousal";
+import Test from "../Components/Home_Components/test";
 
 const S60_OPACITY = 0.13; // Fixed opacity
 
@@ -71,7 +72,9 @@ const Home = () => {
         <div>
           <Carousel />
         </div>
+        <div className="flex justify-center items-center w-full"><Test/></div>
         <div>
+          
           <About_section />
         </div>
 

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-
+// import MaskUrl from "./leadership_heading.svg"
 const AboutSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -50,31 +50,24 @@ const AboutSection = () => {
     }
   ];
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (sectionRef.current) {
-        const rect = sectionRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        });
-      }
+  // const containerRef = useRef(null);
+  // const circleRef = useRef(null);
 
-      if (titleRef.current) {
-        const rect = titleRef.current.getBoundingClientRect();
-        setOrbPosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        });
-      }
-    };
+  // useEffect(() => {
+  //   const handleMouseMove = (e) => {
+  //     const rect = containerRef.current.getBoundingClientRect();
+  //     const x = e.clientX - rect.left;
+  //     const y = e.clientY - rect.top;
+  //     circleRef.current.style.transform = `translate(${x}px, ${y}px)`;
+  //   };
 
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, []);
+  //   const container = containerRef.current;
+  //   container.addEventListener("mousemove", handleMouseMove);
+
+  //   return () => {
+  //     container.removeEventListener("mousemove", handleMouseMove);
+  //   };
+  // }, []);
 
   return (
     <section 
@@ -117,7 +110,7 @@ const AboutSection = () => {
             </p>
           </div>
           
-          <div className="relative" ref={titleRef}>
+          <div className="relative px-32" ref={titleRef}>
             {/* Hover Orb Effect */}
             {/* <div 
               className={`absolute pointer-events-none transition-opacity duration-500 ${
@@ -139,6 +132,9 @@ const AboutSection = () => {
               </div>
             </div> */}
 
+
+            
+            {/* About heading */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-6">
               The{" "}
               <span 
@@ -163,7 +159,7 @@ const AboutSection = () => {
                 <br />
                 Bravely,{" "}
                 <span 
-                  className="text-green-600 hover:text-green-700 transition-colors duration-300 cursor-default"
+                  className="text-gray-600 hover:text-gray-700 transition-colors duration-300 cursor-default"
                   onMouseEnter={() => setHoveredCard('achieve')}
                   onMouseLeave={() => setHoveredCard(null)}
                 >
@@ -172,6 +168,28 @@ const AboutSection = () => {
                 Exceptionally.
               </span>
             </h2>
+             {/* <div className="relative w-[864px] h-[375px]  overflow-hidden bg-[rgba(55,53,65,0.08)]"
+                    style={{
+                    WebkitMaskImage: `url(${MaskUrl})`,
+                    maskImage: `url(${MaskUrl})`,
+                    WebkitMaskRepeat: "no-repeat",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskSize: "cover",
+                    maskSize: "cover",
+                    }}
+                     ref={containerRef}
+                >
+                  <div
+                    ref={circleRef}
+                    className="absolute w-[200px] h-[200px] rounded-full pointer-events-none transition-transform duration-200"
+                    style={{
+                      background: "radial-gradient(circle at center, #ffce55, #ff6848, transparent 80%)"
+                    }}
+                  />
+                </div> */}
+
+
+
           </div>
 
           <div className="max-w-3xl mx-auto">
