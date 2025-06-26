@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import BatchTabs from "./BatchTabs";
 import StudentCard from "./StudentCard";
+import { useEffect } from "react";
+import axios from 'axios';
+import BACKEND_URL from "../../utils/axiosConfig";
 
 const allStudents = [
   {
@@ -97,6 +100,29 @@ const allStudents = [
 
 
 const BatchesPage = () => {
+
+  const [students, setStudents] = useState([]);
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const res = await axios.get(`${BACKEND_URL}/student/all`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res.data)
+        setStudents(res.data);
+      } catch (err) {
+        console.error("Error fetching students:", err);
+      }
+    };
+
+    fetchStudents();
+  }, []);
+
   const [selectedBatch, setSelectedBatch] = useState("All Batches");
 
   const filteredStudents =
@@ -114,6 +140,9 @@ const BatchesPage = () => {
       <BatchTabs selected={selectedBatch} setSelected={setSelectedBatch} />
 
       <div className="flex flex-wrap justify-center gap-6 mt-10">
+        {students.map((student, idx) => (
+          <StudentCard key={idx} student={student} />
+        ))}
         {filteredStudents.map((student, idx) => (
           <StudentCard key={idx} student={student} />
         ))}

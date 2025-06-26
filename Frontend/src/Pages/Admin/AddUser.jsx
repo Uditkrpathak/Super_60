@@ -35,14 +35,14 @@ const AddUser = () => {
                     },
                 }
             );
-            console.log('User created:', res.data);
-            setMessage('User successfully added ✅');
-            setFormData({
-                username: '',
-                email: '',
-                password: '',
-                role: 'student',
-            });
+            console.log(res.data);
+            setMessage(res.data.message);
+            // setFormData({
+            //     username: '',
+            //     email: '',
+            //     password: '',
+            //     role: 'student',
+            // });
         } catch (err) {
             console.error(err);
             setMessage(err.response?.data.message || 'Error adding user');

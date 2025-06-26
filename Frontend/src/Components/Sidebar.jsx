@@ -105,7 +105,7 @@ const Sidebar = ({ onClose }) => {
   const handleLogout = () => {
     logout();
     handleClose();
-    navigate('/login');
+    navigate('/');
   };
 
   return (
