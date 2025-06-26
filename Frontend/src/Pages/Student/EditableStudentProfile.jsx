@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import StudentEditContext from "../../context/StudentEditContext";
 import BACKEND_URL from "../../utils/axiosConfig";
 import axios from "axios";
+import AuthContext from "../../context/AuthContext";
 
 const EditableStudentProfile = () => {
-    const { studentToEdit } = useContext(StudentEditContext);
+    const { studentProfile, setStudentProfile } = useContext(StudentEditContext);
+
+    const {isAdmin} = useContext(AuthContext);
+
+
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -22,22 +27,22 @@ const EditableStudentProfile = () => {
     const token = localStorage.getItem("token");
 
     useEffect(() => {
-        if (!studentToEdit) {
+        if (!studentProfile) {
             navigate('/batches');
             return ;
         }
 
         setFormData({
-            name: studentToEdit.name || "",
-            email: studentToEdit.email || "",
-            branch: studentToEdit.branch || "",
-            batch: studentToEdit.batch || "",
-            achievements: studentToEdit.achievements || "",
-            projects: studentToEdit.projects || "",
-            skills: studentToEdit.skills || [],
-            image: studentToEdit.image || "",
+            name: studentProfile.name || "",
+            email: studentProfile.email || "",
+            branch: studentProfile.branch || "",
+            batch: studentProfile.batch || "",
+            achievements: studentProfile.achievements || "",
+            projects: studentProfile.projects || "",
+            skills: studentProfile.skills || [],
+            image: studentProfile.image || "",
         });
-    }, [studentToEdit, navigate]);
+    }, [studentProfile, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,7 +59,7 @@ const EditableStudentProfile = () => {
         e.preventDefault();
         try {
             const res = await axios.put(
-                `${BACKEND_URL}/student/${studentToEdit._id}`,
+                `${BACKEND_URL}/student/${studentProfile._id}`,
                 formData,
                 {
                     headers: {
@@ -62,8 +67,9 @@ const EditableStudentProfile = () => {
                     },
                 }
             );
-            console.log("Updated:", res.data);
-            navigate("/batches");
+            console.log( res.data);
+            setStudentProfile(res.data);
+            navigate(isAdmin?"/batches":"/student-profile");
         } catch (error) {
             console.error("Update failed:", error?.response?.data?.message || error.message);
         }
@@ -73,14 +79,14 @@ const EditableStudentProfile = () => {
         e.preventDefault();
         try {
             const res = await axios.delete(
-                `${BACKEND_URL}/student/${studentToEdit._id}`,
+                `${BACKEND_URL}/student/${studentProfile.user}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 }
             );
-            console.log(res);
+            console.log(res.data);
             navigate("/batches");
         } catch (error) {
             console.error("Delete failed:", error?.response?.data?.message || error.message);
@@ -128,12 +134,14 @@ const EditableStudentProfile = () => {
                             >
                                 Save Changes
                             </button>
+                            {isAdmin && (
                             <button
                                 onClick={handleDelete}
                                 className="bg-red-500 text-white px-4 py-2 rounded-md"
                             >
                                 Delete Profile
                             </button>
+                            )}
                 </div>
             </form>
         </div>

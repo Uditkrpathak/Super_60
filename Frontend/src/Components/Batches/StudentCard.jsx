@@ -153,12 +153,12 @@ const StudentCard = ({ student }) => {
   const [showModal, setShowModal] = useState(false);
 
   const { isAdmin } = useContext(AuthContext);
-  const { setStudentToEdit } = useContext(StudentEditContext);
+  const { setStudentProfile } = useContext(StudentEditContext);
 
   const navigate = useNavigate()
 
   const editHandler=(student)=>{
-    setStudentToEdit(student);
+    setStudentProfile(student);
     navigate('/editstudentprofile');
   }
 

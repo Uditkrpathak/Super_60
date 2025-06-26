@@ -50,23 +50,23 @@ function App() {
           </ProtectedAdminRoute>
         } />
 
-       
+
         <Route path="/editstudentprofile" element={
           <ProtectedStudentRoute>
             <EditableStudentProfile />
           </ProtectedStudentRoute>
         } />
         <Route
-  path="/student-profile"
-  element={
-    <ProtectedStudentRoute>
-      <StudentProfile />
-    </ProtectedStudentRoute>
-  }
-/>
-        <Route path="*" element={<PageNotFound/>} />
+          path="/student-profile"
+          element={
+            <ProtectedStudentRoute>
+              <StudentProfile />
+            </ProtectedStudentRoute>
+          }
+        />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
