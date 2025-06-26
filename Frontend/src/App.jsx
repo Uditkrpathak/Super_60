@@ -21,6 +21,8 @@ import AdminDashboard from './Pages/Admin/AdminDashboard';
 import StudentProfile from './Components/Auth/StudentProfile';
 import EditableStudentProfile from './Pages/Student/EditableStudentProfile';
 import AddUser from './Pages/Admin/AddUser';
+import AddBlog from './Pages/Admin/AddBlog';
+import AddEvent from './Pages/Admin/AddEvent';
 
 function App() {
   return (
@@ -44,9 +46,20 @@ function App() {
             <AdminDashboard />
           </ProtectedAdminRoute>
         } />
+
         <Route path="/addUser" element={
           <ProtectedAdminRoute>
             <AddUser />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/addBlog" element={
+          <ProtectedAdminRoute>
+            <AddBlog />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/addEvent" element={
+          <ProtectedAdminRoute>
+            <AddEvent />
           </ProtectedAdminRoute>
         } />
 

@@ -43,7 +43,7 @@ const StudentProfile = () => {
         <div className="items-center gap-10 p-8 bg-white shadow-md rounded-2xl md:flex">
           {/* Profile Avatar */}
           <div className="flex justify-center md:block">
-            <FaUserCircle className="text-[#002277] w-32 h-32 mx-auto md:mx-0" />
+            {studentProfile && <img src={studentProfile.image} />}
           </div>
 
           {/* User Details */}
