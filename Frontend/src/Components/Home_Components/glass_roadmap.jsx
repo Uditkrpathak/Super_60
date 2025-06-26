@@ -9,8 +9,8 @@ const sectionData = [
     customStyle: { marginTop: "0rem" }, // 🠔 Default
     items: [
       { title: "Analyzing & Researching", badge: null, x: "0rem", width: "90%" },
-      { title: "Analyzing & Researching", badge: null, x: "0rem", width: "90%" },
       { title: "Mapping", badge: "+ Revisions", x: "2rem", width: "90%" },
+      { title: "Analyzing & Researching", badge: null, x: "-3rem", width: "90%" },
       { title: "Mapping", badge: "+ Revisions", x: "2rem", width: "90%" },
     ],
   },
@@ -19,7 +19,7 @@ const sectionData = [
     title: "Web Development",
     description:
       "From your design into a performant website. Share your design with us, and we'll do the rest.",
-    customStyle: { marginTop: "5rem" }, // 🠔 Push it lower
+    customStyle: { marginTop: "35rem" }, // 🠔 Push it lower
     items: [
       { title: "Planning", badge: "+ Revisions", x: "3rem", width: "85%" },
       { title: "Coding", badge: null, x: "0rem", width: "90%" },
@@ -45,7 +45,7 @@ const sectionData = [
     title: "Event Management",
     description:
       "Handling tech events, public speaking, and execution from the core. Grow beyond code.",
-    customStyle: { marginTop: "-1rem" }, // 🠔 Pull it up slightly
+    customStyle: { marginTop: "35rem" }, // 🠔 Pull it up slightly
     items: [
       { title: "C++ Workshop", badge: "+ Coordination", x: "2rem", width: "90%" },
       { title: "SkillUp Sessions", badge: "+ Feedback", x: "1rem", width: "85%" },
@@ -58,17 +58,20 @@ const sectionData = [
 const DesignPath = () => {
   return (
     <div className="min-h-screen w-full bg-orange-400 text-black px-4 py-20 relative overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-12 max-w-7xl mx-auto">
+      <div>
+        <h1 className="flex items-center justify-center w-full m-auto">Roadmap ruk jao update krunga</h1>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-12 max-w-9xl ">
         {sectionData.map((section) => (
           <div
             key={section.id}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center px-40"
             style={section.customStyle || {}}
           >
             {/* Section Heading */}
             <div className="text-center mb-8">
               <h2 className="text-4xl md:text-5xl font-bold mb-2">{section.title}</h2>
-              <p className="text-gray-300 text-lg max-w-xl mx-auto">
+              <p className="text-gray-300 text-lg max-w-xl ">
                 {section.description}
               </p>
             </div>
