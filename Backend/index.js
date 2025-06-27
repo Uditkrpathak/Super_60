@@ -5,6 +5,7 @@ import configDatabase from "./config/database.js";
 import cors from "cors";
 import studentRoutes from "./routes/student.js";
 import blogRoutes from "./routes/blog.js";
+import eventRoutes from "./routes/Event.js";
 
 dotenv.config();
 
@@ -21,7 +22,8 @@ app.use(express.json());
 // Routes
 app.use("/auth", User);
 app.use("/student", studentRoutes);
-app.use('/blog',blogRoutes)
+app.use('/blog',blogRoutes);
+app.use('/event',eventRoutes);
 
 // Root Route
 app.get("/", (req, res) => {
