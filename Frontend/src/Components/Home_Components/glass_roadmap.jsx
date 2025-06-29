@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-// import Glass_rdbg from "./glass_roadmap_bg/glass_rdbg";
+import Glass_rdbg from "./glass_roadmap_bg/glass_rdbg";
 import { AnimatePresence, motion } from "framer-motion";
 
 const sectionData = [
@@ -156,7 +156,7 @@ const GlassRoadmap = () => {
       ref={sectionRef}
       className="relative w-full min-h-screen px-4 py-20 overflow-hidden text-black transition-colors duration-700 bg-orange-600"
     >
-      {/* <Glass_rdbg progress={progress} /> */}
+      <Glass_rdbg progress={progress} />
 
       {/* Title */}
       <div className="relative z-10 mb-24 text-center">
