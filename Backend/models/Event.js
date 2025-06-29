@@ -20,22 +20,23 @@ const GuestSchema = new mongoose.Schema(
   { _id: false } 
 );
 
-// Gallery image sub-schema
-const GalleryImageSchema = new mongoose.Schema(
+const OrganizerSchema = new mongoose.Schema(
   {
-    url: {
-      type: String,
-      required: true, // A gallery image must have a URL
-      trim: true,
-    },
-    public_id: {
-      // Crucial for deleting images from Cloudinary
+    name: {
       type: String,
       required: true,
       trim: true,
     },
+    role: {
+      type: String,
+      trim: true,
+    },
+    batch: {
+      type: String,
+      trim: true,
+    },
   },
-  { _id: false } 
+  { _id: false }
 );
 
 const EventSchema = new mongoose.Schema(
@@ -68,18 +69,22 @@ const EventSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["upcoming", "Completed", "Live"], 
+      enum: ["upcoming", "completed", "ongoing"],
       default: "upcoming",
     },
     about: {
       type: String,
       trim: true,
     },
-    guests: [GuestSchema], 
-    gallery: [GalleryImageSchema],
+    gallery: {
+      type: String,
+      trim: true,
+    },
+    guests: [GuestSchema],
+    organizers: [OrganizerSchema],
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
