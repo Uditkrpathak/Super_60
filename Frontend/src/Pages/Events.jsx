@@ -47,8 +47,15 @@ const Events = () => {
   const filteredEvents = allEvents.filter(event => {
     const nameMatch = event.title.toLowerCase().includes(filterEvent.name.toLowerCase());
     const typeMatch = filterEvent.type === "All" || event.type === filterEvent.type;
-    const monthMatch = filterEvent.month === "All" || event.month === filterEvent.month;
-    const yearMatch = filterEvent.year === "All" || event.year === filterEvent.year;
+
+    const eventDate = new Date(event.date); 
+    const eventMonth = eventDate.toLocaleString("default", { month: "long" });
+    const eventYear = eventDate.getFullYear().toString();
+
+    const monthMatch = filterEvent.month === "All" || eventMonth === filterEvent.month;
+    const yearMatch = filterEvent.year === "All" || eventYear === filterEvent.year;
+
+
     return nameMatch && typeMatch && monthMatch && yearMatch;
   });
 
