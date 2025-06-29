@@ -8,11 +8,11 @@ const GuestSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    designation: {
+    role: {
       type: String,
       trim: true,
     },
-    imageUrl: {
+    organization: {
       type: String,
       trim: true,
     },
@@ -62,10 +62,12 @@ const EventSchema = new mongoose.Schema(
     },
     image: {
       type: String,
+      trim: true,
     },
     mainImagePublicId: {
       // Crucial for deleting the main image from Cloudinary
       type: String,
+      trim: true,
     },
     status: {
       type: String,

@@ -1,7 +1,7 @@
 import express from "express";
 import verifyAdmin from "../middlewares/verifyAdmin.js";
 import verifyToken from "../middlewares/verifyToken.js";
-import upload from "../middlewares/upload.js";
+import singleUpload from "../middlewares/singleUpload.js";
 import {
   createEvent,
   getEvents,
@@ -12,8 +12,20 @@ import {
 const router = express.Router();
 
 router.get("/",getEvents);
-router.post("/", verifyToken, verifyAdmin, upload,createEvent);
-router.put("/:id", verifyToken, verifyAdmin, upload,updateEvent);
+router.post(
+  "/",
+  verifyToken,
+  verifyAdmin,
+  singleUpload.single("image"),
+  createEvent
+);
+router.put(
+  "/:id",
+  verifyToken,
+  verifyAdmin,
+  singleUpload.single("image"),
+  updateEvent
+);
 router.delete("/:id", verifyToken, verifyAdmin,deleteEvent);
 
 export default router;

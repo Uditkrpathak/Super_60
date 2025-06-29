@@ -1,211 +1,278 @@
-import { useState } from 'react';
-import axios from 'axios';
-import BACKEND_URL from '../../utils/axiosConfig';
-import logo from '../../assets/s60_logo.jpg';
+import { useContext, useEffect, useState } from "react";
+import EventEditContext from "../../context/EventEditContext";
+import axios from "axios";
+import BACKEND_URL from "../../utils/axiosConfig";
+import { useNavigate } from "react-router-dom";
 
 const AddEvent = () => {
+    const { EventData, setEventData } = useContext(EventEditContext);
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
-        title: '',
-        type: '',
-        date: '',
-        description: '',
-        about: '',
-        status: 'Upcoming',
-        gallery: '', // Back to a single string for a link
+        title: "",
+        type: "",
+        date: "",
+        description: "",
+        about: "",
+        gallery: "",
+        guests: [],
+        organizers: [],
+        status: "upcoming",
     });
 
-    const [guests, setGuests] = useState([{ name: '', designation: '', imageFile: null, preview: null }]);
-    const [organizers, setOrganizers] = useState([{ name: '', role: '', batch: '' }]);
-    const [mainImage, setMainImage] = useState(null);
-    const [mainPreview, setMainPreview] = useState(null);
+    const [image, setImage] = useState(null);
+    const [previewUrl, setPreviewUrl] = useState(null);
 
-
-    const [message, setMessage] = useState('');
-
-    const handleInputChange = (e) => {
-        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    };
-
-    const handleMainImage = (e) => {
-        const file = e.target.files[0];
-        setMainImage(file);
-        if (file) setMainPreview(URL.createObjectURL(file));
-        else setMainPreview(null);
-    };
-
-    const handleGuestChange = (index, e) => {
-        const updated = [...guests];
-        if (e.target.name === 'imageFile') {
-            const file = e.target.files[0];
-            updated[index].imageFile = file;
-            updated[index].preview = file ? URL.createObjectURL(file) : null;
-        } else {
-            updated[index][e.target.name] = e.target.value;
+    useEffect(() => {
+        if (EventData) {
+            setFormData({
+                title: EventData.title || "",
+                type: EventData.type || "",
+                date: EventData.date?.slice(0, 10) || "",
+                description: EventData.description || "",
+                about: EventData.about || "",
+                gallery: EventData.gallery || "",
+                guests: EventData.guests || [],
+                organizers: EventData.organizers || [],
+                status: EventData.status || "upcoming",
+            });
+            setPreviewUrl(EventData.image || null);
         }
-        setGuests(updated);
+    }, [EventData]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleOrganizerChange = (index, e) => {
-        const updated = [...organizers];
-        updated[index][e.target.name] = e.target.value;
-        setOrganizers(updated);
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+        if (file) {
+            setPreviewUrl(URL.createObjectURL(file));
+        }
     };
 
-    const addGuest = () => setGuests([...guests, { name: '', designation: '', imageFile: null, preview: null }]);
-    const removeGuest = (i) => setGuests(guests.filter((_, idx) => idx !== i));
-    const addOrganizer = () => setOrganizers([...organizers, { name: '', role: '', batch: '' }]);
-    const removeOrganizer = (i) => setOrganizers(organizers.filter((_, idx) => idx !== i));
+    const handleGuestChange = (index, field, value) => {
+        const updated = [...formData.guests];
+        updated[index][field] = value;
+        setFormData({ ...formData, guests: updated });
+    };
+
+    const addGuest = () => {
+        setFormData((prev) => ({
+            ...prev,
+            guests: [...prev.guests, { name: "", role: "", organization: "" }],
+        }));
+    };
+
+    const handleOrganizerChange = (index, field, value) => {
+        const updated = [...formData.organizers];
+        updated[index][field] = value;
+        setFormData({ ...formData, organizers: updated });
+    };
+
+    const addOrganizer = () => {
+        setFormData((prev) => ({
+            ...prev,
+            organizers: [...prev.organizers, { name: "", role: "", batch: "" }],
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const form = new FormData();
+        const token = localStorage.getItem("token");
 
-        for (const key in formData) {
-            // Append all formData fields, including 'gallery' now that it's a string
-            form.append(key, formData[key]);
-        }
-
-        if (mainImage) {
-            form.append('image', mainImage);
-        } else {
-            setMessage('Main event banner image is required.');
-            return;
-        }
-
-        // Prepare guests data:
-        const guestsWithImageInfo = [];
-        guests.forEach((guest) => {
-            const guestData = {
-                name: guest.name,
-                designation: guest.designation,
-            };
-            if (guest.imageFile) {
-                form.append('guestImages', guest.imageFile);
-                guestData.hasImage = true;
+        const data = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+            if (key === "guests" || key === "organizers") {
+                data.append(key, JSON.stringify(value));
             } else {
-                guestData.hasImage = false;
+                data.append(key, value);
             }
-            guestsWithImageInfo.push(guestData);
         });
-        form.append('guests', JSON.stringify(guestsWithImageInfo));
-
-        // Append organizers data
-        form.append('organizers', JSON.stringify(organizers));
+        if (image) data.append("image", image);
 
         try {
-            const token = localStorage.getItem('token');
-            const res = await axios.post(`${BACKEND_URL}/event`, form, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-            setMessage('✅ Event created successfully');
-            // Optional: Reset form fields after successful submission
-            setFormData({
-                title: '', type: '', date: '', description: '', about: '', status: 'Upcoming', gallery: '',
-            });
-            setGuests([{ name: '', designation: '', imageFile: null, preview: null }]);
-            setOrganizers([{ name: '', role: '', batch: '' }]);
-            setMainImage(null);
-            setMainPreview(null);
+            if (EventData) {
+                await axios.put(`${BACKEND_URL}/event/${EventData._id}`, data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+            } else {
+                await axios.post(`${BACKEND_URL}/event`, data, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+            }
+
+            setEventData(null);
+            navigate("/events");
         } catch (err) {
-            console.error("Frontend Create Event Error:", err);
-            setMessage(err.response?.data?.message || 'Failed to create event. Please check console for details.');
+            console.error("Error saving event:", err.message);
         }
     };
 
     return (
-        <div className="min-h-screen flex justify-center items-start bg-white px-4 py-8">
-            <div className="w-full max-w-3xl p-6 border rounded-md shadow">
-                <div className="flex justify-center mb-6">
-                    <img className="w-20" src={logo} alt="S60 Logo" />
+        <div className="max-w-3xl mx-auto mt-20 p-6">
+            <h1 className="text-2xl font-bold mb-4">{EventData ? "Edit" : "Create"} Event</h1>
+            <form onSubmit={handleSubmit} className="space-y-4">
+
+                <input
+                    type="text"
+                    name="title"
+                    placeholder="Event Title"
+                    value={formData.title}
+                    onChange={handleChange}
+                    className="w-full border p-2 rounded"
+                    required
+                />
+
+                <input
+                    type="text"
+                    name="type"
+                    placeholder="Type (e.g., Webinar)"
+                    value={formData.type}
+                    onChange={handleChange}
+                    className="w-full border p-2 rounded"
+                    required
+                />
+
+                <input
+                    type="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleChange}
+                    className="w-full border p-2 rounded"
+                    required
+                />
+
+                <textarea
+                    name="description"
+                    placeholder="Short Description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    className="w-full border p-2 rounded"
+                    rows={3}
+                    required
+                />
+
+                <textarea
+                    name="about"
+                    placeholder="About the Event"
+                    value={formData.about}
+                    onChange={handleChange}
+                    className="w-full border p-2 rounded"
+                    rows={3}
+                />
+
+                <input
+                    type="text"
+                    name="gallery"
+                    placeholder="Gallery Info (Optional)"
+                    value={formData.gallery}
+                    onChange={handleChange}
+                    className="w-full border p-2 rounded"
+                />
+
+                {/* Status Dropdown */}
+                <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    className="w-full p-2 border rounded"
+                    required
+                >
+                    <option value="upcoming">Upcoming</option>
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                </select>
+
+                {/* Image Upload */}
+                <input type="file" accept="image/*" onChange={handleImageChange} />
+                {previewUrl && (
+                    <img src={previewUrl} alt="Preview" className="w-full h-56 object-cover mt-2 rounded" />
+                )}
+
+                {/* Guests Section */}
+                <div>
+                    <h2 className="font-semibold mb-1">Guests</h2>
+                    {formData.guests.map((guest, index) => (
+                        <div key={index} className="flex flex-col md:flex-row gap-2 mb-2">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={guest.name}
+                                onChange={(e) => handleGuestChange(index, "name", e.target.value)}
+                                className="flex-1 border p-2 rounded"
+                                required
+                            />
+                            <input
+                                type="text"
+                                placeholder="Role"
+                                value={guest.role}
+                                onChange={(e) => handleGuestChange(index, "role", e.target.value)}
+                                className="flex-1 border p-2 rounded"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Organization"
+                                value={guest.organization}
+                                onChange={(e) => handleGuestChange(index, "organization", e.target.value)}
+                                className="flex-1 border p-2 rounded"
+                            />
+                        </div>
+                    ))}
+                    <button type="button" onClick={addGuest} className="text-blue-600 mt-1 text-sm">
+                        + Add Guest
+                    </button>
                 </div>
 
-                <h2 className="text-2xl font-semibold text-center mb-4 text-blue-800">Add New Event</h2>
+                {/* Organizers Section */}
+                <div>
+                    <h2 className="font-semibold mb-1 mt-4">Organizers</h2>
+                    {formData.organizers.map((org, index) => (
+                        <div key={index} className="flex flex-col md:flex-row gap-2 mb-2">
+                            <input
+                                type="text"
+                                placeholder="Name"
+                                value={org.name}
+                                onChange={(e) => handleOrganizerChange(index, "name", e.target.value)}
+                                className="flex-1 border p-2 rounded"
+                                required
+                            />
+                            <input
+                                type="text"
+                                placeholder="Role"
+                                value={org.role}
+                                onChange={(e) => handleOrganizerChange(index, "role", e.target.value)}
+                                className="flex-1 border p-2 rounded"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Batch"
+                                value={org.batch}
+                                onChange={(e) => handleOrganizerChange(index, "batch", e.target.value)}
+                                className="flex-1 border p-2 rounded"
+                            />
+                        </div>
+                    ))}
+                    <button type="button" onClick={addOrganizer} className="text-blue-600 mt-1 text-sm">
+                        + Add Organizer
+                    </button>
+                </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <input name="title" value={formData.title} onChange={handleInputChange} placeholder="Event Title" required className="input" />
-                    <select name="type" value={formData.type} onChange={handleInputChange} required className="input">
-                        <option value="">Select Type</option>
-                        <option value="Workshop">Workshop</option>
-                        <option value="Seminar">Seminar</option>
-                        <option value="Webinar">Webinar</option>
-                        <option value="Conference">Conference</option>
-                        <option value="Competition">Competition</option>
-                        <option value="Cultural">Cultural</option>
-                        <option value="Sports">Sports</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <input type="date" name="date" value={formData.date} onChange={handleInputChange} required className="input" />
-                    <textarea name="description" value={formData.description} onChange={handleInputChange} placeholder="Description" required className="input" />
-                    <textarea name="about" value={formData.about} onChange={handleInputChange} placeholder="About" className="input" />
-                    <select name="status" value={formData.status} onChange={handleInputChange} className="input">
-                        <option value="Upcoming">Upcoming</option>
-                        <option value="Ongoing">Ongoing</option>
-                        <option value="Completed">Completed</option>
-                        <option value="Cancelled">Cancelled</option>
-                        <option value="Live">Live</option>
-                        <option value="Postponed">Postponed</option>
-                    </select>
-
-                    {/* Gallery Input (Text Link) */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Gallery Link (e.g., Google Photos, Flickr album URL)</label>
-                        <input name="gallery" value={formData.gallery} onChange={handleInputChange} placeholder="Enter gallery URL (optional)" className="input" type="text" />
-                    </div>
-
-                    {/* Main Image */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Main Banner Image *</label>
-                        <input type="file" onChange={handleMainImage} accept="image/*" required className="input" name='image' />
-                        {mainPreview && (
-                            <img src={mainPreview} alt="Main Preview" className="mt-2 h-32 rounded object-cover shadow" />
-                        )}
-                    </div>
-
-                    {/* Guests */}
-                    <div className="space-y-3 p-4 border rounded-md bg-gray-50">
-                        <h3 className="font-semibold text-blue-700">Guest Speakers</h3>
-                        {guests.map((g, i) => (
-                            <div key={i} className="grid grid-cols-1 md:grid-cols-4 gap-2 items-end border-b pb-3 mb-3">
-                                <input name="name" placeholder="Name" value={g.name} onChange={(e) => handleGuestChange(i, e)} className="input" required />
-                                <input name="designation" placeholder="Designation" value={g.designation} onChange={(e) => handleGuestChange(i, e)} className="input" />
-                                <div>
-                                    <label className="block text-xs font-medium text-gray-600 mb-1">Image</label>
-                                    <input name="imageFile" type="file" accept="image/*" onChange={(e) => handleGuestChange(i, e)} className="input text-sm" />
-                                    {g.preview && <img src={g.preview} alt="Guest Preview" className="h-16 w-16 rounded object-cover mt-1" />}
-                                </div>
-                                <div className="flex items-center justify-end">
-                                    <button type="button" onClick={() => removeGuest(i)} className="text-red-600 text-sm hover:underline">Remove Guest</button>
-                                </div>
-                            </div>
-                        ))}
-                        <button type="button" onClick={addGuest} className="text-blue-600 text-sm hover:underline mt-2">+ Add Guest</button>
-                    </div>
-
-                    {/* Organizers */}
-                    <div className="space-y-3 p-4 border rounded-md bg-gray-50">
-                        <h3 className="font-semibold text-blue-700">Organizers</h3>
-                        {organizers.map((o, i) => (
-                            <div key={i} className="grid grid-cols-1 md:grid-cols-4 gap-2 items-end border-b pb-3 mb-3">
-                                <input name="name" placeholder="Name" value={o.name} onChange={(e) => handleOrganizerChange(i, e)} className="input" required />
-                                <input name="role" placeholder="Role" value={o.role} onChange={(e) => handleOrganizerChange(i, e)} className="input" />
-                                <input name="batch" placeholder="Batch" value={o.batch} onChange={(e) => handleOrganizerChange(i, e)} className="input" />
-                                <div className="flex items-center justify-end">
-                                    <button type="button" onClick={() => removeOrganizer(i)} className="text-red-600 text-sm hover:underline">Remove Organizer</button>
-                                </div>
-                            </div>
-                        ))}
-                        <button type="button" onClick={addOrganizer} className="text-blue-600 text-sm hover:underline mt-2">+ Add Organizer</button>
-                    </div>
-
-                    {/* Message */}
-                    {message && <p className={`text-center ${message.startsWith('✅') ? 'text-green-600' : 'text-red-500'} mt-4`}>{message}</p>}
-
-                    <button type="submit" className="w-full bg-blue-700 text-white py-2 rounded hover:bg-blue-800">Submit Event</button>
-                </form>
-            </div>
+                <button
+                    type="submit"
+                    className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+                >
+                    {EventData ? "Update Event" : "Create Event"}
+                </button>
+            </form>
         </div>
     );
 };
