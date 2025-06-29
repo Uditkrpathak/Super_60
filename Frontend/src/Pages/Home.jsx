@@ -11,7 +11,7 @@ import Carousel from "../Components/Home_Components/Carousal";
 import MemberDirectory from "../Components/Batches/MemberDirectory";
 import GlassRoadmap from "../Components/Home_Components/glass_roadmap";
 import SectionHeader from "../Components/Section/SectionHeader";
-import BatchesPage from "../Components/Batches/BatchesPage";
+
 
 
 
@@ -37,8 +37,8 @@ title= "Discover the brilliance within"
 subtitle= "Super 60 Talent Collective"
 color= "#002277" 
   />
-  {/* <MemberDirectory/> */}
-  <BatchesPage/>
+  <MemberDirectory/>
+ 
 </div>
 <GlassRoadmap/>
 <Achievments/>
