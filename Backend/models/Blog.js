@@ -37,21 +37,6 @@ const blogSchema = new mongoose.Schema(
                 },
             },
         ],
-        faq: [
-            {
-                question: {
-                    type: String,
-                    trim: true,
-                },
-                answer: {
-                    type: String,
-                },
-            },
-        ],
-        read_time_minutes: { 
-            type: Number,
-        },
-
         createdAt: {
             type: Date,
             default: Date.now,

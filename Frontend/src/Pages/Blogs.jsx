@@ -112,7 +112,7 @@ const Blogs = () => {
                     //     Authorization: `Bearer ${token}`,
                     // },
                 });
-                setAllBlogs(res.data);
+                setAllBlogs(res.data.blogs);
             } catch (err) {
                 console.error("Error fetching blogs:", err.message);
                 setErrorBlogs("Failed to load blogs. Please try again later.");
@@ -157,6 +157,7 @@ const Blogs = () => {
                 badgeLink={"#latest-articles"}
             />
 
+            <div className='mx-auto w-full flex items-center justify-center'>
             {/* Pass allBlogs to BlogFilterProvider */}
             <BlogFilterProvider blogs={allBlogs}>
                 <div className='container mt-32'>
@@ -168,6 +169,9 @@ const Blogs = () => {
                     <CardDetail blogData={selectedBlogData} onClose={handleCloseBlogDetail} />
                 )}
             </BlogFilterProvider>
+
+            </div>
+
 
             <div className='mt-10'>
                 <JoinUs />

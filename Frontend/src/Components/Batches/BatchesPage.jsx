@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BatchTabs from "./BatchTabs";
 import StudentCard from "./StudentCard";
 import { useEffect } from "react";
@@ -113,7 +113,6 @@ const BatchesPage = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log(res.data)
         setStudents(res.data);
       } catch (err) {
         console.error("Error fetching students:", err);
@@ -127,8 +126,8 @@ const BatchesPage = () => {
 
   const filteredStudents =
     selectedBatch === "All Batches"
-      ? allStudents
-      : allStudents.filter((s) => s.batch === selectedBatch);
+      ? students
+      : students.filter((s) => s.batch === selectedBatch);
 
   return (
     <div className="p-6">
@@ -140,9 +139,6 @@ const BatchesPage = () => {
       <BatchTabs selected={selectedBatch} setSelected={setSelectedBatch} />
 
       <div className="flex flex-wrap justify-center gap-6 mt-10">
-        {students.map((student, idx) => (
-          <StudentCard key={idx} student={student} />
-        ))}
         {filteredStudents.map((student, idx) => (
           <StudentCard key={idx} student={student} />
         ))}
