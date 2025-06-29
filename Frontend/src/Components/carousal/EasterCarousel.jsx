@@ -4,17 +4,17 @@ import "./EasterCarousel.css"; // Import the custom CSS for animation
 const easterItems = [
   {
   
-    img: "https://images.pexels.com/photos/635699/pexels-photo-635699.jpeg",
+    img: "https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rAWGbiBcYnIQDTmzWgy0bcOvPRLxFCXr97NJo",
     
   },
   {
   
-    img: "https://images.pexels.com/photos/7168798/pexels-photo-7168798.jpeg",
+    img: "https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rHptqDVpF2pQE4PFU7NAMVr6YeWicz5h1KuJt",
  
   },
   {
     
-    img: "https://images.pexels.com/photos/4099179/pexels-photo-4099179.jpeg",
+    img: "https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rSSl9pOoaFDA2LEeO4I3rP8jBzJb7cltWkQRY",
     
   },
   {

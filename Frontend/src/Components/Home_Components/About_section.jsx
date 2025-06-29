@@ -135,39 +135,23 @@ const AboutSection = () => {
 
             
             {/* About heading */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-6">
-              The{" "}
-              <span 
-                className="text-orange-500 relative inline-block transition-all duration-300 hover:scale-110 cursor-default"
-                onMouseEnter={() => setHoveredCard('title')}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                Super60
-                <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-orange-600 transform scale-x-0 transition-transform duration-300 group-hover:scale-x-100"></div>
-              </span>{" "}
-              Batch –
-              <br />
-              <span className="relative">
-                Learn Boldly,{" "}
-                <span 
-                  className="text-blue-600 hover:text-blue-700 transition-colors duration-300 cursor-default"
-                  onMouseEnter={() => setHoveredCard('compete')}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  Compete
-                </span>
-                <br />
-                Bravely,{" "}
-                <span 
-                  className="text-gray-600 hover:text-gray-700 transition-colors duration-300 cursor-default"
-                  onMouseEnter={() => setHoveredCard('achieve')}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  Achieve
-                </span>{" "}
-                Exceptionally.
-              </span>
-            </h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-gray-900 mb-6 text-center">
+  The{" "}
+  <span
+    className="relative inline-block text-orange-500 transition-transform duration-300 hover:scale-105 cursor-default"
+    onMouseEnter={() => setHoveredCard("title")}
+    onMouseLeave={() => setHoveredCard(null)}
+  >
+    Super60
+    <div className="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-orange-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+  </span>{" "}
+  Community
+  <br />
+  <span className="block mt-2 text-lg sm:text-xl md:text-2xl font-medium text-orange-500">
+    Where Ambition Meets Action.
+  </span>
+</h2>
+
              {/* <div className="relative w-[864px] h-[375px]  overflow-hidden bg-[rgba(55,53,65,0.08)]"
                     style={{
                     WebkitMaskImage: `url(${MaskUrl})`,

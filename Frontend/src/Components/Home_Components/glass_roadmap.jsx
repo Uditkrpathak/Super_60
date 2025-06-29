@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import Glass_rdbg from "./glass_roadmap_bg/glass_rdbg";
+// import Glass_rdbg from "./glass_roadmap_bg/glass_rdbg";
 import { AnimatePresence, motion } from "framer-motion";
 
 const sectionData = [
@@ -154,12 +154,12 @@ const GlassRoadmap = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen w-full bg-orange-600 text-black px-4 py-20 overflow-hidden transition-colors duration-700"
+      className="relative w-full min-h-screen px-4 py-20 overflow-hidden text-black transition-colors duration-700 bg-orange-600"
     >
-      <Glass_rdbg progress={progress} />
+      {/* <Glass_rdbg progress={progress} /> */}
 
       {/* Title */}
-      <div className="text-center mb-24 z-10 relative">
+      <div className="relative z-10 mb-24 text-center">
         <h1 className="text-5xl md:text-6xl font-extrabold font-[Montserrat] text-white">
           The Super60 Roadmap
         </h1>
@@ -169,20 +169,20 @@ const GlassRoadmap = () => {
       </div>
 
       {/* Grid Sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-20 max-w-7xl mx-auto relative z-10">
+      <div className="relative z-10 grid grid-cols-1 grid-rows-2 gap-20 mx-auto md:grid-cols-2 max-w-7xl">
         {sectionData.map((section) => (
           <div
             key={section.id}
-            className="flex flex-col relative px-6 md:px-12"
+            className="relative flex flex-col px-6 md:px-12"
             style={section.customStyle}
           >
             {/* Line + Dot */}
-            <div className="absolute left-0 top-0 h-full w-1 bg-white/20 rounded-full">
-              <div className="w-4 h-4 rounded-full bg-white border-2 border-orange-300 absolute -left-1 top-0" />
+            <div className="absolute top-0 left-0 w-1 h-full rounded-full bg-white/20">
+              <div className="absolute top-0 w-4 h-4 bg-white border-2 border-orange-300 rounded-full -left-1" />
             </div>
 
             {/* Section Title */}
-            <div className="mb-10 pl-6">
+            <div className="pl-6 mb-10">
               <h2 className="text-3xl md:text-4xl font-bold font-[Montserrat] text-white">
                 {section.title}
               </h2>
@@ -192,7 +192,7 @@ const GlassRoadmap = () => {
             </div>
 
             {/* Items */}
-            <div className="flex flex-col gap-6 relative ml-6">
+            <div className="relative flex flex-col gap-6 ml-6">
               {section.items.map((step, index) => {
                 const key = `${section.id}-${index}`;
                 const isOpen = expanded[key];
@@ -210,7 +210,7 @@ const GlassRoadmap = () => {
                     <div className="flex flex-col font-[DM Sans]">
                       <span className="text-base font-semibold">{step.title}</span>
                       {step.badge && (
-                        <span className="text-orange-200 text-sm mt-1">{step.badge}</span>
+                        <span className="mt-1 text-sm text-orange-200">{step.badge}</span>
                       )}
                     </div>
 
@@ -218,7 +218,7 @@ const GlassRoadmap = () => {
                     <motion.div
                       animate={{ rotate: isOpen ? 45 : 0 }}
                       transition={{ duration: 0.3 }}
-                      className="absolute right-4 top-4 text-xl font-light select-none"
+                      className="absolute text-xl font-light select-none right-4 top-4"
                     >
                       +
                     </motion.div>
@@ -249,7 +249,7 @@ const GlassRoadmap = () => {
       </div>
 
       {/* Vertical Center Line */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/10 z-0" />
+      <div className="absolute top-0 bottom-0 z-0 w-1 left-1/2 bg-white/10" />
     </div>
   );
 };

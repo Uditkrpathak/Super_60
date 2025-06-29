@@ -5,7 +5,7 @@ import cloudinary from "../config/cloudinary.js";
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: async (req, file) => {
-    return {
+    return { 
       folder: "super60_blogs",
       public_id: `blog_${Date.now()}`,
       format: "jpeg",

@@ -222,7 +222,7 @@ const Achievement = () => {
 
       <section 
         ref={sectionRef}
-        className="relative py-24 bg-gradient-to-br overflow-hidden"
+        className="relative py-2 px-10 gap-10 bg-gradient-to-br overflow-hidden"
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -231,7 +231,7 @@ const Achievement = () => {
 
         {/* Floating Geometric Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-32 h-32 border border-orange-200 rounded-full opacity-20 animate-pulse" />
+          <div className="absolute top-20 left-10 w-28 h-28 border border-orange-200 rounded-full opacity-20 animate-pulse" />
           <div className="absolute bottom-32 right-16 w-24 h-24 border-2 border-blue-200 rotate-45 opacity-15 animate-bounce" />
           <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-orange-300 rounded-full opacity-30 animate-ping" />
         </div>
@@ -263,14 +263,14 @@ const Achievement = () => {
           </div>
 
           {/* Achievement Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {achievements.map((achievement, index) => (
               <div
                 key={achievement.id}
                 className={`achievement-card glass-effect rounded-2xl p-8 text-center hover-lift group ${!isVisible ? 'opacity-0' : ''}`}
               >
                 {/* Icon */}
-                <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${achievement.color} text-white mb-6 icon-glow group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br ${achievement.color} text-white mb-6 icon-glow group-hover:scale-110 transition-transform duration-300`}>
                   {achievement.icon}
                 </div>
 
