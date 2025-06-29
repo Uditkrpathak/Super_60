@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import BlogComp from '../Components/blog/BlogComp'
 import CardDetail from '../Components/blog/CardDetail';
 import BlogData from '../assets/data/blogData';
@@ -11,7 +11,7 @@ import BACKEND_URL from '../utils/axiosConfig';
 
 const Blogs = () => {
 
-    const [allBlogs,setAllBlogs] = useState();
+    const [allBlogs,setAllBlogs] = useState([]);
 
     useEffect(()=>{
         const token = localStorage.getItem("token");

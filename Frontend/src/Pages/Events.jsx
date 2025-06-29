@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import EventCards from "../Components/EventCards/EventCards";
 import HeroSection from "../Components/hero/HeroSection";
 import SlidingEventDetails from "../Components/EventCards/SlidingEventDetails";
 import JoinUs from "../Components/JoinUs/JoinUs";
+import BACKEND_URL from "../utils/axiosConfig";
+import axios from "axios";
 
 // Dummy data
 const dummyData = [
@@ -120,6 +122,28 @@ const dummyData = [
 const Events = () => {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const [allEvents, setAllEvents] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${BACKEND_URL}/event`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log(res.data);
+        setAllEvents(res.data);
+      } catch (err) {
+        console.error("Error fetching blogs:", err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const [filterEvent, setFilterEvent] = useState({
     name: '',
