@@ -112,7 +112,6 @@ const Blogs = () => {
                     //     Authorization: `Bearer ${token}`,
                     // },
                 });
-                console.log("Fetched blogs:", res.data); // Log to see the fetched structure
                 setAllBlogs(res.data);
             } catch (err) {
                 console.error("Error fetching blogs:", err.message);

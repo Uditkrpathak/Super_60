@@ -3,16 +3,18 @@ import logo from '../../assets/s60_logo.jpg';
 import axios from 'axios';
 import BACKEND_URL from '../../utils/axiosConfig';
 import BlogEditContext from '../../context/BlogEditContext';
+import { useNavigate } from 'react-router-dom';
 
 const AddBlog = () => {
-    const { BlogData, setBlogData } = useContext(BlogEditContext); // Assuming setBlogData is used to clear context
-    const [message, setMessage] = useState('');
+    const { BlogData, setBlogData } = useContext(BlogEditContext); 
 
-    // Define the initial empty state structure
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate(); // Initialize useNavigate
+
     const initialFormData = {
         title: '',
         description: '',
-        image: null, // Will hold the File object for new uploads
+        image: null, // Will hold File object or image URL string
         category: '',
         tags: [],
         newTag: '',
@@ -24,37 +26,57 @@ const AddBlog = () => {
     const [formData, setFormData] = useState(initialFormData);
     const [previewImage, setPreviewImage] = useState(null); // Holds URL for image preview
 
-    // Effect to load blog data for editing and set initial preview
+    // Effect to populate form when BlogData from context changes (for editing)
     useEffect(() => {
-        if (BlogData) {
-            // Map BlogData to formData structure
+        console.log("AddBlog - BlogData from context:", BlogData); // Debugging log
+        if (BlogData && Object.keys(BlogData).length > 0) {
+            const {
+                title = '',
+                description = '',
+                image = null, // This will be the URL string from the backend
+                category = '',
+                tags = [],
+                sections = [], // Backend might send 'sections', frontend uses 'contentSections'
+                _id
+            } = BlogData;
+
             setFormData({
-                title: BlogData.title || '',
-                description: BlogData.description || '',
-                image: BlogData.image || null, // This would be the URL from the backend
-                category: BlogData.category || '',
-                tags: BlogData.tags || [],
-                newTag: '', // Always start newTag as empty
-                contentSections: BlogData.sections && BlogData.sections.length > 0
-                    ? BlogData.sections
-                    : [{ heading: '', content: '' }], // Ensure at least one section
-                _id: BlogData._id, // Keep the ID for update operations
+                title,
+                description,
+                image, // Set initial image to the URL string
+                category,
+                tags: Array.isArray(tags) ? tags : [],
+                newTag: '', // Clear newTag field when loading existing data
+                // Ensure contentSections is always an array
+                contentSections: Array.isArray(sections) && sections.length > 0
+                    ? sections // Use 'sections' from backend if available
+                    : [{ heading: '', content: '' }], // Default empty section if not
+                _id // Keep the ID for update operations
             });
-            // Set preview image if an image URL exists in BlogData
-            if (BlogData.image) {
-                setPreviewImage(BlogData.image);
+
+            // Set preview image based on the image URL from backend
+            if (image && typeof image === 'string') {
+                setPreviewImage(image);
+            } else {
+                setPreviewImage(null); // No image URL from backend
             }
         } else {
-            // If no BlogData (new blog), ensure form is reset to initial state
+            // Reset form when BlogData is cleared (e.g., after successful submission or if context is empty)
             setFormData(initialFormData);
             setPreviewImage(null);
+            // Optionally, clear the file input's value if it's not managed by React state directly
+            const fileInput = document.querySelector('input[name="image"]');
+            if (fileInput) {
+                fileInput.value = '';
+            }
         }
-    }, [BlogData]); // Depend on BlogData, so form updates when context changes
+    }, [BlogData]); // Depend on BlogData from context
 
-    // Effect for cleaning up object URLs (existing functionality)
+    // Effect to clean up URL.createObjectURL previews
     useEffect(() => {
         return () => {
-            if (previewImage && !previewImage.startsWith('http')) { // Only revoke if it's an object URL
+            // Revoke URL only if it was created locally (i.e., not a network URL)
+            if (previewImage && !previewImage.startsWith('http')) {
                 URL.revokeObjectURL(previewImage);
             }
         };
@@ -70,29 +92,31 @@ const AddBlog = () => {
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        console.log("AddBlog: Selected image file for form:", file); // Debugging log
         if (file) {
-            setFormData(prev => ({ ...prev, image: file })); // Store the File object for upload
-            setPreviewImage(URL.createObjectURL(file)); // Create URL for immediate preview
+            setFormData(prev => ({ ...prev, image: file })); // Set image to File object
+            setPreviewImage(URL.createObjectURL(file)); // Create URL for preview
         } else {
-            // If user clears selection, clear the file and current preview
-            setFormData(prev => ({ ...prev, image: null }));
-            setPreviewImage(null);
-            // If it was an existing image, you might want to retain its URL
-            // Or remove it if "clearing" means removing the old image too.
-            // For now, setting to null is fine.
+            setFormData(prev => ({ ...prev, image: null })); // Clear image data
+            setPreviewImage(null); // Clear preview
         }
     };
 
     const handleSectionChange = (index, field, value) => {
-        const newSections = [...formData.contentSections];
-        newSections[index][field] = value;
+        // Ensure formData.contentSections is an array before attempting to access elements
+        const newSections = Array.isArray(formData.contentSections) ? [...formData.contentSections] : [];
+        if (newSections[index]) { // Ensure the index exists
+            newSections[index][field] = value;
+        }
         setFormData(prev => ({ ...prev, contentSections: newSections }));
     };
 
     const addSection = () => {
+        // Ensure contentSections is an array before spreading
+        const currentSections = Array.isArray(formData.contentSections) ? formData.contentSections : [];
         setFormData(prev => ({
             ...prev,
-            contentSections: [...prev.contentSections, { heading: '', content: '' }]
+            contentSections: [...currentSections, { heading: '', content: '' }]
         }));
     };
 
@@ -119,19 +143,42 @@ const AddBlog = () => {
         try {
             const token = localStorage.getItem('token');
             const data = new FormData();
+
             data.append('title', formData.title);
             data.append('description', formData.description);
             data.append('category', formData.category);
+            // Stringify arrays before appending to FormData
             data.append('tags', JSON.stringify(formData.tags));
             data.append('sections', JSON.stringify(formData.contentSections));
 
+            // --- Image Handling Logic for FormData ---
             if (formData.image instanceof File) {
+                // Case 1: A new file has been selected by the user. Append the File object.
+                console.log("AddBlog: Appending NEW image file to FormData.");
                 data.append('image', formData.image);
+            } else if (typeof formData.image === 'string' && formData._id) {
+                // Case 2: This is an update operation, and no new file was selected.
+                // formData.image holds the existing Cloudinary URL string.
+                // We do NOT append a file. The backend's update logic should preserve
+                // the existing image URL if no new file is provided via Multer.
+                console.log("AddBlog: Existing image URL is present (string), not appending a new file.");
+            } else {
+                // Case 3: No image (null/undefined) for a new blog, or user explicitly cleared it.
+                // For new blogs, if image is required, this is where it would be caught.
+                if (!formData._id) { // If it's a new blog creation
+                    setMessage('Main blog image is required.');
+                    return;
+                }
+                // For updates, if image becomes null, you might need to handle deletion on backend
+                // or setting to a default image. For now, it just means no new image provided.
+                console.log("AddBlog: No image to append (null/undefined).");
             }
+            // --- End of Image Handling Logic ---
 
             let res;
             if (formData._id) {
-                // If _id exists, it's an update operation
+                // Update existing blog
+                console.log("AddBlog: Sending PUT request for update.");
                 res = await axios.put(
                     `${BACKEND_URL}/blog/${formData._id}`,
                     data,
@@ -144,7 +191,8 @@ const AddBlog = () => {
                 );
                 setMessage('Blog updated successfully!');
             } else {
-                // Otherwise, it's a new creation
+                // Create new blog
+                console.log("AddBlog: Sending POST request for new blog creation.");
                 res = await axios.post(
                     `${BACKEND_URL}/blog`,
                     data,
@@ -159,16 +207,20 @@ const AddBlog = () => {
             }
 
             console.log("Blog operation successful:", res.data);
-
-            // Reset form fields after successful submission
-            setFormData(initialFormData); // Reset to initial empty state
-            setPreviewImage(null); // Clear the image preview
-            if (e.target.elements.image) { // Ensure the element exists before clearing
-                e.target.elements.image.value = ''; // Clear the file input visually
+            // Reset form after successful submission/update
+            setFormData(initialFormData);
+            setPreviewImage(null);
+            // Clear the actual file input element's value (important for UX)
+            const fileInput = e.target.elements.image;
+            if (fileInput) {
+                fileInput.value = '';
             }
-            if (setBlogData) { // Clear the context data after successful operation
+            // Clear the blog data in context to ensure fresh state for next add/edit
+            if (setBlogData) {
                 setBlogData(null);
             }
+            // Navigate back to where blogs are displayed, or to a success page
+            navigate('/blogs'); // Example: Navigate to /blogs page
 
         } catch (err) {
             console.error("Error adding/updating blog:", err.response?.data || err.message);
@@ -177,7 +229,7 @@ const AddBlog = () => {
     };
 
     return (
-        <div className="flex justify-center mt-20 items-center min-h-screen bg-white">
+        <div className="flex justify-center pt-20 pb-20 min-h-screen bg-white overflow-y-auto">
             <div className="w-full max-w-2xl p-8 md:p-12">
                 <div className="flex justify-center mb-10">
                     <img className="w-24" src={logo} alt="S60 Logo" />
@@ -208,20 +260,21 @@ const AddBlog = () => {
                     />
 
                     <div>
-                        <label className="block mb-1 text-sm text-gray-700">Blog Image</label>
+                        <label htmlFor="imageUpload" className="block mb-1 text-sm text-gray-700">Blog Image</label>
                         <input
+                            id="imageUpload"
                             type="file"
                             name="image"
                             accept="image/*"
                             onChange={handleImageChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded"
+                            className="w-full px-4 py-2 border border-gray-300 rounded file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                         />
                         {(previewImage || (formData.image && typeof formData.image === 'string')) && (
                             <div className="mt-2 text-center">
                                 <img
-                                    src={previewImage || formData.image} // Use previewImage first, then existing URL
+                                    src={previewImage || formData.image}
                                     alt="Image Preview"
-                                    className="max-w-full h-auto max-h-60 mx-auto rounded shadow-md"
+                                    className="max-w-full h-auto max-h-60 mx-auto rounded shadow-md object-cover"
                                 />
                                 <p className="text-sm text-gray-500 mt-1">Image Preview</p>
                             </div>
@@ -234,6 +287,7 @@ const AddBlog = () => {
                         name="category"
                         value={formData.category}
                         onChange={changeHandler}
+                        required
                         className="w-full px-4 py-2 border border-gray-300 rounded"
                     />
 
@@ -257,7 +311,7 @@ const AddBlog = () => {
                             <button
                                 type="button"
                                 onClick={addTag}
-                                className="bg-blue-600 text-white px-3 py-1 rounded"
+                                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition-colors"
                             >
                                 +
                             </button>
@@ -269,7 +323,7 @@ const AddBlog = () => {
                                     <button
                                         type="button"
                                         onClick={() => removeTag(index)}
-                                        className="text-blue-700 hover:text-blue-900 font-bold"
+                                        className="text-blue-700 hover:text-blue-900 font-bold ml-1"
                                     >
                                         ×
                                     </button>
@@ -279,9 +333,10 @@ const AddBlog = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <h3 className="font-medium">Content Sections</h3>
+                        <h3 className="font-medium text-gray-700">Content Sections</h3>
+                        {/* Line 308: Ensure formData.contentSections is an array */}
                         {formData.contentSections.map((section, idx) => (
-                            <div key={idx} className="space-y-2 border p-3 rounded shadow-sm">
+                            <div key={idx} className="space-y-2 border p-3 rounded shadow-sm relative">
                                 <input
                                     type="text"
                                     placeholder="Section Heading"
@@ -295,26 +350,40 @@ const AddBlog = () => {
                                     onChange={(e) => handleSectionChange(idx, 'content', e.target.value)}
                                     className="w-full px-4 py-2 border border-gray-300 rounded"
                                 />
+                                {formData.contentSections.length > 1 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const newSections = [...formData.contentSections];
+                                            newSections.splice(idx, 1);
+                                            setFormData(prev => ({ ...prev, contentSections: newSections }));
+                                        }}
+                                        className="absolute top-1 right-1 text-red-500 hover:text-red-700 text-lg"
+                                        title="Remove section"
+                                    >
+                                        &times;
+                                    </button>
+                                )}
                             </div>
                         ))}
                         <button
                             type="button"
                             onClick={addSection}
-                            className="text-blue-500 text-sm"
+                            className="text-blue-600 text-sm hover:underline"
                         >
                             + Add Section
                         </button>
                     </div>
 
                     {message && (
-                        <div className={`text-sm px-3 ${message.includes('successfully') ? 'text-green-600' : 'text-red-600'}`}>
+                        <div className={`text-sm px-3 py-2 rounded ${message.includes('successfully') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                             {message}
                         </div>
                     )}
 
                     <button
                         type="submit"
-                        className="w-full bg-[#002277] hover:bg-blue-800 text-white px-4 py-2 rounded-md"
+                        className="w-full bg-[#002277] hover:bg-blue-800 text-white px-4 py-2 rounded-md transition-colors"
                     >
                         {formData._id ? 'Update Blog' : 'Submit Blog'}
                     </button>

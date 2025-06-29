@@ -171,9 +171,7 @@ const CardDetail = ({ blogData, onClose }) => {
                 </div>
 
                 <p className='text-gray-600 text-sm mb-3'>
-                    <span className='font-semibold text-blue-700'>{blogData.category}</span> •{' '}
-                    {/* read_time_minutes is not in your schema, it will be undefined */}
-                    {blogData.read_time_minutes ? `${blogData.read_time_minutes} mins read` : 'N/A mins read'}
+                    <span className='font-semibold text-blue-700'>{blogData.category}</span> 
                 </p>
 
                 <div className='mb-6 flex flex-wrap'>
