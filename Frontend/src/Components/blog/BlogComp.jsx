@@ -32,33 +32,63 @@ const BlogComp = ({ onCardClick }) => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
-                    {filteredBlogs.length > 0 ? (
-                        filteredBlogs.map((blog) => (
-                            <div
-                                key={blog._id} 
-                                className="bg-white w-full lg:max-w-[330px] cursor-pointer rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:scale-[1.02] hover:shadow-lg"
-                                onClick={() => onCardClick(blog._id)} 
-                            >
-                                <img src={blog.image} alt={blog.title} className="w-full h-48 object-cover" />
-                                <div className="p-5">
-                                    <span className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-3 py-1 rounded-full mb-2">
-                                        {blog.category}
-                                    </span>
-                                    <h3 className="text-xl font-semibold text-gray-900 mb-2 leading-tight">
-                                        {blog.title}
-                                    </h3>
-                                    <p className="text-gray-500 font-medium text-sm mb-4">
-                                        {blog.description}
-                                    </p>
-
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="text-gray-600 text-lg col-span-full text-center py-10">No blogs found matching your filters.</p>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
+    {filteredBlogs.length > 0 ? (
+        filteredBlogs.map((blog) => (
+            <div
+                key={blog._id}
+                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out cursor-pointer overflow-hidden transform hover:-translate-y-1"
+                onClick={() => onCardClick(blog._id)}
+            >
+                <div className="relative">
+                    <img
+                        src={blog.image}
+                        alt={blog.title}
+                        className="w-full h-56 object-cover rounded-t-2xl" 
+                        top rounded corners
+                    />
+                    {blog.category && (
+                        <span className="absolute top-3 left-3 bg-blue-900 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+                            {blog.category}
+                        </span>
                     )}
                 </div>
+
+                <div className="p-5 flex flex-col justify-between"> 
+                    <div>
+                        <h3 className="text-xl font-extrabold text-gray-900 mb-2 leading-tight">
+                            {blog.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                            {blog.description}
+                        </p>
+                    </div>
+
+                    <div className="flex items-center justify-between text-gray-500 text-sm mt-4"> 
+                        <div className="flex items-center">
+                            <svg
+                                className="w-4 h-4 mr-1 text-orange-500"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>{blog.read_time_minutes ? `${blog.read_time_minutes} Mins Read` : 'N/A Mins Read'}</span>
+                        </div>
+                        {/* "Read More" */}
+                        <button className="px-5 py-2 bg-gray-800 text-white rounded-full text-sm font-medium hover:bg-gray-700 transition-colors duration-200 shadow-md">
+                            Read More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        ))
+    ) : (
+        <p className="text-gray-700 text-lg col-span-full text-center py-10">No blogs found matching your filters.</p>
+    )}
+</div>
             </main>
         </div>
     );

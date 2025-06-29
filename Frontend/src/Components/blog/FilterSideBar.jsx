@@ -15,94 +15,102 @@ const FilterSideBar = () => {
 
   return (
     <>
-      {isMobileMenuOpen && (
+    {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={toggleMobileMenu}
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={toggleMobileMenu}
         ></div>
-      )}
+    )}
 
-      <aside
+    <aside
         className={`fixed inset-y-0 left-0 top-[89px] lg:top-0 bg-white p-6 shadow-lg z-50 w-64 transform ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:shadow-none lg:w-auto lg:min-w-[200px]`}
-      >
-        <div className="flex justify-between items-center mb-6 lg:hidden">
-          <h2 className="text-xl font-semibold text-gray-800">Filters</h2>
-          <button onClick={toggleMobileMenu} className="text-gray-600 hover:text-gray-900 focus:outline-none">
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-          </button>
+            isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        } transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:shadow-none lg:w-auto lg:min-w-[250px] rounded-lg lg:rounded-none`}
+    >
+        {/* Close button for mobile */}
+        <div className="flex justify-end items-center mb-6 lg:hidden">
+            <button onClick={toggleMobileMenu} className="text-gray-600 hover:text-gray-900 focus:outline-none p-2 rounded-full hover:bg-gray-100">
+                <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
         </div>
 
-        <h2 className="hidden lg:block text-xl font-semibold text-gray-800 mb-6">Filters</h2>
-
-        <div className="mb-6">
-          <label htmlFor="search" className="sr-only">Search blogs...</label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <svg
-                className="h-5 w-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="search"
-              placeholder="Search blogs..."
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              onChange={(e) => handleSearchChange(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <div className="mb-6">
-          <h3 className="text-lg font-medium text-gray-700 mb-3">Categories</h3>
-          <div className="space-y-3">
-            {availableCategories.map((category) => (
-              <div key={category} className="flex items-center">
+        {/* Search Input */}
+        <div className="mb-8">
+            <label htmlFor="search" className="sr-only">Search blogs...</label>
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg
+                        className="h-5 w-5 text-gray-500"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
                 <input
-                  type="checkbox"
-                  id={category}
-                  name="category"
-                  value={category}
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => handleCategoryChange(category)}
-                  className="h-4 w-4
-                             text-orange-600 border-gray-300 rounded
-                             focus:ring-orange-900 cursor-pointer
-                             hover:border-blue-900
-                             hover:text-blue-300
-                             transition-colors duration-200"
+                    type="text"
+                    id="search"
+                    placeholder="Search blogs..."
+                    className="block w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl leading-5 bg-gray-50 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-blue-500 text-sm font-medium"
+                    onChange={(e) => handleSearchChange(e.target.value)}
                 />
-                <label htmlFor={category} className="ml-3 text-gray-600 font-medium text-sm cursor-pointer">
-                  {category}
-                </label>
-              </div>
-            ))}
-          </div>
+            </div>
         </div>
 
-        <button
-          onClick={handleClearFilters}
-          className="w-full py-2 px-4 border border-blue-900 rounded-md shadow-sm text-sm font-medium text-blue-900 hover:border-blue-800 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        {/* Categories */}
+        <div className="space-y-2 mb-8">
+    <h3 className="text-gray-900 font-semibold uppercase tracking-wide text-xs mb-4 ml-2">Categories</h3>
+    {availableCategories.map((category) => (
+        <label
+            key={category}
+            htmlFor={`checkbox-${category}`}
+            className={`flex items-center p-3 rounded-xl transition-colors duration-200 cursor-pointer ${
+                selectedCategories.includes(category) ? 'bg-blue-100 text-blue-900' : 'text-gray-700 hover:bg-gray-100'
+            }`}
         >
-          Clear Filters
-        </button>
-      </aside>
-    </>
+            <svg className={`w-5 h-5 mr-3 ${selectedCategories.includes(category) ? 'text-blue-900' : 'text-gray-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-2.414-2.414A1 1 0 0015.586 6H7a2 2 0 00-2 2v11a2 2 0 002 2z"></path>
+            </svg>
+            <span className="font-medium text-sm flex-grow">
+                {category}
+            </span>
+            <input
+                type="checkbox" 
+                id={`checkbox-${category}`} 
+                name="category"
+                value={category}
+                checked={selectedCategories.includes(category)}
+                onChange={() => handleCategoryChange(category)}
+                className="h-4 w-4 text-blue-900 border-gray-300 focus:ring-blue-900 cursor-pointer ml-auto"
+            />
+        </label>
+    ))}
+</div>
+
+        {/* Clear Filters Button */}
+        <div className="p-4 bg-gray-100 rounded-xl text-center">
+            <button
+                onClick={handleClearFilters}
+                className="w-full flex items-center justify-center py-3 px-4 bg-blue-900 text-white rounded-xl shadow-md text-base font-semibold hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900 transition-colors duration-200"
+            >
+                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2A9 9 0 111 12a9 9 0 0118 0z"></path>
+                </svg>
+                Clear Filters
+            </button>
+        </div>
+    </aside>
+</>
   );
 };
 
