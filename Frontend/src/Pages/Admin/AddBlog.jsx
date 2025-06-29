@@ -177,7 +177,7 @@ const AddBlog = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-white">
+        <div className="flex justify-center mt-20 items-center min-h-screen bg-white">
             <div className="w-full max-w-2xl p-8 md:p-12">
                 <div className="flex justify-center mb-10">
                     <img className="w-24" src={logo} alt="S60 Logo" />
