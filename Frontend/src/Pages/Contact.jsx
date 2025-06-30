@@ -176,37 +176,7 @@ const [formData, setFormData] = useState({
                                 className="w-full px-5 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900 text-gray-800"
                             ></textarea>
                         </div>
-
-                        <div className="mb-10">
-                            <p className="block text-sm font-semibold text-gray-700 mb-4">I am interested in:</p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-8">
-                                <div className="flex items-center">
-                                    <input type="checkbox" id="websiteDesign" name="services" value="Website design" checked={formData.services.includes('Website design')} onChange={handleServiceChange} className="h-5 w-5 text-blue-900 border-gray-400 rounded focus:ring-2 focus:ring-blue-900 cursor-pointer" />
-                                    <label htmlFor="websiteDesign" className="ml-3 text-gray-800 font-medium">Website Design</label>
-                                </div>
-                                <div className="flex items-center">
-                                    <input type="checkbox" id="contentCreation" name="services" value="Content creation" checked={formData.services.includes('Content creation')} onChange={handleServiceChange} className="h-5 w-5 text-blue-900 border-gray-400 rounded focus:ring-2 focus:ring-blue-900 cursor-pointer" />
-                                    <label htmlFor="contentCreation" className="ml-3 text-gray-800 font-medium">Content Creation</label>
-                                </div>
-                                <div className="flex items-center">
-                                    <input type="checkbox" id="uxDesign" name="services" value="UX design" checked={formData.services.includes('UX design')} onChange={handleServiceChange} className="h-5 w-5 text-blue-900 border-gray-400 rounded focus:ring-2 focus:ring-blue-900 cursor-pointer" />
-                                    <label htmlFor="uxDesign" className="ml-3 text-gray-800 font-medium">UX Design</label>
-                                </div>
-                                <div className="flex items-center">
-                                    <input type="checkbox" id="strategyConsulting" name="services" value="Strategy & consulting" checked={formData.services.includes('Strategy & consulting')} onChange={handleServiceChange} className="h-5 w-5 text-blue-900 border-gray-400 rounded focus:ring-2 focus:ring-blue-900 cursor-pointer" />
-                                    <label htmlFor="strategyConsulting" className="ml-3 text-gray-800 font-medium">Strategy & Consulting</label>
-                                </div>
-                                <div className="flex items-center">
-                                    <input type="checkbox" id="userResearch" name="services" value="User research" checked={formData.services.includes('User research')} onChange={handleServiceChange} className="h-5 w-5 text-blue-900 border-gray-400 rounded focus:ring-2 focus:ring-blue-900 cursor-pointer" />
-                                    <label htmlFor="userResearch" className="ml-3 text-gray-800 font-medium">User Research</label>
-                                </div>
-                                <div className="flex items-center">
-                                    <input type="checkbox" id="other" name="services" value="Other" checked={formData.services.includes('Other')} onChange={handleServiceChange} className="h-5 w-5 text-blue-900 border-gray-400 rounded focus:ring-2 focus:ring-blue-900 cursor-pointer" />
-                                    <label htmlFor="other" className="ml-3 text-gray-800 font-medium">Other (Please specify in message)</label>
-                                </div>
-                            </div>
-                        </div>
-
+                        
                         <button
                             type="submit"
                             className="w-full bg-blue-900 text-white py-4 px-6 rounded-lg font-bold text-xl hover:bg-blue-800 transition-colors duration-300 transform hover:scale-105"
