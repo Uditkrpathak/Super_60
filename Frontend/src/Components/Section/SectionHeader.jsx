@@ -19,13 +19,15 @@ const SectionHeader = ({
         }}
       />
 
-      <div className="relative z-10 p-6 mx-auto shadow-sm max-w-7xl">
-        <h4
-          className="pl-3 mb-2 text-base font-semibold border-l-4"
-          style={{ color: color, borderColor: color }}
-        >
-          {section}
-        </h4>
+      {/* Content Box */}
+      <div className="relative z-10 px-6 mx-auto text-center max-w-7xl">
+       <div className="inline-flex items-center gap-3 mb-6">
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+              <span className="text-sm font-semibold tracking-wider text-orange-600 uppercase">
+                {section}
+              </span>
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+            </div>
         <h1 className="text-xl font-bold text-black md:text-2xl">{title}</h1>
         <h2 className="mt-2 text-2xl font-extrabold md:text-4xl" style={{ color }}>
           {subtitle}

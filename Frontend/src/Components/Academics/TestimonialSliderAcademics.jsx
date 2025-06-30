@@ -29,7 +29,7 @@ const researchTestimonials = [
   },
 ];
 
-const TestimonialSlider = () => {
+const TestimonialSliderAcademics = () => {
   const [index, setIndex] = useState(1);
 
   const next = () => setIndex((prev) => (prev + 1) % researchTestimonials.length);
@@ -90,4 +90,4 @@ const TestimonialSlider = () => {
   );
 };
 
-export default TestimonialSlider;
+export default TestimonialSliderAcademics;
