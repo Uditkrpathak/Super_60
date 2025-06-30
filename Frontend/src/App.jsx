@@ -22,6 +22,7 @@ import EditableStudentProfile from './Pages/Student/EditableStudentProfile';
 import AddUser from './Pages/Admin/AddUser';
 import AddBlog from './Pages/Admin/AddBlog';
 import AddEvent from './Pages/Admin/AddEvent';
+import AddFaculty from './Pages/Admin/AddFaculty'
 
 function App() {
   return (
@@ -61,6 +62,15 @@ function App() {
             <AddEvent />
           </ProtectedAdminRoute>
         } />
+
+        <Route
+  path="/addFaculty"
+  element={
+    <ProtectedAdminRoute>
+      <AddFaculty />
+    </ProtectedAdminRoute>
+  }
+/>
 
 
         <Route path="/editstudentprofile" element={
