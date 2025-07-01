@@ -12,6 +12,8 @@ import MemberDirectory from "../Components/Batches/MemberDirectory";
 import GlassRoadmap from "../Components/Home_Components/glass_roadmap";
 import SectionHeader from "../Components/Section/SectionHeader";
 import BatchesPage from "../Components/Batches/BatchesPage";
+import FeaturedEvent from "../Components/EventCards/FeaturedEvent";
+import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
 
 
 
@@ -43,6 +45,15 @@ color= "#002277"
 </div>
 <GlassRoadmap/>
 <Achievments/>
+<SectionHeader
+  section="Featured Events"
+  title="Explore Our Latest Campus Highlights"
+  subtitle=""
+  color="#002277"
+/>
+
+<FeaturedEventCarousel/>
+    
 <HomeTestimonial/>
 <JoinUs/>
    </div>  

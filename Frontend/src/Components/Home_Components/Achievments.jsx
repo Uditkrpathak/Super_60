@@ -222,48 +222,48 @@ const Achievement = () => {
 
       <section 
         ref={sectionRef}
-        className="relative py-2 px-10 gap-10 bg-gradient-to-br overflow-hidden"
+        className="relative gap-10 px-10 py-2 mt-3 overflow-hidden bg-gradient-to-br"
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="metric-grid w-full h-full" />
+          <div className="w-full h-full metric-grid" />
         </div>
 
         {/* Floating Geometric Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-20 left-10 w-28 h-28 border border-orange-200 rounded-full opacity-20 animate-pulse" />
-          <div className="absolute bottom-32 right-16 w-24 h-24 border-2 border-blue-200 rotate-45 opacity-15 animate-bounce" />
-          <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-orange-300 rounded-full opacity-30 animate-ping" />
+          <div className="absolute border border-orange-200 rounded-full top-20 left-10 w-28 h-28 opacity-20 animate-pulse" />
+          <div className="absolute w-24 h-24 rotate-45 border-2 border-blue-200 bottom-32 right-16 opacity-15 animate-bounce" />
+          <div className="absolute w-4 h-4 bg-orange-300 rounded-full top-1/2 left-1/4 opacity-30 animate-ping" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container relative z-10 px-6 mx-auto">
           {/* Section Header */}
           <div className={`text-center mb-20 ${isVisible ? 'section-header' : 'opacity-0'}`}>
             <div className="inline-flex items-center gap-3 mb-6">
-              <div className="h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent w-16" />
-              <span className="text-sm font-semibold text-orange-600 tracking-wider uppercase">
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
+              <span className="text-sm font-semibold tracking-wider text-orange-600 uppercase">
                 Our Achievements
               </span>
-              <div className="h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent w-16" />
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500 to-transparent" />
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Making an <span className="bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">Impact</span>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Making an <span className="text-transparent bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text">Impact</span>
             </h2>
             
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="max-w-2xl mx-auto text-lg leading-relaxed text-gray-600">
               Our commitment to excellence drives measurable results. Here's how we're 
               transforming the landscape of technology and innovation.
             </p>
 
             {/* Decorative Line */}
-            <div className="mt-8 flex justify-center">
-              <div className="decorative-line h-1 bg-gradient-to-r from-orange-500 to-blue-500 rounded-full opacity-0" />
+            <div className="flex justify-center mt-8">
+              <div className="h-1 rounded-full opacity-0 decorative-line bg-gradient-to-r from-orange-500 to-blue-500" />
             </div>
           </div>
 
           {/* Achievement Cards Grid */}
-          <div className="grid grid-cols-1 px-10 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 gap-8 px-10 md:grid-cols-2 lg:grid-cols-4">
             {achievements.map((achievement, index) => (
               <div
                 key={achievement.id}
@@ -276,7 +276,7 @@ const Achievement = () => {
 
                 {/* Number */}
                 <div className="mb-4">
-                  <span className="text-4xl md:text-5xl font-bold text-gray-900 number-animation">
+                  <span className="text-4xl font-bold text-gray-900 md:text-5xl number-animation">
                     {achievement.prefix}
                     {achievement.id === 'revenue' 
                       ? formatNumber(counters[achievement.id]) 
@@ -287,12 +287,12 @@ const Achievement = () => {
                 </div>
 
                 {/* Label */}
-                <p className="text-gray-600 font-medium text-lg">
+                <p className="text-lg font-medium text-gray-600">
                   {achievement.label}
                 </p>
 
                 {/* Progress Bar */}
-                <div className="mt-6 h-1 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-1 mt-6 overflow-hidden bg-gray-200 rounded-full">
                   <div 
                     className={`h-full bg-gradient-to-r ${achievement.color} transition-all duration-2000 ease-out`}
                     style={{
@@ -306,13 +306,7 @@ const Achievement = () => {
           </div>
 
           {/* Bottom Accent */}
-          <div className="mt-20 text-center">
-            <div className="inline-flex items-center gap-4 text-gray-500">
-              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-20" />
-              <span className="text-sm font-medium">Driving Innovation Forward</span>
-              <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-20" />
-            </div>
-          </div>
+          
         </div>
       </section>
     </>
