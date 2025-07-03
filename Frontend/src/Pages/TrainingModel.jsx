@@ -4,6 +4,7 @@ import TrainingSchedule from '../Components/Training/TrainingSchedule'
 import Roadmap from '../Components/Training/Roadmap'
 import JoinUs from '../Components/JoinUs/JoinUs'
 
+
 const TrainingModel = () => {
   return (
     <div >
@@ -11,6 +12,7 @@ const TrainingModel = () => {
       <TrainingSchedule />
 
       <Roadmap />
+   
 
 <JoinUs />
     </div>
