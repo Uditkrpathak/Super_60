@@ -4,7 +4,9 @@ import User from "./routes/User.js";
 import configDatabase from "./config/database.js";
 import cors from "cors";
 import studentRoutes from "./routes/student.js";
-
+import blogRoutes from "./routes/blog.js";
+import eventRoutes from "./routes/Event.js";
+import facultyRoutes from "./routes/faculty.js";
 dotenv.config();
 
 const app = express();
@@ -20,6 +22,9 @@ app.use(express.json());
 // Routes
 app.use("/auth", User);
 app.use("/student", studentRoutes);
+app.use('/blog',blogRoutes);
+app.use('/event',eventRoutes);
+app.use("/faculty", facultyRoutes);
 
 // Root Route
 app.get("/", (req, res) => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Importing all the pages
@@ -21,6 +20,9 @@ import AdminDashboard from './Pages/Admin/AdminDashboard';
 import StudentProfile from './Components/Auth/StudentProfile';
 import EditableStudentProfile from './Pages/Student/EditableStudentProfile';
 import AddUser from './Pages/Admin/AddUser';
+import AddBlog from './Pages/Admin/AddBlog';
+import AddEvent from './Pages/Admin/AddEvent';
+import AddFaculty from './Pages/Admin/AddFaculty'
 
 function App() {
   return (
@@ -44,29 +46,49 @@ function App() {
             <AdminDashboard />
           </ProtectedAdminRoute>
         } />
+
         <Route path="/addUser" element={
           <ProtectedAdminRoute>
             <AddUser />
           </ProtectedAdminRoute>
         } />
+        <Route path="/addBlog" element={
+          <ProtectedAdminRoute>
+            <AddBlog />
+          </ProtectedAdminRoute>
+        } />
+        <Route path="/addEvent" element={
+          <ProtectedAdminRoute>
+            <AddEvent />
+          </ProtectedAdminRoute>
+        } />
 
-       
+        <Route
+  path="/addFaculty"
+  element={
+    <ProtectedAdminRoute>
+      <AddFaculty />
+    </ProtectedAdminRoute>
+  }
+/>
+
+
         <Route path="/editstudentprofile" element={
           <ProtectedStudentRoute>
             <EditableStudentProfile />
           </ProtectedStudentRoute>
         } />
         <Route
-  path="/student-profile"
-  element={
-    <ProtectedStudentRoute>
-      <StudentProfile />
-    </ProtectedStudentRoute>
-  }
-/>
-        <Route path="*" element={<PageNotFound/>} />
+          path="/student-profile"
+          element={
+            <ProtectedStudentRoute>
+              <StudentProfile />
+            </ProtectedStudentRoute>
+          }
+        />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }

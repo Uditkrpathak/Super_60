@@ -3,7 +3,7 @@ import './JoinUs.css';
 
 const JoinUs = () => {
     return (
-       <section className="relative py-6 px-4 overflow-hidden bg-white">
+       <section className="relative px-4 py-6 overflow-hidden bg-white">
             <div
                 className="absolute inset-0 z-0 opacity-20"
                 style={{
@@ -13,11 +13,11 @@ const JoinUs = () => {
             ></div>
 
             {/* Content Layer */}
-            <div className="relative z-10 max-w-4xl mx-auto text-center p-8">
-                <h2 className="text-2xl md:text-4xl font-extrabold mb-2 leading-tight text-gray-800">
+            <div className="relative z-10 max-w-4xl p-8 mx-auto text-center">
+                <h2 className="mb-2 text-2xl font-extrabold leading-tight text-gray-800 md:text-4xl">
                     Join Us Today
                 </h2>
-                <p className="text-lg md:text-xl mb-8 font-light text-gray-600">
+                <p className="mb-8 text-lg font-light text-gray-600 md:text-xl">
                     Join The Super 60 - an elite community where creators, coders, and changemakers learn from the best to shape the future.
                 </p>
 
@@ -39,11 +39,11 @@ const JoinUs = () => {
                 >
                     Login
                     <span className="ml-4"></span> 
-                    <span className="button-lightning-line absolute inset-0"></span>
+                    <span className="absolute inset-0 button-lightning-line"></span>
 
-                    <span className="arrow-container relative z-10">
-                        <span className="arrow-bg absolute inset-0 rounded-full bg-white"></span>
-                        <span className="arrow-icon relative text-blue-900 transition-transform duration-300 ease-in-out">
+                    <span className="relative z-10 arrow-container">
+                        <span className="absolute inset-0 bg-white rounded-full arrow-bg"></span>
+                        <span className="relative text-blue-900 transition-transform duration-300 ease-in-out arrow-icon">
                             &rarr;
                         </span>
                     </span>

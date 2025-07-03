@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Student from "../models/Student.js";
 
 // Login User (Admin or Student)
 export const loginUser = async (req, res) => {
@@ -40,12 +41,12 @@ export const loginUser = async (req, res) => {
   }
 };
 
-// Register Student (Admin Only)
+// Register Student
 export const registerUser = async (req, res) => {
   try {
-    const { username = "student", email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
-    if (!email || !password)
+    if (!email || !password || !role)
       return res.status(400).json({ message: "All fields are required." });
 
     const existingUser = await User.findOne({ email });
@@ -54,15 +55,28 @@ export const registerUser = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Create User
     const newUser = new User({
       username,
       email,
       password: hashedPassword,
-      role: "student",
+      role,
     });
 
     await newUser.save();
 
+    // If role is student, create linked Student profile
+    if (role === "student") {
+      const newStudent = new Student({
+        user: newUser._id,
+        email: newUser.email,
+        name: newUser.username,
+      });
+
+      await newStudent.save();
+    }
+
+    // JWT Token
     const token = jwt.sign(
       { id: newUser._id, email: newUser.email, role: newUser.role },
       process.env.JWT_SECRET,
@@ -70,7 +84,7 @@ export const registerUser = async (req, res) => {
     );
 
     res.status(201).json({
-      message: "Student registered successfully",
+      message: "User registered successfully",
       token,
       userData: {
         id: newUser._id,
@@ -84,3 +98,4 @@ export const registerUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

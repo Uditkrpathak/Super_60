@@ -1,40 +1,64 @@
-import Hero from '../Components/hero/hero2'
-import EasterCarousel from '../Components/carousal/EasterCarousel'
-import Achievments from '../Components/Home Components/Achievments'
-import About_section from '../Components/Home Components/About_section'
+import { useEffect, useState } from "react";
+import Hero2 from '../Components/hero/hero2'
+import Achievments from '../Components/Home_Components/Achievments'
+import About_section from '../Components/Home_Components/About_section'
 import HomeTestimonial from '../Components/Testonomials/HomeTestimonial'
 import JoinUs from '../Components/JoinUs/JoinUs'
 import RoadMap from '../Components/carousal/RoadMap'
+import Easter from '../Components/carousal/EasterCarousel'
+// import HeroBg from '../Components/hero/backgrounds/herobg'
+import Carousel from "../Components/Home_Components/Carousal";
+import MemberDirectory from "../Components/Batches/MemberDirectory";
+import GlassRoadmap from "../Components/Home_Components/glass_roadmap";
+import SectionHeader from "../Components/Section/SectionHeader";
+import BatchesPage from "../Components/Batches/BatchesPage";
+import FeaturedEvent from "../Components/EventCards/FeaturedEvent";
+import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
+
+
+
 
 const Home = () => {
   return (
-    <div className="bg-white">
-      <Hero />
-       <div >
-        <About_section />
-      </div>
-      <div>
+   <div>
+<Hero2/>
+<About_section/>
 
-        <EasterCarousel />
+<div className="mb-10">
+  <Easter/>
+</div>
 
-        <RoadMap/>
-      </div>
-      <div >
-        <Achievments />
-      </div>
-
-      {/* <About_section /> */}
-     
-
-      <div>
-        <HomeTestimonial />
-      </div>
-      {/* Add other components or sections here as needed */}
+<div className="mt-44">
+  <Carousel/>
+</div>
 
 
-<JoinUs />
-    </div>
+
+<div>
+  <SectionHeader  section= "Our Batches"
+title= "Discover the brilliance within"
+subtitle= "Super 60 Talent Collective"
+color= "#002277" 
+  />
+  <BatchesPage/>
+ 
+</div>
+<GlassRoadmap/>
+<Achievments/>
+<SectionHeader
+  section="Featured Events"
+  title="Explore Our Latest Campus Highlights"
+  subtitle=""
+  color="#002277"
+/>
+
+<FeaturedEventCarousel/>
+    
+<HomeTestimonial/>
+<JoinUs/>
+   </div>  
   )
 }
 
 export default Home
+

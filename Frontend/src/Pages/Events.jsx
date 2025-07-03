@@ -1,125 +1,36 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import EventCards from "../Components/EventCards/EventCards";
 import HeroSection from "../Components/hero/HeroSection";
 import SlidingEventDetails from "../Components/EventCards/SlidingEventDetails";
 import JoinUs from "../Components/JoinUs/JoinUs";
-
-// Dummy data
-const dummyData = [
-  {
-    title: "UI/UX Trends",
-    type: "Webinar",
-    month: "October",
-    year: "2023",
-    description: "Explore the latest in design trends.",
-    image: "https://images.unsplash.com/photo-1533903345306-15d1c30952de",
-    status: "completed"
-  },
-  {
-    title: "TechVerse Live",
-    type: "Workshop",
-    month: "April",
-    year: "2025",
-    description: "Live workshop on tech innovations.",
-    image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99",
-    status: "ongoing"
-  },
-  {
-    title: "Hackfinity",
-    type: "Hackathon",
-    month: "December",
-    year: "2023",
-    description: "Endless innovation starts here.",
-    image: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28",
-    status: "completed"
-  },
-  {
-    title: "Cloudflare Deep Dive",
-    type: "Webinar",
-    month: "November",
-    year: "2025",
-    description: "Optimize web performance with Cloudflare.",
-    image: "https://images.unsplash.com/photo-1533903345306-15d1c30952de",
-    status: "upcoming"
-  },
-  {
-    title: "DevOps Lab",
-    type: "Workshop",
-    month: "September",
-    year: "2024",
-    description: "CI/CD in practice.",
-    image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99",
-    status: "ongoing"
-  },
-  {
-    title: "WebExpo",
-    type: "Webinar",
-    month: "May",
-    year: "2023",
-    description: "Explore web tech landscape.",
-    image: "https://images.unsplash.com/photo-1545243424-0ce743321e11",
-    status: "completed"
-  },
-  {
-    title: "Data Science Lab",
-    type: "Workshop",
-    month: "October",
-    year: "2025",
-    description: "Get hands-on with data models.",
-    image: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28",
-    status: "upcoming"
-  },
-  {
-    title: "IoT in Action",
-    type: "Webinar",
-    month: "June",
-    year: "2023",
-    description: "Real-world use cases of IoT.",
-    image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99",
-    status: "completed"
-  },
-  {
-    title: "Kubernetes Crash Course",
-    type: "Workshop",
-    month: "July",
-    year: "2025",
-    description: "Deploy apps at scale.",
-    image: "https://images.unsplash.com/photo-1545243424-0ce743321e11",
-    status: "ongoing"
-  },
-  {
-    title: "Blockchain Buzz",
-    type: "Webinar",
-    month: "March",
-    year: "2024",
-    description: "The future of decentralized apps.",
-    image: "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28",
-    status: "upcoming"
-  },
-  {
-    title: "JavaScript Jam",
-    type: "Hackathon",
-    month: "February",
-    year: "2023",
-    description: "Test your JS superpowers.",
-    image: "https://images.unsplash.com/photo-1533903345306-15d1c30952de",
-    status: "completed"
-  },
-  {
-    title: "Serverless Bootcamp",
-    type: "Workshop",
-    month: "September",
-    year: "2025",
-    description: "Serverless architecture explained.",
-    image: "https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99",
-    status: "ongoing"
-  }
-];
+import BACKEND_URL from "../utils/axiosConfig";
+import axios from "axios";
 
 
 const Events = () => {
 
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const [allEvents, setAllEvents] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`${BACKEND_URL}/event`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAllEvents(res.data.events);
+      } catch (err) {
+        console.error("Error fetching blogs:", err.message);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const [filterEvent, setFilterEvent] = useState({
     name: '',
@@ -133,11 +44,18 @@ const Events = () => {
     setFilterEvent(prev => ({ ...prev, [name]: value }));
   };
 
-  const filteredEvents = dummyData.filter(event => {
+  const filteredEvents = allEvents.filter(event => {
     const nameMatch = event.title.toLowerCase().includes(filterEvent.name.toLowerCase());
     const typeMatch = filterEvent.type === "All" || event.type === filterEvent.type;
-    const monthMatch = filterEvent.month === "All" || event.month === filterEvent.month;
-    const yearMatch = filterEvent.year === "All" || event.year === filterEvent.year;
+
+    const eventDate = new Date(event.date); 
+    const eventMonth = eventDate.toLocaleString("default", { month: "long" });
+    const eventYear = eventDate.getFullYear().toString();
+
+    const monthMatch = filterEvent.month === "All" || eventMonth === filterEvent.month;
+    const yearMatch = filterEvent.year === "All" || eventYear === filterEvent.year;
+
+
     return nameMatch && typeMatch && monthMatch && yearMatch;
   });
 
@@ -211,13 +129,13 @@ const Events = () => {
         {/* Event Counter */}
         <div className="flex flex-col justify-center gap-4 mt-6 text-center sm:flex-row">
           <div className="px-4 py-2 text-green-800 bg-green-100 rounded shadow">
-            Upcoming: {dummyData.filter((e) => e.status === "upcoming").length}
+            Upcoming: {allEvents.filter((e) => e.status === "upcoming").length}
           </div>
           <div className="px-4 py-2 text-blue-800 bg-blue-100 rounded shadow">
-            Ongoing: {dummyData.filter((e) => e.status === "ongoing").length}
+            Ongoing: {allEvents.filter((e) => e.status === "ongoing").length}
           </div>
           <div className="px-4 py-2 text-red-800 bg-red-100 rounded shadow">
-            Completed: {dummyData.filter((e) => e.status === "completed").length}
+            Completed: {allEvents.filter((e) => e.status === "completed").length}
           </div>
         </div>
 

@@ -40,7 +40,7 @@ const Log = () => {
       const { message, token, userData } = (res.data);
       login(token, userData);
       
-      navigate(userData.role === 'admin' ? '/admin-dashboard' :'/student-profile');
+      navigate('/');
 
     } catch (error) {
       setMessage(error.response?.data.message);

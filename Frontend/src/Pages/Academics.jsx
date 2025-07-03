@@ -1,8 +1,9 @@
 import FacultyProfiles from "../Components/Academics/FacultyProfiles"
-import TestimonialSlider from "../Components/Academics/TestimonialSlider"
+import TestimonialSliderAcademics from "../Components/Academics/TestimonialSliderAcademics"
 import FAQ from "../Components/Faq/FAQ"
 import HeroSection from "../Components/hero/HeroSection"
 import JoinUs from "../Components/JoinUs/JoinUs"
+import SectionHeader from "../Components/Section/SectionHeader"
 
 
 const Academics = () => {
@@ -18,8 +19,14 @@ const Academics = () => {
       </div>
 
       <div>
-        {/* {Research paper} */}
-        <TestimonialSlider/>
+        <SectionHeader
+          section="Reaserch Paper"
+          title="Our Members"
+          subtitle="Research Paper Published Students "
+          color="#002277"
+        />
+       
+        <TestimonialSliderAcademics/>
       </div>
 
 <JoinUs />
