@@ -3,6 +3,7 @@ import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 import photo1 from '../../assets/Vishal sir.jpeg';
 import photo2 from '../../assets/Ankur sir.jpeg';
 
+
 const mentorData = [
   {
     id: 1,
@@ -31,10 +32,12 @@ const MentorSection = () => {
 
   return (
     <div className="relative py-16 px-4 md:px-10 bg-[#f9f9f9]">
-      {/* Gradient Background */}
+ 
+ 
       <div className="absolute inset-0 bg-gradient-to-r from-blue-200 via-transparent to-orange-200 blur-2xl opacity-30 pointer-events-none z-0" />
 
-      {/* Heading */}
+ 
+ 
       <div className="text-center mb-10 relative z-10">
         <p className="text-sm text-gray-600 uppercase tracking-wide">Our Mentors</p>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2">
@@ -43,7 +46,7 @@ const MentorSection = () => {
         </h2>
       </div>
 
-      {/* Mentor Panels */}
+
       <div className="flex w-[90vw] max-w-7xl mx-auto h-[75vh] overflow-hidden relative z-10">
         {mentorData.map((mentor, index) => (
           <div
@@ -53,7 +56,7 @@ const MentorSection = () => {
               activeIndex === index ? 'flex-[5]' : 'flex-[0.5]'
             }`}
           >
-            {/* Mentor Image */}
+            
             <div className="absolute inset-0 flex items-center justify-center bg-black rounded-3xl overflow-hidden">
               <img
                 src={mentor.image}
@@ -63,7 +66,7 @@ const MentorSection = () => {
               />
             </div>
 
-            {/* Text Overlay */}
+        
             <div
               className={`relative z-10 w-full h-full bg-black bg-opacity-50 p-6 flex flex-col justify-end transition-opacity duration-500 ${
                 activeIndex === index ? 'opacity-100' : 'opacity-0'
