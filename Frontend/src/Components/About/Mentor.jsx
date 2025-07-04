@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
 import photo1 from '../../assets/Vishal sir.jpeg';
 import photo2 from '../../assets/Ankur sir.jpeg';
+import SectionHeader from '../Section/SectionHeader';
+import { div } from 'framer-motion/client';
 
 
 const mentorData = [
@@ -31,20 +33,28 @@ const MentorSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
+    <div>
+         <SectionHeader
+     section="Our Mentors"
+  title="Guiding Minds"
+  subtitle=" Creating Legacies"
+  color="#002277"  
+/>
     <div className="relative py-16 px-4 md:px-10 bg-[#f9f9f9]">
  
  
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-200 via-transparent to-orange-200 blur-2xl opacity-30 pointer-events-none z-0" />
+      <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-r from-blue-200 via-transparent to-orange-200 blur-2xl opacity-30" />
 
  
  
-      <div className="text-center mb-10 relative z-10">
-        <p className="text-sm text-gray-600 uppercase tracking-wide">Our Mentors</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2">
+      {/* <div className="relative z-10 mb-10 text-center">
+        <p className="text-sm tracking-wide text-gray-600 uppercase">Our Mentors</p>
+        <h2 className="mt-2 text-3xl font-bold text-gray-800 md:text-4xl">
           <span className="text-orange-500">Guiding Minds,</span>{' '}
           <span className="text-indigo-900">Creating Legacies</span>
         </h2>
-      </div>
+      </div> */}
+
 
 
       <div className="flex w-[90vw] max-w-7xl mx-auto h-[75vh] overflow-hidden relative z-10">
@@ -53,15 +63,15 @@ const MentorSection = () => {
             key={mentor.id}
             onClick={() => setActiveIndex(index)}
             className={`relative rounded-3xl mx-2 cursor-pointer transition-all duration-700 ease-in-out overflow-hidden flex items-end ${
-              activeIndex === index ? 'flex-[5]' : 'flex-[0.5]'
+              activeIndex === index ? 'flex-[4]' : 'flex-[1.5]'
             }`}
           >
             
-            <div className="absolute inset-0 flex items-center justify-center bg-black rounded-3xl overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center overflow-hidden bg-black rounded-3xl">
               <img
                 src={mentor.image}
                 alt="Mentor"
-                className="absolute inset-0 w-full h-full object-cover rounded-3xl"
+                className="absolute inset-0 object-cover w-full h-full rounded-3xl"
                 style={{ objectPosition: 'center top' }}
               />
             </div>
@@ -72,11 +82,11 @@ const MentorSection = () => {
                 activeIndex === index ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <h2 className="text-white text-2xl font-bold mb-2">{mentor.title}</h2>
-              <p className="text-sm text-orange-200 font-medium mb-2">{mentor.label}</p>
-              <p className="text-white text-sm mb-2">{mentor.description1}</p>
-              <p className="text-white text-sm mb-4">{mentor.description2}</p>
-              <div className="flex gap-4 text-white text-xl">
+              <h2 className="mb-2 text-2xl font-bold text-white">{mentor.title}</h2>
+              <p className="mb-2 text-sm font-medium text-orange-200">{mentor.label}</p>
+              <p className="mb-2 text-sm text-white">{mentor.description1}</p>
+              <p className="mb-4 text-sm text-white">{mentor.description2}</p>
+              <div className="flex gap-4 text-xl text-white">
                 <FaInstagram className="hover:text-pink-400" />
                 <FaFacebook className="hover:text-blue-400" />
                 <FaTwitter className="hover:text-sky-400" />
@@ -86,7 +96,10 @@ const MentorSection = () => {
         ))}
       </div>
     </div>
-  );
+  
+    </div>
+    )
+ 
 };
 
 export default MentorSection;
