@@ -70,26 +70,16 @@ const TrainingSchedule = () => {
 
   return (
     <section className="w-full">
-      {/* Header */}
-      <div className="bg-gray-200 px-6 md:px-32 py-6 flex gap-4 flex-col md:flex-row items-start">
-        <div className="w-1 h-8 md:h-24 bg-zinc-600 rounded-md"></div>
-        <div>
-          <h2 className="text-md font-medium text-gray-800 pt-1 md:pt-4">
-            Program Structure
-          </h2>
-          <h1 className="text-2xl md:text-3xl font-bold text-blue-900">
-            Our Training Model
-          </h1>
-        </div>
-      </div>
+     
+    
 
       {/* About */}
-      <div className="w-full px-6 md:px-32 py-10">
-        <p className="text-zinc-600 font-semibold">About Our Community</p>
-        <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-6">
+      <div className="w-full px-6 py-10 md:px-32">
+        <p className="font-semibold text-zinc-600">About Our Community</p>
+        <h2 className="mb-6 text-2xl font-bold text-gray-800 md:text-4xl">
           <span className="text-orange-400">Super60</span> – 60 Minds, One Mission, Infinite Impact.
         </h2>
-        <p className="text-gray-700 leading-snug md:pr-48">
+        <p className="leading-snug text-gray-700 md:pr-48">
           The Super60 Batch is a focused learning community built for driven and dedicated minds.
           We aim to empower selected students by offering a high-impact academic ecosystem through expert mentorship,
           peer collaboration, regular assessments, and goal-oriented sessions.
@@ -98,9 +88,9 @@ const TrainingSchedule = () => {
       </div>
 
       {/* Training Section */}
-      <section className="py-10 px-6 md:px-20">
+      <section className="px-6 py-10 md:px-20">
         {/* Tabs */}
-        <div className="flex justify-center flex-wrap gap-3 md:gap-5 mb-10">
+        <div className="flex flex-wrap justify-center gap-3 mb-10 md:gap-5">
           {["first", "second", "third", "fourth"].map((id, i) => {
             const label = `${id} year`;
             const isActive = selectedYear === id;
@@ -129,9 +119,9 @@ const TrainingSchedule = () => {
         </div>
 
         {/* Content & Path */}
-        <div className="flex flex-col lg:flex-row justify-center items-start gap-6 px-4 pb-10">
+        <div className="flex flex-col items-start justify-center gap-6 px-4 pb-10 lg:flex-row">
           {/* SVG Path */}
-          <div className="w-full lg:w-1/2 flex justify-center">
+          <div className="flex justify-center w-full lg:w-1/2">
             <svg viewBox="0 0 400 200" className="w-full max-w-md">
               <path d="M50,150 L150,50 L250,150 L350,50" fill="none" stroke="#CBD5E0" strokeWidth="2" />
               {points.map((pt, i) => (
@@ -169,9 +159,9 @@ const TrainingSchedule = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.4 }}
-                className="bg-gray-100 p-6 rounded-2xl w-full shadow-md"
+                className="w-full p-6 bg-gray-100 shadow-md rounded-2xl"
               >
-                <h3 className="text-xl md:text-2xl font-semibold text-blue-800 mb-4">
+                <h3 className="mb-4 text-xl font-semibold text-blue-800 md:text-2xl">
                   {yearData[selectedYear].title}
                 </h3>
                 <ul className="list-disc list-inside text-base md:text-lg text-[#4b5563] space-y-2 leading-snug">
