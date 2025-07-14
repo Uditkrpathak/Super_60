@@ -118,7 +118,7 @@ const Hero = () => {
 
       <section
         ref={heroRef}
-        className="relative w-full min-h-screen px-4 mx-auto overflow-hidden max-w-screen-2xl sm:px-6 lg:px-12"
+        className="relative w-full min-h-screen px-4 mx-auto overflow-hidden sm:px-6 lg:px-12"
         onMouseEnter={() => setBgActive(true)}
         onMouseLeave={() => setBgActive(false)}
         style={{

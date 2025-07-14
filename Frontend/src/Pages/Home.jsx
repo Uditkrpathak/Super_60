@@ -14,6 +14,7 @@ import SectionHeader from "../Components/Section/SectionHeader";
 import BatchesPage from "../Components/Batches/BatchesPage";
 import FeaturedEvent from "../Components/EventCards/FeaturedEvent";
 import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
+import Super60Intro from "../Components/Home_Components/Super60Intro";
 
 
 
@@ -21,17 +22,23 @@ import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
 const Home = () => {
   return (
    <div>
-<Hero2/>
-<About_section/>
+      <Hero2/>
+      <About_section/>
 
-<div className="mb-10">
-  <Easter/>
-</div>
+      <div className="mb-10">
+        <Easter/>
+      </div>
 
-<div className="mt-44">
-  <Carousel/>
-</div>
+      
 
+
+
+
+<GlassRoadmap/>
+
+<div className="mt-44 mb-[-200px]">
+        <Carousel/>
+      </div>
 
 
 <div>
@@ -43,7 +50,7 @@ color= "#002277"
   <BatchesPage/>
  
 </div>
-<GlassRoadmap/>
+
 <Achievments/>
 <SectionHeader
   section="Featured Events"
@@ -53,6 +60,13 @@ color= "#002277"
 />
 
 <FeaturedEventCarousel/>
+
+<SectionHeader
+  section="Featured Events"
+  title="Explore Our Latest Campus Highlights"
+  subtitle=""
+  color="#002277"
+/>
     
 <HomeTestimonial/>
 <JoinUs/>
