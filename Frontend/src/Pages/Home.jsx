@@ -21,16 +21,16 @@ import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
 const Home = () => {
   return (
    <div>
-<Hero2/>
-<About_section/>
+      <Hero2/>
+      <About_section/>
 
-<div className="mb-10">
-  <Easter/>
-</div>
+      <div className="mb-10">
+        <Easter/>
+      </div>
 
-<div className="mt-44">
-  <Carousel/>
-</div>
+      <div className="mt-44">
+        <Carousel/>
+      </div>
 
 
 
