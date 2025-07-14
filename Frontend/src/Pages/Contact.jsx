@@ -43,7 +43,7 @@ const [formData, setFormData] = useState({
       <HeroSection heading1={'More Than a Community'} heading2={'The Super 60'} subHeading={'An elite circle of creators, coders, and changemakers shaping the future together.'} badge={'CheckEvents Now'} />
        
        <div className="min-h-screen bg-white p-6 sm:p-10 flex items-center justify-center">
-            <div className="max-w-screen-xl w-full bg-white rounded-xl overflow-hidden md:flex"> 
+            <div className="max-w-screen w-full bg-white rounded-xl overflow-hidden md:flex"> 
                 {/* left SECTION */}
                 <div className="md:w-2/5 p-8 md:p-12 bg-gradient-to-br from-blue-900 to-blue-800 text-white flex flex-col justify-between">
                     <div>
