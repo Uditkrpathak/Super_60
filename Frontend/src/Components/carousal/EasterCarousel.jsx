@@ -40,7 +40,6 @@ const EasterCarousel = () => {
   return (
    <div className="w-full overflow-hidden carousel-mask">
     
-    
   <div className="flex items-start gap-6 animate-track">
     {easterItems.map((item, idx) => (
       <article key={idx} className="carousel-item w-80">
