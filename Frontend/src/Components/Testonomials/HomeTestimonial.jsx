@@ -69,7 +69,7 @@ const HomeTestimonial = () => {
   const { name, role, company, image, quote, rating, project } = testimonials[active];
 
   return (
-    <section className="px-4 py-2 overflow-hidden bg-gradient-to-br from-blue-50 to-orange-50">
+    <section className="px-4 py-2 overflow-hidden">
       <div className="max-w-xl mx-auto overflow-hidden shadow-xl rounded-3xl bg-white/70 backdrop-blur-md">
         {/* Image with wavy transition */}
         <div className="relative flex items-center justify-center w-full h-40 overflow-hidden rounded-t-3xl">
