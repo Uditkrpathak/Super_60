@@ -14,6 +14,7 @@ import SectionHeader from "../Components/Section/SectionHeader";
 import BatchesPage from "../Components/Batches/BatchesPage";
 import FeaturedEvent from "../Components/EventCards/FeaturedEvent";
 import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
+import Super60Intro from "../Components/Home_Components/Super60Intro";
 
 
 
@@ -28,10 +29,16 @@ const Home = () => {
         <Easter/>
       </div>
 
-      <div className="mt-44">
+      
+
+
+
+
+<GlassRoadmap/>
+
+<div className="mt-44 mb-[-200px]">
         <Carousel/>
       </div>
-
 
 
 <div>
@@ -43,9 +50,6 @@ color= "#002277"
   <BatchesPage/>
  
 </div>
-<GlassRoadmap/>
-
-
 
 <Achievments/>
 <SectionHeader
