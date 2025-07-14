@@ -3,13 +3,13 @@ import {
     two,
     three,
     four
-} from '../assets/icons'
+} from '../assets/icons' 
 
 export const timeline = [
     {
         title: "First Year",
         icon: one,
-        iconBg: "#fbc3bc",
+        iconBg: "#1E3A8A", 
         date: "Year 1",
         points: [
             "Master advanced image editing using tools like Photoshop and Canva.",
@@ -22,7 +22,7 @@ export const timeline = [
     {
         title: "Second Year",
         icon: two,
-        iconBg: "#b7e4c7",
+        iconBg: "#1E3A8A", 
         date: "Year 2",
         points: [
             "Learn core Data Structures and Algorithms (DSA).",
@@ -35,7 +35,7 @@ export const timeline = [
     {
         title: "Third Year",
         icon: three,
-        iconBg: "#accbe1",
+        iconBg: "#1E3A8A", 
         date: "Year 3",
         points: [
             "Contribute to open-source projects to gain practical experience.",
@@ -48,7 +48,7 @@ export const timeline = [
     {
         title: "Fourth Year",
         icon: four,
-        iconBg: "#a2d2ff",
+        iconBg: "#1E3A8A", 
         date: "Year 4",
         points: [
             "Prepare for placements with mock interviews and company-specific training.",

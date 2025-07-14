@@ -192,7 +192,7 @@ const ManagementDesk = () => {
           <img
             src={selected.image}
             alt={selected.name}
-            className="object-cover w-full h-full max-h-[450px] transition-transform duration-500 group-hover:scale-105"
+            className="object-cover w-full h-full max-h-[500px] transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 flex items-end p-4 transition-all duration-500 opacity-0 bg-gradient-to-t from-black/70 to-transparent group-hover:opacity-100">
             <div className="text-white">
