@@ -1,7 +1,7 @@
 import Blog from "../models/Blog.js";
 import cloudinary from "cloudinary";
 
-// 🟢 Create Blog
+//  Create Blog
 export const createBlog = async (req, res) => {
   try {
     const { title, description, category, tags, sections, details } = req.body;
@@ -35,7 +35,7 @@ export const createBlog = async (req, res) => {
   }
 };
 
-// 🔵 Get All Blogs
+//  Get All Blogs
 export const getBlogs = async (req, res) => {
   try {
     const blogs = await Blog.find().sort({ createdAt: -1 });
@@ -46,7 +46,7 @@ export const getBlogs = async (req, res) => {
   }
 };
 
-// 🟡 Update Blog
+//  Update Blog
 export const updateBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
