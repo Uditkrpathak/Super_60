@@ -7,6 +7,7 @@ import studentRoutes from "./routes/student.js";
 import blogRoutes from "./routes/blog.js";
 import eventRoutes from "./routes/Event.js";
 import facultyRoutes from "./routes/faculty.js";
+import contactUsRoutes from "./routes/contactUs.js";
 dotenv.config();
 
 const app = express();
@@ -25,6 +26,7 @@ app.use("/student", studentRoutes);
 app.use('/blog',blogRoutes);
 app.use('/event',eventRoutes);
 app.use("/faculty", facultyRoutes);
+app.use("/contact", contactUsRoutes);
 
 // Root Route
 app.get("/", (req, res) => {
