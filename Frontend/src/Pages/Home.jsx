@@ -44,6 +44,9 @@ color= "#002277"
  
 </div>
 <GlassRoadmap/>
+
+
+
 <Achievments/>
 <SectionHeader
   section="Featured Events"
@@ -53,6 +56,13 @@ color= "#002277"
 />
 
 <FeaturedEventCarousel/>
+
+<SectionHeader
+  section="Featured Events"
+  title="Explore Our Latest Campus Highlights"
+  subtitle=""
+  color="#002277"
+/>
     
 <HomeTestimonial/>
 <JoinUs/>
