@@ -65,7 +65,7 @@ const AddFaculty = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 bg-gray-50 px-4 py-10">
+    <div className="min-h-screen pt-14 bg-gray-50 px-4 py-10">
       <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-[#002244] mb-6">Add New Faculty</h2>
 

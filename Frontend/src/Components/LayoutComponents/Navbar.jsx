@@ -1,15 +1,14 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { FaUserCircle } from 'react-icons/fa';
 import Sidebar from './Sidebar';
-import logo from '../assets/s60_logo.jpg';
-import AuthContext from '../context/AuthContext';
+import logo from '../../assets/super-60logo.png';
+import AuthContext from '../../context/AuthContext';
 
 const Navbar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { isAuthenticated, user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   return (
     <>
@@ -21,22 +20,18 @@ const Navbar = () => {
 
         {/* Center: Navigation Links */}
         <div className="absolute hidden gap-8 text-sm -translate-x-1/2 md:flex font-heading left-1/2 ">
-          <Link to="/about">ABOUT US</Link>
-          <Link to="/history">HISTORY</Link>
-          <Link to="/events">EVENTS</Link>
-          <Link to="/academics">ACADEMIC</Link>
+          <NavLink className={({isActive})=>`${isActive?'text-orange-500':'text-black'}`} to="/about">ABOUT US</NavLink>
+          <NavLink className={({isActive})=>`${isActive?'text-orange-500':'text-black'}`} to="/history">HISTORY</NavLink>
+          <NavLink className={({ isActive }) => `${isActive ? 'text-orange-500' : 'text-black'}`} to="/events">EVENTS</NavLink>
+          <NavLink className={({ isActive }) => `${isActive ? 'text-orange-500' : 'text-black'}`} to="/academics">ACADEMIC</NavLink>
         </div>
 
         {/* Right: User Icon or Hamburger */}
         <div className="flex items-center gap-4 ml-auto">
           {isAuthenticated && (
-            <button
-              onClick={() => navigate(user.role === 'admin' ? '/admin-dashboard' : '/student-profile')}
-              className="text-[#002277] hover:text-blue-600"
-              title="Go to Profile"
-            >
+            <NavLink to={user.role === 'admin' ? '/admin/dashboard' : '/student-profile'} className={({ isActive }) => `${isActive ? 'text-orange-500' : 'text-[#002277]'} hover:text-blue-600 transition-all duration-500`} >
               <FaUserCircle size={26} />
-            </button>
+            </NavLink>
           )}
 
           <button onClick={() => setIsSidebarOpen(true)}>

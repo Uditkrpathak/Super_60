@@ -118,7 +118,7 @@ const AddEvent = () => {
     };
 
     return (
-        <div className="max-w-3xl mx-auto mt-20 p-6">
+        <div className="max-w-3xl mx-auto pt-4 p-6">
             <h1 className="text-2xl font-bold mb-4">{EventData ? "Edit" : "Create"} Event</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
 

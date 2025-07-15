@@ -76,7 +76,7 @@ import {
   AiOutlineLogin,
   AiOutlineLogout,
 } from 'react-icons/ai';
-import AuthContext from '../context/AuthContext';
+import AuthContext from '../../context/AuthContext';
 
 const navLinks = [
   { to: '/', icon: <AiFillHome />, label: 'Home' },

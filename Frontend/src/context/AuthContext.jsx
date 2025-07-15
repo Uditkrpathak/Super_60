@@ -35,7 +35,6 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         setUser(null);
         setIsAdmin(false);
-
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     };
