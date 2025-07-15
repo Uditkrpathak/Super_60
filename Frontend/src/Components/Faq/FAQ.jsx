@@ -85,6 +85,7 @@ const FAQShowcase = () => {
           >
             <FaChevronRight size={16} />
           </button>
+          
 
           {/* Scrollable Cards */}
           <div
