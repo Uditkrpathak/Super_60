@@ -3,6 +3,7 @@ import HeroSection from '../Components/hero/HeroSection'
 import TrainingSchedule from '../Components/Training/TrainingSchedule'
 import Roadmap from '../Components/Training/Roadmap'
 import JoinUs from '../Components/JoinUs/JoinUs'
+import TrainerGrid from '../Components/Academics/TrainerGrid'
 
 
 const TrainingModel = () => {
@@ -12,6 +13,8 @@ const TrainingModel = () => {
       <TrainingSchedule />
 
       <Roadmap />
+
+      <TrainerGrid/>
    
 
 <JoinUs />

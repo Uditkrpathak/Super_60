@@ -55,7 +55,7 @@ const AboutSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative items-center min-h-screen px-4 py-12 overflow-hidden sm:px-6 md:px-8 lg:px-12 sm:py-32 md:py-36"
+      className="relative items-center min-h-screen px-4 py-12 overflow-hidden sm:px-6 md:px-8 lg:px-12 sm:py-12 md:py-4"
     >
       {/* Floating Cursor Follower */}
       <div

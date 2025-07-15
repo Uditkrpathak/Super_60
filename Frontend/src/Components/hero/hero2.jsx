@@ -155,7 +155,7 @@ const Hero = () => {
 
         {/* Main Content */}
         <div
-          className="relative z-10 flex flex-col items-center justify-center text-center pt-28 sm:pt-36 md:pt-44 lg:pt-52"
+          className="relative z-10 flex flex-col items-center justify-center pt-2 text-center sm:pt-36 md:pt-40 lg:pt-44"
           style={{
             transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 3}px)`,
           }}
@@ -184,7 +184,7 @@ const Hero = () => {
 
           <p
             ref={(el) => (textRefs.current[2] = el)}
-            className="max-w-2xl px-4 mt-6 text-sm text-black opacity-0 sm:text-base md:text-lg"
+            className="max-w-3xl px-4 mt-1 text-sm text-black opacity-0 sm:text-base md:text-lg"
           >
             Unlock your true potential with the{" "}
             <span className="font-semibold text-orange-500">Super60</span> Community — immersive
