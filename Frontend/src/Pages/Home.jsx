@@ -14,6 +14,7 @@ import SectionHeader from "../Components/Section/SectionHeader";
 import BatchesPage from "../Components/Batches/BatchesPage";
 import FeaturedEvent from "../Components/EventCards/FeaturedEvent";
 import FeaturedEventCarousel from "../Components/EventCards/FeaturedEvent";
+import WhatWeDo from "../Components/Home_Components/what_we_do";
 
 
 
@@ -23,6 +24,9 @@ const Home = () => {
    <div>
       <Hero2/>
       <About_section/>
+
+        <WhatWeDo/>
+
 
       <div className="mb-10">
         <Easter/>
