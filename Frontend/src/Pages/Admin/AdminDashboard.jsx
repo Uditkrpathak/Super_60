@@ -138,15 +138,9 @@
 
 // export default AdminDashboard;
 
-import { useNavigate } from "react-router-dom";
-import {
-  FaUserPlus,
-  FaBlog,
-  FaCalendarPlus,
-  FaChalkboardTeacher,
-} from "react-icons/fa";
+
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import { useEffect, useState } from "react";
+import logo from '../../assets/super-60logo.png';
 
 // Mock data for analytics
 const batchData = [
@@ -159,50 +153,24 @@ const batchData = [
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
-
-  const cards = [
-    { title: "Add New User", icon: <FaUserPlus />, path: "/addUser" },
-    { title: "Add New Blog", icon: <FaBlog />, path: "/addBlog" },
-    { title: "Add New Event", icon: <FaCalendarPlus />, path: "/addEvent" },
-    { title: "Add New Faculty", icon: <FaChalkboardTeacher />, path: "/addFaculty" },
-  ];
+  
 
   const totalStudents = batchData.reduce((acc, b) => acc + b.students, 0);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#002277] text-white flex flex-col p-6 fixed h-screen mt-20">
-        <h2 className="mb-10 text-2xl font-bold text-[#C57726]">Super60 Admin</h2>
-        <nav className="flex flex-col gap-5">
-          {cards.map(({ path, title, icon }) => (
-            <button
-              key={title}
-              onClick={() => navigate(path)}
-              className="flex items-center gap-3 px-4 py-4 rounded-lg hover:bg-white hover:text-[#002277] transition"
-            >
-              {icon}
-              <span>{title}</span>
-            </button>
-          ))}
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <div className="flex-1 ml-64">
+      <div className="sm:ml-16">
         {/* Topbar */}
-        <header className="fixed z-10 flex items-center justify-between w-full h-20 px-6 ml-64 bg-white shadow-md">
-          <h1 className="text-xl font-semibold text-[#002277]">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            <img
-              src="https://i.pravatar.cc/40"
-              alt="Admin"
-              className="w-10 h-10 rounded-full border-2 border-[#002277]"
-            />
-            <span className="text-[#002277] font-medium">Admin</span>
-          </div>
-        </header>
+      <header className="sticky top-0 z-10 flex items-center justify-center w-full h-20 px-6 bg-white shadow-md">
+        <div className="flex items-center gap-4">
+          <img
+            src={logo}
+            alt="Logo"
+            className="h-10 w-10 object-contain"
+          />
+          <span className="text-xl font-semibold text-[#002277]">Admin Dashboard</span>
+        </div>
+
+      </header>
 
         {/* Dashboard Body */}
         <main className="px-8 pb-8 pt-28">
@@ -247,7 +215,6 @@ const AdminDashboard = () => {
           </div>
         </main>
       </div>
-    </div>
   );
 };
 

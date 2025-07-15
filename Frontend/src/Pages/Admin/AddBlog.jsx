@@ -89,7 +89,7 @@ const AddBlog = () => {
     };
 
     return (
-        <div className="max-w-4xl mt-24 mx-auto p-4">
+        <div className="max-w-4xl mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">{BlogData ? "Update Blog" : "Add Blog"}</h1>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <input type="text" name="title" value={formData.title} onChange={handleChange} placeholder="Title" className="w-full border p-2 rounded" required />

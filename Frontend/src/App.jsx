@@ -11,8 +11,6 @@ import Blogs from './Pages/Blogs';
 import Academics from './Pages/Academics';
 import Contact from './Pages/Contact';
 import Login from './Pages/Login';
-import Navbar from './Components/Navbar';
-import Footer from './Components/Footer';
 import PageNotFound from './Pages/PageNotFound';
 import ProtectedAdminRoute from './Components/ProtectedRoutes/ProtectedAdminRoute';
 import ProtectedStudentRoute from './Components/ProtectedRoutes/ProtectedStudentRoute';
@@ -23,12 +21,15 @@ import AddUser from './Pages/Admin/AddUser';
 import AddBlog from './Pages/Admin/AddBlog';
 import AddEvent from './Pages/Admin/AddEvent';
 import AddFaculty from './Pages/Admin/AddFaculty'
+import UserLayout from './Components/Layout/UserLayout';
+import AdminLayout from './Components/Layout/AdminLayout';
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
+
+        <Route element={<UserLayout/>}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/history" element={<History />} />
@@ -40,39 +41,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
 
-        {/* Protected Routes */}
-        <Route path="/admin-dashboard" element={
-          <ProtectedAdminRoute>
-            <AdminDashboard />
-          </ProtectedAdminRoute>
-        } />
-
-        <Route path="/addUser" element={
-          <ProtectedAdminRoute>
-            <AddUser />
-          </ProtectedAdminRoute>
-        } />
-        <Route path="/addBlog" element={
-          <ProtectedAdminRoute>
-            <AddBlog />
-          </ProtectedAdminRoute>
-        } />
-        <Route path="/addEvent" element={
-          <ProtectedAdminRoute>
-            <AddEvent />
-          </ProtectedAdminRoute>
-        } />
-
-        <Route
-  path="/addFaculty"
-  element={
-    <ProtectedAdminRoute>
-      <AddFaculty />
-    </ProtectedAdminRoute>
-  }
-/>
-
-
+        {/* Student Protected Routes */}
         <Route path="/editstudentprofile" element={
           <ProtectedStudentRoute>
             <EditableStudentProfile />
@@ -85,10 +54,28 @@ function App() {
               <StudentProfile />
             </ProtectedStudentRoute>
           }
-        />
+          />
+
+          </Route>
+
+        {/* Admin Protected Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminLayout />
+            </ProtectedAdminRoute>
+          }
+        >
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="add-user" element={<AddUser />} />
+          <Route path="add-blog" element={<AddBlog />} />
+          <Route path="add-event" element={<AddEvent />} />
+          <Route path="add-faculty" element={<AddFaculty />} />
+        </Route>
+
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-      <Footer />
     </Router>
   );
 }
