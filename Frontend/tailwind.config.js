@@ -8,15 +8,17 @@ module.exports = {
     extend: {
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
-        sub: ['DM Sans', 'sans-serif'],         // subheadings, buttons
-        body: ['Roboto', 'sans-serif'],         // paragraphs, long content
+        sub: ['DM Sans', 'sans-serif'],
+        body: ['Roboto', 'sans-serif'],
       },
       colors: {
-       blue:"#002244", //  blue color
-       orange:"#C57726", //  orange color
+        blue: "#002244",
+        orange: "#C57726",
       },
       scrollBehavior: ['responsive'],
     },
   },
-  plugins: [],
+
+  // ✅ Correct placement of plugin
+  plugins: [require('tailwind-scrollbar-hide')],
 }
