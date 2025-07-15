@@ -154,7 +154,7 @@ const GlassRoadmap = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-screen px-4 py-20 overflow-hidden text-black transition-colors duration-700 bg-orange-600"
+      className="relative w-full min-h-screen px-4 py-32 mt-20 overflow-hidden text-black transition-colors duration-700 bg-orange-600"
     >
       <Glass_rdbg progress={progress} />
 

@@ -7,6 +7,7 @@ import RoadMap from '../Components/Training/Roadmap.jsx'
 import HeroSection from "../Components/hero/HeroSection"
 import JoinUs from '../Components/JoinUs/JoinUs.jsx'
 import TrainingSchedule from '../Components/Training/TrainingSchedule.jsx'
+import FAQSection from '../Components/About/FAQSection.jsx'
 const About = () => {
   return (
     <div>
@@ -19,6 +20,7 @@ const About = () => {
 <RoadMap/>
 <Mentor/>
 <ManagementDesk/>
+<FAQSection />
 <JoinUs />
 
   </div>

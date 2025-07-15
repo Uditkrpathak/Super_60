@@ -1,3 +1,4 @@
+import React, { useState } from "react"; 
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -5,7 +6,7 @@ import {
 
 import "react-vertical-timeline-component/style.min.css";
 
-import { timeline, } from "../../constants";
+import { timeline } from "../../constants";
 
 const skills = [
   {
@@ -27,21 +28,26 @@ const skills = [
 ];
 
 const Roadmap = () => {
-  
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   return (
-    <section className='max-container bg-slate-100'>
+    <section className='max-container bg-white py-12'>
+      
       <div className='mt-12 flex'>
-          <VerticalTimeline>
-            {timeline.map((timeline, index) => (
+        <VerticalTimeline lineColor={"#E2E8F0"}> 
+          {timeline.map((timelineItem, index) => {
+            const isHovered = hoveredCard === index;
+            const borderColor = isHovered ? "#F97316" : "#1E3A8A"; 
+
+            return (
               <VerticalTimelineElement
                 key={index}
-                iconStyle={{ background: timeline.iconBg }}
+                iconStyle={{ background: timelineItem.iconBg }}
                 icon={
                   <div className='flex justify-center items-center w-full h-full'>
                     <img
-                      src={timeline.icon}
-                      alt={timeline.company_name}
+                      src={timelineItem.icon}
+                      alt={timelineItem.title}
                       className='w-[60%] h-[60%] object-contain'
                     />
                   </div>
@@ -49,21 +55,28 @@ const Roadmap = () => {
                 contentStyle={{
                   borderBottom: "8px",
                   borderStyle: "solid",
-                  borderBottomColor: timeline.iconBg,
+                  borderBottomColor: borderColor, 
                   boxShadow: "none",
+                  background: "#fff",
+                  transition: "border-color 0.3s ease-in-out", 
                 }}
+                contentArrowStyle={{
+                  borderRight: `7px solid ${borderColor}`, 
+                  transition: "border-color 0.3s ease-in-out", 
+                }}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
               >
                 <div>
                   <h3 className='text-black text-xl font-poppins font-semibold'>
-                    {timeline.title}
+                    {timelineItem.title}
                   </h3>
-        
                 </div>
 
                 <ul className='my-5 list-disc ml-5 space-y-2'>
-                  {timeline.points.map((point, index) => (
+                  {timelineItem.points.map((point, pointIndex) => (
                     <li
-                      key={`experience-point-${index}`}
+                      key={`experience-point-${index}-${pointIndex}`}
                       className='text-black-500/50 font-normal pl-1 text-sm'
                     >
                       {point}
@@ -71,11 +84,12 @@ const Roadmap = () => {
                   ))}
                 </ul>
               </VerticalTimelineElement>
-            ))}
-          </VerticalTimeline>
-        </div>
+            );
+          })}
+        </VerticalTimeline>
+      </div>
 
-        <hr className='border-slate-200' />
+      <hr className='border-slate-200 mt-12' /> 
     </section>
   );
 };

@@ -19,13 +19,13 @@ const easterItems = [
   },
   {
    
-    img: "https://images.pexels.com/photos/5145/animal-easter-chick-chicken.jpg",
+    img: "https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rAWGbiBcYnIQDTmzWgy0bcOvPRLxFCXr97NJo",
     
   },
   {
-   
-    img: "https://images.pexels.com/photos/2072158/pexels-photo-2072158.jpeg",
-    
+  
+    img: "https://kmz0l2g36g.ufs.sh/f/szSqTLNNPY1rHptqDVpF2pQE4PFU7NAMVr6YeWicz5h1KuJt",
+ 
   },
   {
 
@@ -33,6 +33,8 @@ const easterItems = [
 
   },
 ];
+
+
 
 const EasterCarousel = () => {
   return (
@@ -45,6 +47,8 @@ const EasterCarousel = () => {
       </article>
     ))}
   </div>
+
+ 
 </div>
 
   );
