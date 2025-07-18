@@ -1,94 +1,4 @@
-// import { useContext } from 'react';
-// import AuthContext from '../../context/AuthContext';
-// import { FaUserCircle, FaEnvelope, FaUserTag } from 'react-icons/fa';
-// import { useEffect } from 'react';
-// import axios from 'axios';
-// import BACKEND_URL from '../../utils/axiosConfig';
-// import StudentEditContext from '../../context/StudentEditContext';
-// import { useNavigate } from 'react-router-dom';
-
-// const StudentProfile = () => {
-//   const { user } = useContext(AuthContext);
-//   const { studentProfile, setStudentProfile } = useContext(StudentEditContext);
-
-//   useEffect(()=>{
-
-//     const token = localStorage.getItem('token');
-
-//     const fetchUser=async()=>{
-//       try {
-//         const res = await axios.get(`${BACKEND_URL}/student/me`, {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         });
-//         console.log(res.data)
-//         setStudentProfile(res.data)
-//       } catch (err) {
-//         console.log(err)
-//       }
-//     }
-
-//    fetchUser();
-//   },[]);
-
-//   const navigate = useNavigate();
-//   const editHandler=()=>{
-//     navigate('/editstudentprofile');
-//   }
-
-//   return (
-//     <div className="min-h-screen px-4 py-12 mt-20 bg-gray-100 sm:px-6 lg:px-8">
-//       <div className="max-w-4xl mx-auto">
-//         <div className="items-center gap-10 p-8 bg-white shadow-md rounded-2xl md:flex">
-//           {/* Profile Avatar */}
-//           <div className="flex justify-center md:block">
-//             {studentProfile && <img src={studentProfile.image} />}
-//           </div>
-
-//           {/* User Details */}
-//           <div className="flex-1 mt-6 md:mt-0">
-//             <h2 className="mb-4 text-3xl font-bold text-gray-800">Welcome, {user?.name || 'User'} 👋</h2>
-
-//             <div className="space-y-4 text-gray-700">
-//               <div className="flex items-center gap-3">
-//                 <FaEnvelope className="text-blue-500" />
-//                 <p><strong>Email:</strong> {user?.email}</p>
-//               </div>
-
-//               <div className="flex items-center gap-3">
-//                 <FaUserTag className="text-green-500" />
-//                 <p><strong>Role:</strong> {user?.role}</p>
-//               </div>
-
-//               {studentProfile && (<div className='flex flex-col'>
-//                 <div>{studentProfile.email}</div>
-//                 <div>{studentProfile.batch}</div>
-//                 <div>{studentProfile.achievements && Array.isArray(studentProfile.achievements)}</div>
-//                 <div>{studentProfile.branch}</div>
-//                 <div>{studentProfile.name}</div>
-//               </div>)}
-
-//               <button onClick={editHandler} className='bg-blue-500 px-3 py-2 rounded-2xl text-white'>
-//                 Edit profile
-//               </button>
-
-//               {/* You can add more user-specific details here */}
-//               {/* Example: Batch, Joined On, etc. */}
-//               {/* <div className="flex items-center gap-3">
-//                 <FaCalendarAlt className="text-purple-500" />
-//                 <p><strong>Joined:</strong> January 2024</p>
-//               </div> */}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default StudentProfile;
-
+// pages/StudentProfile.jsx
 import { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import AuthContext from '../../context/AuthContext';
@@ -101,52 +11,53 @@ import {
   FaGraduationCap,
   FaIdCard,
   FaCalendarAlt,
-  FaPhone,
-  FaMapMarkerAlt,
+  FaPhone, // Will be removed from statistics display
+  FaMapMarkerAlt, // Will be removed from statistics display
   FaEnvelope,
   FaShareAlt,
   FaLinkedin,
   FaInstagram,
   FaWhatsapp,
-  FaLink,
+  FaLink, // Used for portfolio
   FaAward, // For Achievements
   FaCertificate, // For Certifications
-  FaCode, // For Projects
-  FaBriefcase, // For Internships
+  FaCode, // For Projects and Specialization
+  FaBriefcase, // For Internships and Client (formerly Client Internships)
   FaPlus, // For "Add Semester" etc.
   FaEdit,
   FaChartBar,
-  FaEye 
+  FaEye,
+  FaBars,
+  FaTimes
 } from 'react-icons/fa';
+
+// Helper component for Tab Buttons
+const TabButton = ({ icon, label, active, onClick }) => (
+  <motion.button
+    className={`flex-1 flex flex-col items-center p-2 sm:p-4 rounded-lg text-sm sm:text-base font-medium transition-all duration-200
+      ${active ? 'bg-blue-100 text-blue-900 shadow-inner' : 'text-gray-600 hover:bg-gray-50'}
+    `}
+    onClick={onClick}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    <div className="text-lg sm:text-xl mb-1">{icon}</div>
+    <span className="hidden sm:inline-block">{label}</span> {/* Hide label on very small screens */}
+  </motion.button>
+);
 
 const StudentProfile = () => {
   const { user } = useContext(AuthContext);
   const { studentProfile, setStudentProfile } = useContext(StudentEditContext);
   const navigate = useNavigate();
 
-  // State to manage which tab is active
   const [activeTab, setActiveTab] = useState('statistics');
 
-  // Dummy data for other sections (replace with actual fetched data)
-  const [achievements, setAchievements] = useState([
-    { id: 1, title: 'Won National Coding Competition', date: '2024-03-15', description: 'Secured first place in the annual national coding competition organized by Tech Innovations.' },
-    { id: 2, title: 'Published Research Paper', date: '2023-11-20', description: 'Co-authored a research paper on AI ethics, published in the International Journal of Computer Science.' },
-  ]);
-
-  const [certifications, setCertifications] = useState([
-    { id: 1, title: 'AWS Certified Cloud Practitioner', issuingBody: 'Amazon Web Services', date: '2024-01-10' },
-    { id: 2, title: 'Google Analytics Certification', issuingBody: 'Google', date: '2023-09-01' },
-  ]);
-
-  const [projects, setProjects] = useState([
-    { id: 1, title: 'E-commerce Platform Development', technologies: 'React, Node.js, MongoDB', description: 'Developed a full-stack e-commerce platform with user authentication and payment gateway integration.' },
-    { id: 2, title: 'Machine Learning Model for Predictive Analysis', technologies: 'Python, TensorFlow, Scikit-learn', description: 'Built and trained a machine learning model to predict stock prices with 85% accuracy.' },
-  ]);
-
-  const [internships, setInternships] = useState([
-    { id: 1, company: 'Infosys', role: 'Software Development Intern', duration: 'May 2024 - Aug 2024', description: 'Worked on front-end development for a client project using Angular and TypeScript.' },
-    { id: 2, company: 'TCS', role: 'Data Science Intern', duration: 'Dec 2023 - Feb 2024', description: 'Assisted in data cleaning and analysis, contributing to a report on customer behavior.' },
-  ]);
+  const [achievements, setAchievements] = useState([]);
+  const [certifications, setCertifications] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [internships, setInternships] = useState([]);
+  const [client, setClient] = useState([]); // Renamed from clientInternships to client
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -163,16 +74,16 @@ const StudentProfile = () => {
         setAchievements(res.data.achievements || []);
         setCertifications(res.data.certificates || []);
         setProjects(res.data.projects || []);
-        setInternships(res.data.internships || []);
+        setInternships(res.data.internship || []);
+        setClient(res.data.client || []); // Correctly mapping 'client' from backend
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchUser();
-  }, []);
+  }, [setStudentProfile]);
 
-  // Handler for all "Add" and "Edit Profile" buttons
   const navigateToEditProfile = () => {
     navigate('/editstudentprofile');
   };
@@ -198,8 +109,8 @@ const StudentProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 mt-20 flex flex-col items-center pt-8 px-4 sm:px-6 lg:px-8">
-      {/* Navigation Tabs - CHANGED max-w-4xl to max-w-6xl */}
+    <div className="w-full mt-16 min-h-screen bg-gray-100 flex flex-col items-center">
+      {/* Navigation Tabs */}
       <div className="w-full max-w-6xl bg-white shadow-lg rounded-xl p-4 mb-8 flex justify-around items-center border-b border-gray-200">
         <TabButton icon={<FaChartBar />} label="Statistics" active={activeTab === 'statistics'} onClick={() => setActiveTab('statistics')} />
         <TabButton icon={<FaAward />} label="Achievements" active={activeTab === 'achievements'} onClick={() => setActiveTab('achievements')} />
@@ -207,10 +118,10 @@ const StudentProfile = () => {
         <TabButton icon={<FaCertificate />} label="Certifications" active={activeTab === 'certifications'} onClick={() => setActiveTab('certifications')} />
         <TabButton icon={<FaCode />} label="Projects" active={activeTab === 'projects'} onClick={() => setActiveTab('projects')} />
         <TabButton icon={<FaBriefcase />} label="Internships" active={activeTab === 'internships'} onClick={() => setActiveTab('internships')} />
+        <TabButton icon={<FaBriefcase />} label="Client" active={activeTab === 'client'} onClick={() => setActiveTab('client')} /> {/* Label changed to Client */}
       </div>
 
       <motion.div
-        // Main content container - CHANGED max-w-4xl to max-w-6xl
         className="max-w-6xl w-full bg-white shadow-lg rounded-xl p-8 relative overflow-hidden"
         variants={cardVariants}
         initial="hidden"
@@ -228,7 +139,7 @@ const StudentProfile = () => {
             initial="hidden"
             animate="visible"
           >
-            {/* Left Section (Profile Image, Social Links) - unchanged */}
+            {/* Left Section (Profile Image, Contact Info, Portfolio, Social Links) */}
             <motion.div
               className="col-span-1 flex flex-col items-center md:items-start text-center md:text-left border-r md:border-r-2 border-gray-100 pr-8"
               variants={itemVariants}
@@ -250,23 +161,59 @@ const StudentProfile = () => {
               </div>
               <p className="text-sm font-semibold text-gray-600 mb-1">MEMBER <span className="text-green-500">active</span></p>
               <h3 className="text-2xl font-bold text-gray-800">{studentProfile?.name || 'Dhoni Gupta'}</h3>
+
+              {/* Portfolio Link */}
+              {studentProfile?.portfolioLink && (
+                <motion.a
+                  href={studentProfile.portfolioLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center text-blue-600 hover:underline mt-3"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  title="View Portfolio"
+                >
+                  <FaLink className="mr-2" /> View Portfolio
+                </motion.a>
+              )}
+
+              {/* Social Links */}
               <div className="flex space-x-3 mt-3">
-                <motion.a href="#" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="Fiverr">
-                  <FaLink className="w-6 h-6 text-green-500" />
-                </motion.a>
-                <motion.a href="#" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="LinkedIn">
-                  <FaLinkedin className="w-6 h-6 text-[#0A66C2]" />
-                </motion.a>
-                <motion.a href="#" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="Instagram">
-                  <FaInstagram className="w-6 h-6 text-[#E4405F]" />
-                </motion.a>
-                <motion.a href="#" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="WhatsApp">
-                  <FaWhatsapp className="w-6 h-6 text-[#25D366]" />
-                </motion.a>
+                {studentProfile?.socialLinks?.fiverr && (
+                  <motion.a href={studentProfile.socialLinks.fiverr} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="Fiverr">
+                    <FaLink className="w-6 h-6 text-green-500" />
+                  </motion.a>
+                )}
+                {studentProfile?.socialLinks?.linkedin && (
+                  <motion.a href={studentProfile.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="LinkedIn">
+                    <FaLinkedin className="w-6 h-6 text-[#0A66C2]" />
+                  </motion.a>
+                )}
+                {studentProfile?.socialLinks?.instagram && (
+                  <motion.a href={studentProfile.socialLinks.instagram} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="Instagram">
+                    <FaInstagram className="w-6 h-6 text-[#E4405F]" />
+                  </motion.a>
+                )}
+                {studentProfile?.socialLinks?.whatsapp && (
+                  <motion.a href={`https://wa.me/${studentProfile.socialLinks.whatsapp}`} target="_blank" rel="noopener noreferrer" whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} title="WhatsApp">
+                    <FaWhatsapp className="w-6 h-6 text-[#25D366]" />
+                  </motion.a>
+                )}
               </div>
+
+              {/* Contact Information (Email only, Phone/Address removed from here) */}
+              <motion.div className="border-t pt-6 mt-6 md:mt-4 md:pt-4 w-full" variants={itemVariants}>
+                <h4 className="text-md font-bold text-gray-800 mb-3">Contact Information</h4>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <FaEnvelope className="text-gray-600" />
+                    <p className="text-gray-700">{studentProfile?.email || 'user98@gmail.com'}</p>
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
 
-            {/* Middle Section (Course, Admission No, Placement, Contact) - unchanged */}
+            {/* Middle Section (Course, Academic/University Roll No, Placement, Specialization) */}
             <div className="col-span-1 md:col-span-1 grid grid-cols-1 gap-y-6 md:gap-y-4 pt-4 md:pt-0 pb-4 md:pb-0">
               <motion.div className="flex items-center space-x-3" variants={itemVariants}>
                 <FaGraduationCap className="text-blue-900 text-xl" />
@@ -278,42 +225,48 @@ const StudentProfile = () => {
               <motion.div className="flex items-center space-x-3" variants={itemVariants}>
                 <FaIdCard className="text-blue-900 text-xl" />
                 <div>
-                  <p className="text-gray-600 text-sm">Admission No:</p>
-                  <p className="font-semibold text-gray-800">{studentProfile?.admissionNo || '2023BTCS179'}</p>
+                  <p className="text-gray-600 text-sm">Academic Roll No:</p>
+                  <p className="font-semibold text-gray-800">{studentProfile?.academicRollNo || 'N/A'}</p>
+                </div>
+              </motion.div>
+              <motion.div className="flex items-center space-x-3" variants={itemVariants}>
+                <FaIdCard className="text-blue-900 text-xl" />
+                <div>
+                  <p className="text-gray-600 text-sm">University Roll No:</p>
+                  <p className="font-semibold text-gray-800">{studentProfile?.universityRollNo || 'N/A'}</p>
                 </div>
               </motion.div>
               <motion.div className="flex items-center space-x-3" variants={itemVariants}>
                 <FaGraduationCap className="text-blue-900 text-xl" />
                 <div>
                   <p className="text-gray-600 text-sm">Placement:</p>
-                  <p className="font-semibold text-gray-800">{studentProfile?.placementStatus || 'Not Placed'}</p>
+                  <p className="font-semibold text-gray-800">
+                    {studentProfile?.placement?.placed ?
+                      `${studentProfile.placement.companyName || 'Placed'} on ${studentProfile.placement.placedOn ? new Date(studentProfile.placement.placedOn).toLocaleDateString() : 'N/A'}`
+                      : 'Not Placed'}
+                  </p>
                 </div>
               </motion.div>
-              {/* Contact Information */}
-              <motion.div className="border-t pt-6 mt-6 md:mt-4 md:pt-4" variants={itemVariants}>
-                <h4 className="text-md font-bold text-gray-800 mb-3">Contact Information</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <FaEnvelope className="text-gray-600" />
-                    <p className="text-gray-700">{studentProfile?.email || 'user98@gmail.com'}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <FaPhone className="text-gray-600" />
-                    <p className="text-gray-700">{studentProfile?.contactNo || '123-(456)-789'}</p>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <FaMapMarkerAlt className="text-gray-600" />
-                    <p className="text-gray-700">{studentProfile?.address || 'SVIET | Banur, Punjab'}</p>
-                  </div>
+              {/* Specialization */}
+              <motion.div className="flex items-center space-x-3" variants={itemVariants}>
+                <FaCode className="text-blue-900 text-xl" />
+                <div>
+                  <p className="text-gray-600 text-sm">Specialization:</p>
+                  {/* Correctly mapping specialization */}
+                  <p className="font-semibold text-gray-800">
+                    {(studentProfile?.specialization && studentProfile.specialization.length > 0)
+                      ? studentProfile.specialization.join(', ')
+                      : 'N/A'}
+                  </p>
                 </div>
               </motion.div>
             </div>
 
-            {/* Right Section (Batch, Joined Date, Edit Profile, Top Skills) - unchanged */}
+            {/* Right Section (Batch, Joined Date, Edit Profile, Top Skills) */}
             <div className="col-span-1 flex flex-col items-center md:items-end text-center md:text-right space-y-6 md:space-y-8 pl-8 border-l md:border-l-2 border-gray-100">
               <motion.div className="flex flex-col items-center md:items-end space-y-2" variants={itemVariants}>
                 <div className="flex items-center space-x-2">
-                  <span className="text-blue-900 text-2xl font-bold">TJ</span>
+                  <span className="text-blue-900 text-2xl font-bold">TJ</span> {/* You might want to replace 'TJ' with studentProfile.batch initials or similar */}
                   <div>
                     <p className="text-gray-600 text-sm">Batch:</p>
                     <p className="font-semibold text-gray-800">{studentProfile?.batch || 'Super 60 6.0'}</p>
@@ -323,12 +276,14 @@ const StudentProfile = () => {
                   <FaCalendarAlt className="text-gray-600 text-lg" />
                   <div>
                     <p className="text-gray-600 text-sm">Joined:</p>
-                    <p className="font-semibold text-gray-800">{studentProfile?.joinedDate || 'jan 01, 2004'}</p>
+                    <p className="font-semibold text-gray-800">
+                      {studentProfile?.joinedOn ? new Date(studentProfile.joinedOn).toLocaleDateString() : 'N/A'}
+                    </p>
                   </div>
                 </div>
               </motion.div>
               <motion.button
-                onClick={navigateToEditProfile} // Use the unified handler
+                onClick={navigateToEditProfile}
                 className="flex items-center px-6 py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -343,13 +298,13 @@ const StudentProfile = () => {
                     className="text-gray-600 hover:text-gray-800"
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.9 }}
-                    onClick={navigateToEditProfile} // Use the unified handler
+                    onClick={navigateToEditProfile}
                   >
                     <FaEdit className="text-sm" />
                   </motion.button>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {(studentProfile?.skills || ['html', 'CSS', 'reactjs', 'AdobePhotoshop', 'Canva']).map((skill, index) => (
+                  {(studentProfile?.skills?.length > 0 ? studentProfile.skills : ['HTML', 'CSS', 'ReactJS', 'Adobe Photoshop', 'Canva']).map((skill, index) => (
                     <motion.span
                       key={index}
                       className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full whitespace-nowrap"
@@ -358,59 +313,46 @@ const StudentProfile = () => {
                       {skill}
                     </motion.span>
                   ))}
-                  {studentProfile?.skills && studentProfile.skills.length > 5 && (
-                    <motion.span
-                      className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full whitespace-nowrap"
-                      variants={skillTagVariants}
-                    >
-                      +{studentProfile.skills.length - 5} more
-                    </motion.span>
-                  )}
-                  {!studentProfile?.skills && (
-                    <motion.span
-                      className="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full whitespace-nowrap"
-                      variants={skillTagVariants}
-                    >
-                      +8 more
-                    </motion.span>
-                  )}
                 </div>
               </motion.div>
             </div>
           </motion.div>
         )}
 
-        {/* Achievements Section - Redesigned */}
+        {/* Achievements Section */}
         {activeTab === 'achievements' && (
           <motion.div
-            className="w-full p-4 md:p-8" // Added padding for better spacing
+            className="w-full p-4 md:p-8"
             variants={tabContentVariants}
             initial="hidden"
             animate="visible"
           >
-            <div className="flex justify-between items-center mb-6"> {/* Increased bottom margin */}
+            <div className="flex justify-between items-center mb-6">
               <h3 className="text-2xl font-bold text-gray-800">Achievements 🏆</h3>
               <motion.button
                 className="flex items-center px-5 py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={navigateToEditProfile} // Navigate to edit profile
+                onClick={navigateToEditProfile}
               >
                 <FaPlus className="mr-2" /> Add Achievement
               </motion.button>
             </div>
             {achievements.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Responsive grid layout */}
-                {achievements.map((achievement) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {achievements.map((achievement, index) => (
                   <motion.div
-                    key={achievement.id}
-                    className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col justify-between h-full" // Added full height for consistent card size
+                    key={index}
+                    className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col justify-between h-full"
                     variants={itemVariants}
-                    whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }} // Hover effect
+                    whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
                   >
                     <div>
                       <h4 className="text-lg font-bold text-gray-900 mb-2">{achievement.title}</h4>
-                      <p className="text-sm text-gray-500 mb-3 flex items-center"><FaCalendarAlt className="mr-2 text-gray-400"/> {achievement.date}</p>
+                      <p className="text-sm text-gray-500 mb-3 flex items-center">
+                        <FaCalendarAlt className="mr-2 text-gray-400" />
+                        {achievement.date ? new Date(achievement.date).toLocaleDateString() : 'N/A'}
+                      </p>
                       <p className="text-gray-700 text-sm leading-relaxed">{achievement.description}</p>
                     </div>
                     <div className="flex justify-end mt-4">
@@ -418,7 +360,7 @@ const StudentProfile = () => {
                         className="text-gray-600 hover:text-blue-900"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={navigateToEditProfile} // Navigate to edit profile
+                        onClick={navigateToEditProfile}
                       >
                         <FaEdit className="text-lg" />
                       </motion.button>
@@ -432,7 +374,7 @@ const StudentProfile = () => {
           </motion.div>
         )}
 
-        {/* Bio Section - Redesigned */}
+        {/* Bio Section */}
         {activeTab === 'bio' && (
           <motion.div
             className="w-full p-4 md:p-8"
@@ -446,7 +388,7 @@ const StudentProfile = () => {
                 className="text-gray-600 hover:text-blue-900 px-4 py-2 rounded-full"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={navigateToEditProfile} // Navigate to edit profile
+                onClick={navigateToEditProfile}
               >
                 <FaEdit className="text-xl" />
               </motion.button>
@@ -459,90 +401,88 @@ const StudentProfile = () => {
           </motion.div>
         )}
 
-        {/* Certifications Section - Redesigned */}
-{activeTab === 'certifications' && (
-    <motion.div
-        className="w-full p-2 md:p-4" // Reduced padding here
-        variants={tabContentVariants}
-        initial="hidden"
-        animate="visible"
-    >
-        <div className="flex justify-between items-center mb-4 md:mb-6"> {/* Adjusted margin-bottom */}
-            <h3 className="text-xl md:text-2xl font-bold text-gray-800">Certifications 🏅</h3> {/* Adjusted text size */}
-            <motion.button
-                className="flex items-center px-4 py-1.5 md:px-5 md:py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200 text-sm md:text-base" // Adjusted padding and text size
+        {/* Certifications Section */}
+        {activeTab === 'certifications' && (
+          <motion.div
+            className="w-full p-2 md:p-4"
+            variants={tabContentVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className="flex justify-between items-center mb-4 md:mb-6">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-800">Certifications 🏅</h3>
+              <motion.button
+                className="flex items-center px-4 py-1.5 md:px-5 md:py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200 text-sm md:text-base"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={navigateToEditProfile} // Navigate to edit profile
-            >
+                onClick={navigateToEditProfile}
+              >
                 <FaPlus className="mr-1.5 md:mr-2" /> Add Certification
-            </motion.button>
-        </div>
-        {certifications.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"> {/* Adjusted gap */}
-                {certifications.map((certification) => (
-                    <motion.div
-                        key={certification.id}
-                        className="bg-white border border-gray-200 rounded-lg shadow-sm p-3 md:p-4 flex flex-col justify-between h-full overflow-hidden" // Reduced padding here
-                        variants={itemVariants}
-                        whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
-                    >
-                        {/* Certification Image (if available) */}
-                        {certification.viewLink && (
-                            <div className="mb-3 md:mb-4"> {/* Adjusted margin-bottom */}
-                                <img
-                                    src={certification.viewLink}
-                                    alt={`Certification: ${certification.name}`}
-                                    className="w-full h-36 md:h-40 object-cover rounded-md border border-gray-200" // Adjusted height
-                                    // Fallback if the image fails to load or is not a direct image URL
-                                    onError={(e) => { e.target.onerror = null; e.target.src="https://via.placeholder.com/300x150?text=Certificate+Image" }}
-                                />
-                            </div>
-                        )}
-
-                        <div>
-                            <h4 className="text-base md:text-lg font-bold text-gray-900 mb-1.5 md:mb-2">{certification.name}</h4> {/* Adjusted text size and margin */}
-                            <p className="text-xs md:text-sm text-gray-700 mb-1 flex items-center">
-                                <FaIdCard className="mr-1.5 md:mr-2 text-gray-400"/> Issuing Body: {certification.issuedBy}
-                            </p>
-                            <p className="text-xs md:text-sm text-gray-500 flex items-center">
-                                <FaCalendarAlt className="mr-1.5 md:mr-2 text-gray-400"/> {certification.issueDate}
-                            </p>
-                        </div>
-                        
-                        {/* View Certificate Button (if viewLink exists, regardless of image) */}
-                        {certification.viewLink && (
-                            <div className="mt-3 md:mt-4"> {/* Adjusted margin-top */}
-                                <a 
-                                    href={certification.viewLink} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 bg-blue-100 text-blue-900 rounded-full text-xs md:text-sm font-medium hover:bg-blue-200 transition-colors duration-200" // Adjusted padding and text size
-                                >
-                                    <FaEye className="mr-1.5 md:mr-2" /> View Certificate
-                                </a>
-                            </div>
-                        )}
-                        <div className="flex justify-end mt-3 md:mt-4"> {/* Adjusted margin-top */}
-                            <motion.button
-                                className="text-gray-600 hover:text-blue-900"
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={navigateToEditProfile} // Navigate to edit profile
-                            >
-                                <FaEdit className="text-base md:text-lg" /> {/* Adjusted text size */}
-                            </motion.button>
-                        </div>
-                    </motion.div>
-                ))}
+              </motion.button>
             </div>
-        ) : (
-            <p className="text-gray-600 text-center py-6 md:py-8 text-base md:text-lg">No certifications added yet. Time to get certified!</p> 
-        )}
-    </motion.div>
-)}
+            {certifications.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                {certifications.map((certification, index) => (
+                  <motion.div
+                    key={index}
+                    className="bg-white border border-gray-200 rounded-lg shadow-sm p-3 md:p-4 flex flex-col justify-between h-full overflow-hidden"
+                    variants={itemVariants}
+                    whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+                  >
+                    {certification.viewLink && (
+                      <div className="mb-3 md:mb-4">
+                        <img
+                          src={certification.viewLink}
+                          alt={`Certification: ${certification.name}`}
+                          className="w-full h-36 md:h-40 object-cover rounded-md border border-gray-200"
+                          onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x150?text=Certificate+Image" }}
+                        />
+                      </div>
+                    )}
 
-        {/* Projects Section - Redesigned */}
+                    <div>
+                      <h4 className="text-base md:text-lg font-bold text-gray-900 mb-1.5 md:mb-2">{certification.name}</h4>
+                      <p className="text-xs md:text-sm text-gray-700 mb-1 flex items-center">
+                        <FaIdCard className="mr-1.5 md:mr-2 text-gray-400" /> Issuing Body: {certification.issuedBy}
+                      </p>
+                      <p className="text-xs md:text-sm text-gray-500 flex items-center">
+                        <FaCalendarAlt className="mr-1.5 md:mr-2 text-gray-400" />
+                        {certification.issueDate ? new Date(certification.issueDate).toLocaleDateString() : 'N/A'}
+                      </p>
+                    </div>
+
+                    {certification.viewLink && (
+                      <div className="mt-3 md:mt-4">
+                        <a
+                          href={certification.viewLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 bg-blue-100 text-blue-900 rounded-full text-xs md:text-sm font-medium hover:bg-blue-200 transition-colors duration-200"
+                        >
+                          <FaEye className="mr-1.5 md:mr-2" /> View Certificate
+                        </a>
+                      </div>
+                    )}
+                    <div className="flex justify-end mt-3 md:mt-4">
+                      <motion.button
+                        className="text-gray-600 hover:text-blue-900"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={navigateToEditProfile}
+                      >
+                        <FaEdit className="text-base md:text-lg" />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-600 text-center py-6 md:py-8 text-base md:text-lg">No certifications added yet. Time to get certified!</p>
+            )}
+          </motion.div>
+        )}
+
+        {/* Projects Section */}
         {activeTab === 'projects' && (
           <motion.div
             className="w-full p-4 md:p-8"
@@ -556,31 +496,53 @@ const StudentProfile = () => {
                 className="flex items-center px-5 py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={navigateToEditProfile} // Navigate to edit profile
+                onClick={navigateToEditProfile}
               >
                 <FaPlus className="mr-2" /> Add Project
               </motion.button>
             </div>
             {projects.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {projects.map((project) => (
+                {projects.map((project, index) => (
                   <motion.div
-                    key={project.id}
+                    key={index}
                     className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col justify-between h-full"
                     variants={itemVariants}
                     whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
                   >
+                    {project.projectImage && (
+                      <div className="mb-3 md:mb-4">
+                        <img
+                          src={project.projectImage}
+                          alt={`Project: ${project.title}`}
+                          className="w-full h-36 md:h-40 object-cover rounded-md border border-gray-200"
+                          onError={(e) => { e.target.onerror = null; e.target.src = "https://via.placeholder.com/300x150?text=Project+Image" }}
+                        />
+                      </div>
+                    )}
                     <div>
                       <h4 className="text-lg font-bold text-gray-900 mb-2">{project.title}</h4>
-                      <p className="text-sm text-gray-600 mb-3 flex items-center"><FaCode className="mr-2 text-gray-400"/> Technologies: {project.technologies}</p>
+                      <p className="text-sm text-gray-600 mb-3 flex items-center">
+                        <FaCode className="mr-2 text-gray-400" /> Technologies: {(project.technologiesUsed || []).join(', ')}
+                      </p>
                       <p className="text-gray-700 text-sm leading-relaxed">{project.description}</p>
+                      {project.projectLink && (
+                        <p className="text-sm text-blue-600 mt-2 flex items-center">
+                          <FaLink className="mr-2" /> <a href={project.projectLink} target="_blank" rel="noopener noreferrer" className="hover:underline">View Project</a>
+                        </p>
+                      )}
+                      {project.githubRepo && (
+                        <p className="text-sm text-gray-600 mt-1 flex items-center">
+                          <FaCode className="mr-2" /> <a href={project.githubRepo} target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub Repo</a>
+                        </p>
+                      )}
                     </div>
                     <div className="flex justify-end mt-4">
                       <motion.button
                         className="text-gray-600 hover:text-blue-900"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={navigateToEditProfile} // Navigate to edit profile
+                        onClick={navigateToEditProfile}
                       >
                         <FaEdit className="text-lg" />
                       </motion.button>
@@ -594,7 +556,7 @@ const StudentProfile = () => {
           </motion.div>
         )}
 
-        {/* Internships Section - Redesigned */}
+        {/* Internships Section */}
         {activeTab === 'internships' && (
           <motion.div
             className="w-full p-4 md:p-8"
@@ -608,31 +570,42 @@ const StudentProfile = () => {
                 className="flex items-center px-5 py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={navigateToEditProfile} // Navigate to edit profile
+                onClick={navigateToEditProfile}
               >
                 <FaPlus className="mr-2" /> Add Internship
               </motion.button>
             </div>
             {internships.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {internships.map((internship) => (
+                {internships.map((internship, index) => (
                   <motion.div
-                    key={internship.id}
+                    key={index}
                     className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col justify-between h-full"
                     variants={itemVariants}
                     whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
                   >
                     <div>
-                      <h4 className="text-lg font-bold text-gray-900 mb-2">{internship.role} at {internship.company}</h4>
-                      <p className="text-sm text-gray-600 mb-3 flex items-center"><FaCalendarAlt className="mr-2 text-gray-400"/> Duration: {internship.duration}</p>
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">{internship.companyName}</h4>
+                      <p className="text-sm text-gray-600 mb-1 flex items-center">
+                        <FaBriefcase className="mr-2 text-gray-400" /> Role: {internship.role}
+                      </p>
+                      <p className="text-sm text-gray-500 mb-3 flex items-center">
+                        <FaCalendarAlt className="mr-2 text-gray-400" />
+                        {internship.startDate ? new Date(internship.startDate).toLocaleDateString() : 'N/A'} - {internship.endDate ? new Date(internship.endDate).toLocaleDateString() : 'N/A'}
+                      </p>
                       <p className="text-gray-700 text-sm leading-relaxed">{internship.description}</p>
+                      {internship.certificate && (
+                        <p className="text-sm text-blue-600 mt-2 flex items-center">
+                          <FaCertificate className="mr-2" /> <a href={internship.certificate} target="_blank" rel="noopener noreferrer" className="hover:underline">View Certificate</a>
+                        </p>
+                      )}
                     </div>
                     <div className="flex justify-end mt-4">
                       <motion.button
                         className="text-gray-600 hover:text-blue-900"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
-                        onClick={navigateToEditProfile} // Navigate to edit profile
+                        onClick={navigateToEditProfile}
                       >
                         <FaEdit className="text-lg" />
                       </motion.button>
@@ -641,7 +614,70 @@ const StudentProfile = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-gray-600 text-center py-8 text-lg">No internships added yet. Gain some real-world experience!</p>
+              <p className="text-gray-600 text-center py-8 text-lg">No internships added yet. Time to gain some experience!</p>
+            )}
+          </motion.div>
+        )}
+
+        {/* Client Section (Renamed from Client Internships) */}
+        {activeTab === 'client' && (
+          <motion.div
+            className="w-full p-4 md:p-8"
+            variants={tabContentVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-gray-800">Client Projects 🤝</h3> {/* Changed heading */}
+              <motion.button
+                className="flex items-center px-5 py-2 bg-blue-900 text-white rounded-full shadow-md hover:bg-blue-800 transition-colors duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={navigateToEditProfile}
+              >
+                <FaPlus className="mr-2" /> Add Client Project {/* Changed button text */}
+              </motion.button>
+            </div>
+            {client.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {client.map((clientProject, index) => ( // Changed variable name to clientProject
+                  <motion.div
+                    key={index}
+                    className="bg-white border border-gray-200 rounded-lg shadow-sm p-5 flex flex-col justify-between h-full"
+                    variants={itemVariants}
+                    whileHover={{ translateY: -5, boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)" }}
+                  >
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">{clientProject.companyName}</h4>
+                      <p className="text-sm text-gray-600 mb-1 flex items-center">
+                        <FaBriefcase className="mr-2 text-gray-400" /> Role: {clientProject.role}
+                      </p>
+                      <p className="text-sm text-gray-500 mb-3 flex items-center">
+                        <FaCalendarAlt className="mr-2 text-gray-400" />
+                        {clientProject.startDate ? new Date(clientProject.startDate).toLocaleDateString() : 'N/A'} - {clientProject.endDate ? new Date(clientProject.endDate).toLocaleDateString() : 'N/A'}
+                      </p>
+                      <p className="text-gray-700 text-sm leading-relaxed">{clientProject.description}</p>
+                      {clientProject.certificate && (
+                        <p className="text-sm text-blue-600 mt-2 flex items-center">
+                          <FaCertificate className="mr-2" /> <a href={clientProject.certificate} target="_blank" rel="noopener noreferrer" className="hover:underline">View Certificate</a>
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex justify-end mt-4">
+                      <motion.button
+                        className="text-gray-600 hover:text-blue-900"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={navigateToEditProfile}
+                      >
+                        <FaEdit className="text-lg" />
+                      </motion.button>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-600 text-center py-8 text-lg">No client projects added yet. Time to showcase your client work!</p>
             )}
           </motion.div>
         )}
@@ -650,20 +686,5 @@ const StudentProfile = () => {
     </div>
   );
 };
-
-// Helper component for Tab Buttons (unchanged)
-const TabButton = ({ icon, label, active, onClick }) => (
-  <motion.button
-    className={`flex flex-col items-center p-2 rounded-lg transition-colors duration-200 ${
-      active ? 'text-blue-900 bg-blue-50' : 'text-gray-600 hover:text-blue-900 hover:bg-gray-100'
-    }`}
-    onClick={onClick}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-  >
-    <div className="text-xl mb-1">{icon}</div>
-    <span className="text-xs font-medium">{label}</span>
-  </motion.button>
-);
 
 export default StudentProfile;
