@@ -1,14 +1,41 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion } from "framer-motion";
-
 const timelineData = [
+  {
+    year: "2017",
+    title: "Seeds of Purpose",
+    description:
+      "Initial thoughts and informal discussions among mentors and educators sowed the idea of nurturing future changemakers.",
+    image: "http://localhost:5173/src/assets/Photo.jpg",
+  },
+  {
+    year: "2018",
+    title: "Exploring Possibilities",
+    description:
+      "Workshops and experimental programs were conducted to test the feasibility of a focused talent-nurturing initiative.",
+    image: "/images/2018.png",
+  },
+  {
+    year: "2019",
+    title: "Concept Incubation",
+    description:
+      "Insights from pilot programs shaped the outline of what would eventually become the Super 60 vision.",
+    image: "/images/2019.png",
+  },
+  {
+    year: "2020",
+    title: "Laying the Groundwork",
+    description:
+      "Despite global uncertainty, the foundational strategy was being prepared quietly in the background.",
+    image: "/images/2020.png",
+  },
   {
     year: "2021",
     title: "Vision Begins",
     description:
       "The concept of Super 60 was born—a vision to nurture 60 exceptional minds with leadership, creativity, and innovation at its core.",
-    image: "http://localhost:5173/src/assets/Photo.jpg",
+    image: "/images/2021.png",
   },
   {
     year: "2022 Q1",
@@ -59,7 +86,22 @@ const timelineData = [
       "With graduation near, the Super 60 legacy stands strong—an inspiring model of growth, grit, and greatness.",
     image: "/images/2025.png",
   },
+  {
+    year: "2026",
+    title: "Beyond Campus",
+    description:
+      "Alumni of Super 60 begin mentoring juniors and expanding the vision to other institutions and communities.",
+    image: "/images/2026.png",
+  },
+  {
+    year: "2027",
+    title: "Super 60 Global Chapter",
+    description:
+      "Super 60 evolves into a national initiative with global outreach—connecting talent and leadership across borders.",
+    image: "/images/2027.png",
+  },
 ];
+
 
 export default function TimelineSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -84,13 +126,15 @@ export default function TimelineSection() {
       <div className="absolute left-80 top-0 bottom-0 w-1 bg-[#002277] transform -translate-x-1/2" />
 
       {/* Animated scroll indicator dot */}
-      <motion.div
-        className="w-8 h-8 bg-white border-4 border-[#002277] rounded-full shadow absolute z-10 flex items-center justify-center left-80 transform -translate-x-1/2"
-        animate={{ top: dotTop }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-      >
-        <div className="w-3 h-3 bg-[#002277] rounded-full" />
-      </motion.div>
+   <motion.div
+  className="w-8 h-8 bg-white border-4 border-[#e18f38] rounded-full shadow-lg absolute z-10 flex items-center justify-center left-80 transform -translate-x-1/2 animate-pulse-glow"
+  animate={{ top: dotTop }}
+  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+>
+  <div className="w-3 h-3 bg-[#e18f38] rounded-full shadow-[0_0_14px_1px_#e18f38]" />
+</motion.div>
+
+        {/* <div className="w-3 h-3 bg-[#e18f38] rounded-full" /> */}
 
       {/* Timeline Items */}
       <div className="mt-16 space-y-32">

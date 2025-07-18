@@ -58,7 +58,7 @@ const FeaturedEventCarousel = () => {
   const currentEvent = events[index];
 
   return (
-    <div className="relative min-h-screen px-4 py-12 bg-gray-100">
+    <div className="relative min-h-screen px-4 py-12 ">
                 
       <div className="relative w-full p-10">
         <AnimatePresence mode="wait">
