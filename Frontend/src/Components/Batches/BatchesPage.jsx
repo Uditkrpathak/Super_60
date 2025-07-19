@@ -130,17 +130,21 @@ const BatchesPage = () => {
       : students.filter((s) => s.batch === selectedBatch);
 
   return (
-    <div className="p-6">
-      <h1 className="mb-2 text-4xl font-bold text-center text-[#002277]">Our Batches</h1>
-      <p className="mb-10 font-semibold text-center text-gray-600 ">
-        Explore the talented members of <span>The Super 60.</span>
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 max-w-4xl md:max-w-7xl">
+      <h1 className="mb-2 text-3xl sm:text-4xl font-bold text-center text-[#002277]">
+        Our Batches
+      </h1>
+      <p className="mb-10 text-sm sm:text-base font-semibold text-center text-gray-600">
+        Explore the talented members of <span className="text-[#002277] font-bold">The Super 60</span>.
       </p>
 
       <BatchTabs selected={selectedBatch} setSelected={setSelectedBatch} />
 
-      <div className="flex flex-wrap justify-center gap-6 mt-10">
+      <div className="grid gap-6 mt-10 pb-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {filteredStudents.map((student, idx) => (
-          <StudentCard key={idx} student={student} />
+          <div key={idx} className="transition-transform duration-500 hover:scale-102">
+            <StudentCard student={student} />
+          </div>
         ))}
       </div>
     </div>

@@ -3,6 +3,40 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Student from "../models/Student.js";
 
+export const loginWithGoogle = async(req,res)=>{
+    try {
+      const { email } = req.body;
+
+      if (!email)
+        return res
+          .status(400).json({ message: "Login Failed" });
+
+      const user = await User.findOne({ email });
+      if (!user)
+        return res.status(404).json({ message: "Not a member of Super60." });
+
+      const token = jwt.sign(
+        { id: user._id, email: user.email, role: user.role },
+        process.env.JWT_SECRET,
+        { expiresIn: "1d" }
+      );
+
+      res.status(200).json({
+        message: "Login successful",
+        token,
+        userData: {
+          id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      console.error("Login Error:", error);
+      res.status(500).json({ message: "Server error" });
+    }  
+}
+
 // Login User (Admin or Student)
 export const loginUser = async (req, res) => {
   try {

@@ -6,6 +6,8 @@ import logo from '../../assets/s60_logo.jpg';
 import ButtonWrapper from '../Button/ButtonWrapper';
 import AuthContext from '../../context/AuthContext';
 import BACKEND_URL from '../../utils/axiosConfig';
+import { GoogleLogin } from '@react-oauth/google';
+import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
 
 const Log = () => {
@@ -19,6 +21,20 @@ const Log = () => {
     password: "",
   });
 
+  const handleGoogleLogin = async (credentialResponse) => {
+    const decoded = jwtDecode(credentialResponse.credential);
+    const email = decoded.email;
+    try {
+      const res = await axios.post(`${BACKEND_URL}/auth/google-login`, { email });
+      const { token, userData } = res.data;
+      login(token, userData);
+      navigate(userData.role === 'admin' ? '/admin/dashboard' : '/student-profile');
+    } catch (err) {
+      console.error(err);
+      setMessage(err.response?.data.message);
+    }
+  };
+
   const changeHandler = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -28,6 +44,7 @@ const Log = () => {
 
 
   const navigate = useNavigate();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -127,6 +144,7 @@ const Log = () => {
             </svg>
             <span className="font-medium">{message}</span>
           </div>
+
           )}
 
 
@@ -139,8 +157,11 @@ const Log = () => {
         </form>
 
         {/* Google Login */}
-        <button className="flex items-center justify-center w-full gap-2 px-4 py-2 mt-10 text-sm font-medium border border-gray-300 rounded">
-          <FaGoogle /> Sign in with Google
+        <button className="w-full gap-2 mt-5 border-gray-300 ">
+          <GoogleLogin
+            onSuccess={handleGoogleLogin}
+            onError={() => setMessage("Google login failed")}
+          />
         </button>
       </div>
     </div>
